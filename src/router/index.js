@@ -31,6 +31,11 @@ const routes = [
     path: '/temple/order',
     name: 'Order',
     component: resolve => require(['@/views/temple/Order'], resolve)
+  },
+  {
+    path: '/temple/payment',
+    name: 'Payment',
+    component: resolve => require(['@/views/temple/Payment'], resolve)
   }
 ]
 Router.prototype.goBack = function() { // 重点，给VueRoute添加一个goBack方法，用于记录路由的前进后退状态 this.isBack = true

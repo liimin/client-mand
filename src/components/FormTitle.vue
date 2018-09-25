@@ -18,6 +18,7 @@
     font-size: 13px;
     position: relative;
     text-align: left;
+    line-height: 20px;
 }
 .weui-panel__hd::after{
     display: none;

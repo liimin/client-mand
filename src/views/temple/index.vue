@@ -12,6 +12,8 @@
 <script>
 import { Button } from 'mand-mobile'
 import { Swiper } from '@/components'
+import config from '@/config'
+import Vue from 'vue'
 import simple from 'mand-mobile/components/swiper/demo/data/simple'
 export default {
   name: 'Temple',
@@ -23,6 +25,9 @@ export default {
     return {
       simple
     }
+  },
+  mounted() {
+    Vue.prototype.$config = config
   },
   computed: {
     bodyStyle() {

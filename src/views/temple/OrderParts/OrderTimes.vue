@@ -49,6 +49,12 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+  .md-check-box .md-check-box-col{
+    padding 0 0.08rem 0.08rem  
+  }
+</style>
+
 <style lang="stylus" scoped>
   .payment-gateway
     text-align center

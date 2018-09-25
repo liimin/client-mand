@@ -57,13 +57,12 @@ export default {
   padding: 10px 0 0 0;
 
   .weui-grid__icon {
-    width: 1rem;
-    height: 1rem;
+    width: .8rem;
+    height: .8rem;
 
     .tab-wrapper {
       height: 100%;
       width: 100%;
-
       .pic {
         color: #fff;
         font-family: calibri;
@@ -79,8 +78,8 @@ export default {
       }
 
       .rond {
-        height: 100px;
-        width: 100px;
+        height: 100%;
+        width: 100%;
         border: 1px solid color-primary;
         border-radius: 50%;
         animation: rond 3s infinite;
