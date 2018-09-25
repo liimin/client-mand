@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # mand-mobile-vue-cli3-example
 
 ## Usage
@@ -10,13 +9,10 @@ This is a [Mand Mobile](https://github.com/didi/mand-mobile) project example for
 * [Typescript](https://github.com/mand-mobile/mand-mobile-vue-cli3-example/tree/typescript)
 
 ``` bash
-$ git clone https://github.com/mand-mobile/vue-cli3-example.git my-project
+$ npm install -g @vue/cli
+$ vue create my-project
 $ cd my-project
-$ npm install
 $ npm run serve
 ```
 
 The development server will run on port 8080 by default. If that port is already in use on your machine, the next free port will be used.
-=======
-# client-mand
->>>>>>> ca6a246ed0e6742decb79c7c36f5c0a8de1282b4

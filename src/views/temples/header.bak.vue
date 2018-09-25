@@ -1,15 +1,15 @@
-﻿<template>
+<template>
   <div>
     <div class="content">
       <div class="md-example-child md-example-child-drop-menu md-example-child-drop-menu-0">
         <md-drop-menu ref="dropMenu" :data="data" :default-value="['全国', '智能排序','宗教']" @show="showTabPicker($event)">
            <template slot-scope="{ option }">
             <div class="md-drop-menu-custom-title" v-show="option.text!=='全国'" v-text="option.text"></div>
-            <v-distpicker 
+            <v-distpicker
                 v-show="option.text==='全国'"
-                type="mobile" 
-                hide-area 
-                :placeholder='true' 
+                type="mobile"
+                hide-area
+                :placeholder='true'
                 @selected="handleSelected"></v-distpicker>
               <!-- <md-picker
                 ref="picker1"
@@ -73,144 +73,143 @@
 </template>
 
 <script>
-import { Button, Toast, DropMenu, Picker, Field, FieldItem } from "mand-mobile";
-import VDistpicker from "v-distpicker";
+import { Button, Toast, DropMenu, Picker, Field, FieldItem } from 'mand-mobile'
+import VDistpicker from 'v-distpicker'
 const NOOP = () => {}
 export default {
-  name: "AppHeader",
+  name: 'AppHeader',
   components: {
     [Button.name]: Button,
     [DropMenu.name]: DropMenu,
-    [VDistpicker.name]:VDistpicker,
+    [VDistpicker.name]: VDistpicker,
     // [Popup.name]: Popup,
     // [PopupTitleBar.name]:PopupTitleBar,
     // [TabPicker.name]:TabPicker
     [Picker.name]: Picker,
     [Field.name]: Field,
-    [FieldItem.name]: FieldItem,
+    [FieldItem.name]: FieldItem
   },
   data() {
     return {
       isPickerShow: false,
       title: '选择title',
       optionRenders: [NOOP, NOOP, this.optionRender],
-      pickerData:[
-          [
-            {
-              // 选项展示文案
-              "text": "1",
-              // 第二列对应数据
-              "children": [
-                {
-                  "text": "1",
-                },
-                 {
-                  "text": "2",
-                },
-                 {
-                  "text": "3",
-                },
-                 {
-                  "text": "4",
-                },
-                 {
-                  "text": "5",
-                },
-                // ...
-              ]
-            },
-            {
-              // 选项展示文案
-              "text": "2",
-              // 第二列对应数据
-              "children": [
-                {
-                  "text": "2-1",
-                },
-                 {
-                  "text": "2-2",
-                },
-                 {
-                  "text": "2-3",
-                },
-                 {
-                  "text": "2-4",
-                },
-                 {
-                  "text": "2-5",
-                },
-                // ...
-              ]
-            },
-            // ...
-          ]
-        ],
+      pickerData: [
+        [
+          {
+            // 选项展示文案
+            'text': '1',
+            // 第二列对应数据
+            'children': [
+              {
+                'text': '1'
+              },
+              {
+                'text': '2'
+              },
+              {
+                'text': '3'
+              },
+              {
+                'text': '4'
+              },
+              {
+                'text': '5'
+              }
+              // ...
+            ]
+          },
+          {
+            // 选项展示文案
+            'text': '2',
+            // 第二列对应数据
+            'children': [
+              {
+                'text': '2-1'
+              },
+              {
+                'text': '2-2'
+              },
+              {
+                'text': '2-3'
+              },
+              {
+                'text': '2-4'
+              },
+              {
+                'text': '2-5'
+              }
+              // ...
+            ]
+          }
+          // ...
+        ]
+      ],
       data: [
         {
-          text: "全国",
-          options:[
-            {
-            text:'全国',
-            disabled: true
-            }
-          ]
-        },
-        {
-          text: "智能排序",
+          text: '全国',
           options: [
             {
-              text: "智能排序"
-            },
-            {
-              text: "离我最近"
-            },
-            {
-              text: "最新开通"
-            },
-            {
-              text: "供奉过的"
-            },
-            {
-              text: "推荐寺观"
+              text: '全国',
+              disabled: true
             }
           ]
         },
         {
-          text: "宗教",
+          text: '智能排序',
           options: [
             {
-              text: "宗教"
+              text: '智能排序'
             },
             {
-              text: "佛教"
+              text: '离我最近'
             },
             {
-              text: "道教"
+              text: '最新开通'
             },
             {
-              text: "其他"
+              text: '供奉过的'
+            },
+            {
+              text: '推荐寺观'
             }
           ]
         },
         {
-          text: "搜索",
+          text: '宗教',
+          options: [
+            {
+              text: '宗教'
+            },
+            {
+              text: '佛教'
+            },
+            {
+              text: '道教'
+            },
+            {
+              text: '其他'
+            }
+          ]
+        },
+        {
+          text: '搜索',
           options: [
           ]
         }
       ]
-    };
+    }
   },
   methods: {
     handleClick() {
-      Toast.info("不错哟~");
+      Toast.info('不错哟~')
     },
-      optionRender(item) {
+    optionRender(item) {
       return `<div class="md-field-item-custom-title">${item.label}</div><div class="md-field-item-custom-brief">十年前你说生如夏花般灿烂，十年后你说平凡才是唯一的答案</div>`
     },
     showTabPicker() {
-      var index = [].indexOf.call(document.querySelectorAll('.md-drop-menu-bar .bar-item'), document.querySelector('.md-drop-menu-bar .bar-item.active'));
-      if (index===0)
-      this.isPickerShow = true
+      var index = [].indexOf.call(document.querySelectorAll('.md-drop-menu-bar .bar-item'), document.querySelector('.md-drop-menu-bar .bar-item.active'))
+      if (index === 0) { this.isPickerShow = true }
     },
     onTabPickerConfirm(selected) {
       if (selected) {
@@ -222,10 +221,10 @@ export default {
     onTabPickerChange(select) {
       console.log(
         `[Mand Mobile] TabPicker 第${select.selectTab}列, 第${select.selectIndex}项: label: ${select.selectItem
-          .label}, value: ${select.selectItem.value}`,
+          .label}, value: ${select.selectItem.value}`
       )
     },
-      onPickerConfirm(index) {
+    onPickerConfirm(index) {
       const values = this.$refs[`picker${index}`].getColumnValues()
 
       let res = ''
@@ -237,19 +236,19 @@ export default {
       // bar.click()
       // bar.click()
     },
-    handlePickerHide(){
+    handlePickerHide() {
       console.log(222)
-      const bar =document.querySelectorAll('.md-drop-menu-bar .bar-item')[0]
+      const bar = document.querySelectorAll('.md-drop-menu-bar .bar-item')[0]
       bar.click()
       bar.click()
     }
   },
-  mounted () {
+  mounted() {
     window.DropMenuTrigger = () => {
       this.getSelectedValue('dropMenu0', 1)
     }
   }
-};
+}
 </script>
 <style lang="stylus">
 .md-radio-content {

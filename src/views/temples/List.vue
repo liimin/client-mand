@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 <div class="wrapper">
   <div class="header">
     <TempleHeader />
@@ -9,22 +9,22 @@
 </div>
 </template>
 <script>
-import TempleHeader from "./Header";
-import TempleBody from "./Body";
+import TempleHeader from './Header'
+import TempleBody from './Body'
 export default {
-  name: "TempleList",
+  name: 'TempleList',
   components: {
     [TempleHeader.name]: TempleHeader,
-    [TempleBody.name]: TempleBody,
+    [TempleBody.name]: TempleBody
   },
   computed: {
-    bodyStyle(){
+    bodyStyle() {
       return {
-        height:`${ window.innerHeight/37.5 -(80/2/37.5) }rem`
+        height: `${window.innerHeight - 40}px`
       }
     }
   }
-};
+}
 </script>
 <style lang="stylus" scoped>
 .wrapper{
@@ -36,4 +36,3 @@ export default {
   }
 }
 </style>
-

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="body-item">
     <md-field-item name="item0" arrow="arrow-right" @click="handleBodyItemClick" align="left">
       <div class="weui-panel__bd">
@@ -10,8 +10,8 @@
             <h4 class="weui-media-box__title">飞来寺</h4>
             <p class="weui-media-box__desc">飞来寺坐落于绵阳市涪城区石塘镇东岳村四组,绵阳火车站对面.</p>
             <ul class="weui-media-box__info">
+              <md-icon name="location" />
               <li class="weui-media-box__info__meta">四川省绵阳市</li>
-              <!-- <md-icon name="circle-alert" /> -->
             </ul>
           </div>
         </a>
@@ -20,20 +20,21 @@
   </div>
 </template>
 <script>
-import { Field, FieldItem,Icon } from "mand-mobile";
-import '@/assets/svg/location.svg'
+import { Field, FieldItem, Icon } from 'mand-mobile'
+import '@/assets/images/svg/location.svg'
 export default {
-  name: "TempleBodyItem",
+  name: 'TempleBodyItem',
   components: {
     [Field.name]: Field,
     [FieldItem.name]: FieldItem,
     [Icon.name]: Icon
   },
-  methods:{
-    handleBodyItemClick(){
+  methods: {
+    handleBodyItemClick() {
+      this.$router.push('/temple/index')
     }
   }
-};
+}
 </script>
 <style lang="stylus">
   .body-item{
@@ -56,11 +57,14 @@ export default {
       }
     }
     .md-field-arrow{
-      right: .8rem;
+      right: .6rem;
+    }
+    .md-icon.md {
+      float: left;
+      margin: -4px 4px 0 0;
     }
   }
 </style>
 
 <style lang="stylus" scoped>
 </style>
-

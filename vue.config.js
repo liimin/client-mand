@@ -1,37 +1,38 @@
 const path = require('path')
+const poststylus = require('poststylus')
+const pxtorem = require('postcss-pxtorem')
+
+const resolve = file => path.resolve(__dirname, file)
+
 module.exports = {
-    chainWebpack: (config) => {
-        //     config.module
-        //   .rule('svg')
-        //   .test(/\.svg$/)
-        //   .use('svg-sprite-loader')
-        //     .loader('svg-sprite-loader')
-        //     .end()
-        // config.module
-        //     .rule('svg')
-        //     .test(/\.(svg)(\?.*)?$/)
-        //     .use('svg-sprite-loader')
-        //     .loader('svg-sprite-loader')
-        //     .options({
-        //         include: [
-        //             // 将某个路径下所有svg交给 svg-sprite-loader 插件处理
-        //             path.resolve(__dirname, 'src/assets/svg')
-        //         ],
-        //     })
-    },
-    // devServer: {
-    //   open: true,
-    //   host: '0.0.0.0',
-    //   port: 8080,
-    //   https: false,
-    //   hotOnly: false,
-    //   proxy: {
-    //     '/api': {
-    //       target: '<url>',
-    //       ws: true,
-    //       changOrigin: true
-    //     }
-    //   },
-    //   before: app => {}
-    // }
+  css: {
+    loaderOptions: {
+      stylus: {
+        use: [
+          poststylus(pxtorem({
+            rootValue: 100,
+            propWhiteList: []
+          }))
+        ],
+        import: [
+          resolve('./src/assets/theme.custom')
+        ]
+      }
+    }
+  },
+  transpileDependencies: [
+    'mand-mobile'
+  ],
+  chainWebpack: config => {
+    const svgRule = config.module.rule('svg')
+
+    svgRule.uses.clear()
+
+    svgRule
+      .include
+      .add(resolve('./src/assets/images/svg'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+  }
 }

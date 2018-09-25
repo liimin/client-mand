@@ -7,7 +7,7 @@ module.exports = {
       'import',
       {
         libraryName: 'mand-mobile',
-        libraryDirectory: 'lib'
+        libraryDirectory: 'components'
       }
     ]
   ]
