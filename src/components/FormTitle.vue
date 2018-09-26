@@ -1,5 +1,5 @@
 <template>
-    <div class="weui-panel__hd">{{title +' : '}}</div>
+    <div class="weui-panel__hd">{{title +' ： '}}</div>
 </template>
 
 <script>

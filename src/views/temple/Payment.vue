@@ -2,16 +2,18 @@
   <div class="payment">
     <PayHeader :model="model"/>
     <PayInfo :model.sync="infoModel"/>
+    <PayWish />
   </div>
 </template>
 <script>
-import { PayHeader, PayInfo } from './PaymentParts'
+import { PayHeader, PayInfo, PayWish } from './PaymentParts'
 // import TempleMixin from '@/mixins/temple'
 export default {
   name: 'Payment',
   components: {
     [PayHeader.name]: PayHeader,
-    [PayInfo.name]: PayInfo
+    [PayInfo.name]: PayInfo,
+    [PayWish.name]: PayWish
   },
   // mixins: [TempleMixin],
   data() {
@@ -24,7 +26,8 @@ export default {
         amount: this.$route.params.amount
       },
       infoModel: {
-        amount: this.$route.params.amount
+        amount: this.$route.params.amount,
+        sex: 1
       }
     }
   },

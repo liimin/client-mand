@@ -1,14 +1,14 @@
 <template>
     <div class="info">
         <md-field>
-            <md-input-item ref="amount" title="金额 :" v-model="infoModel.amount" disabled clearable></md-input-item>
-            <md-input-item ref="name" title="姓名" v-model="infoModel.name" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
+            <md-input-item ref="amount" title="金额：" v-model="infoModel.amount" disabled clearable></md-input-item>
+            <md-input-item ref="name" title="姓名：" v-model="infoModel.name" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
+            <md-input-item ref="tel" v-model="infoModel.tel" type="phone" title="电话：" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
             <transition name="fade">
                 <div class="more" v-show="isMore">
-                    <md-field-item name="birthday" title="生辰" arrow="arrow-right" align="right" :value="datePickerValue" @click.native="isDatePickerShow = true">
-                    </md-field-item>
-                    <md-input-item ref="tel" v-model="infoModel.tel" type="phone" title="电话" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
-                    <md-input-item ref="add" v-model="infoModel.add" title="地址" placeholder="请输入回向地址" clearable></md-input-item>
+                    <FieldEx title="性别："><md-check-box  v-model="infoModel.sex"  :options="options" /></FieldEx>
+                    <md-field-item name="birthday" title="生辰：" arrow="arrow-right" align="right" :value="datePickerValue" @click.native="isDatePickerShow = true" />
+                    <md-input-item ref="add" v-model="infoModel.add" title="地址：" placeholder="请输入回向地址" clearable></md-input-item>
                 </div>
             </transition>
         </md-field>
@@ -22,7 +22,7 @@
             v-model="isDatePickerShow"
             type="custom"
             today-text="&(今天)"
-            title="选择出险时间"
+            title="请选择生辰日期"
             is-twelve-hours
             :text-render="textRender"
             :custom-types="['yyyy', 'MM','dd']"
@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import { InputItem, Field, Icon, DatePicker, FieldItem } from 'mand-mobile'
+import { InputItem, Field, Icon, DatePicker, FieldItem, CheckBox } from 'mand-mobile'
+import { FieldEx } from '@/components'
 export default {
   name: 'PayInfo',
   components: {
@@ -42,7 +43,9 @@ export default {
     [Field.name]: Field,
     [Icon.name]: Icon,
     [DatePicker.name]: DatePicker,
-    [FieldItem.name]: FieldItem
+    [FieldItem.name]: FieldItem,
+    [CheckBox.name]: CheckBox,
+    [FieldEx.name]: FieldEx
   },
   props: {
     model: Object
@@ -53,7 +56,9 @@ export default {
       datePickerValue: '',
       isDatePickerShow: false,
       isMore: false,
-      infoModel: {}
+      infoModel: {
+      },
+      options: [{ value: 1, label: '男' }, { value: 0, label: '女' }]
     }
   },
   watch: {
@@ -101,6 +106,16 @@ export default {
     .md-input-item-input,.md-input-item-title,.md-input-item,.md-input-item-control,.md-input-item-clear{
       min-height .7rem 
       height .7rem !important
+      // line-height .7rem
+    }
+    .md-field-item .md-field-item-inner{
+      padding .08rem 0  
+    }
+    .md-check-box{
+      // margin-top: 0.12rem;
+      .md-check-box-item{
+        padding 0
+      }
     }
 }
 </style>
@@ -110,6 +125,7 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+  font-size .28rem
 }
 .payment {
   .showMore,.close{
