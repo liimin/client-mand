@@ -17,14 +17,14 @@
     </div>
   </div>
 </template><script>
-import { Button, ActionBar, NoticeBar } from "mand-mobile";
-import { Swiper, FormTitle } from "@/components";
-import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from "./OrderParts";
-import simple from "mand-mobile/components/swiper/demo/data/simple";
+import { Button, ActionBar, NoticeBar } from 'mand-mobile'
+import { Swiper, FormTitle } from '@/components'
+import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from './OrderParts'
+import simple from 'mand-mobile/components/swiper/demo/data/simple'
 import TempleMixin from '@/mixins/temple'
-import Vue from "vue";
+import Vue from 'vue'
 export default {
-  name: "Order",
+  name: 'Order',
   components: {
     // [TempleHeader.name]: TempleHeader,
     // [Amount.name]: Amount,
@@ -38,67 +38,59 @@ export default {
     [OrderCounts.name]: OrderCounts,
     [NoticeBar.name]: NoticeBar
   },
-  mixins:[TempleMixin],
+  mixins: [TempleMixin],
   data() {
     return {
       simple,
       data: [
         {
-          text: "返回",
+          text: '返回',
           onClick: this.handleReturn
         },
         {
-          text: "选好了，下一步",
+          text: '选好了，下一步',
           onClick: this.handleNext
         }
       ],
       tabs: [],
       times: [
-        { value: 1, label: "1天" },
-        { value: 3, label: "3天" },
-        { value: 7, label: "7天" },
-        { value: 49, label: "49天" },
-        { value: 180, label: "180天" },
-        { value: 365, label: "365天" }
+        { value: 1, label: '1天' },
+        { value: 3, label: '3天' },
+        { value: 7, label: '7天' },
+        { value: 49, label: '49天' },
+        { value: 180, label: '180天' },
+        { value: 365, label: '365天' }
       ],
       timeValue: 3,
       eventBus: null,
       count: 0
-    };
+    }
   },
 
   computed: {
-    bodyStyle() {
-      return {
-        height: `${window.innerHeight / 37.5 - 80 / 2 / 37.5}rem`
-      };
-    },
     amount() {
-      let total = 0;
+      let total = 0
       this.aTabs.map(tab => {
-        total += tab.price;
-      });
-      return total * this.count * this.timeValue;
+        total += tab.price
+      })
+      return total * this.count * this.timeValue
     },
     aTabs() {
-      return this.tabs.filter(tab => tab.checked);
+      return this.tabs.filter(tab => tab.checked)
     },
     checkedTabNames() {
-      return this.aTabs.map(tab => tab.title + "灯").join(",");
+      return this.aTabs.map(tab => tab.title + '灯').join(',')
     }
   },
   methods: {
-    beforeChange(from, to) {},
-    afterChange(from, to) {},
-    handleTabClick() {},
     handleReturn() {
-      this.$router.goBack();
+      this.$router.goBack()
     },
     handleTimeChecked(value) {
-      this.timeValue = value || 0;
+      this.timeValue = value || 0
     },
     handleCountChanged(value) {
-      this.count = value;
+      this.count = value
     },
     handleNext() {
       const params = {
@@ -107,46 +99,43 @@ export default {
         count: this.count,
         time: this.timeValue,
         amount: this.amount
-      };
+      }
       this.$router.push({
-        name: "Payment",
+        name: 'Payment',
         params
-      });
+      })
     }
   },
   mounted() {
     for (let index = 0; index < 9; index++) {
       this.tabs.push({
         id: index + 1,
-        title: "婚姻",
-        src: require("@/assets/images/guanyin.png"),
+        title: '婚姻',
+        src: require('@/assets/images/guanyin.png'),
         checked: false,
         price: index + 10
-      });
+      })
     }
-    this.eventBus = new Vue();
-    this.eventBus.$on("timeChanged", this.handleTimeChecked);
-    this.eventBus.$on("countChanged", this.handleCountChanged);
+    this.eventBus = new Vue()
+    this.eventBus.$on('timeChanged', this.handleTimeChecked)
+    this.eventBus.$on('countChanged', this.handleCountChanged)
   }
-};
-</script><style lang="stylus"scoped>
+}
+</script>
+<style lang="stylus"scoped>
 .wrapper {
   .header {
     height: 300px;
   }
-
   .body {
     padding: 0 2px;
     overflow-x: hidden;
-
     .weui-flex {
       align-items: center;
     }
-
     .md-amount {
       font-size: 0.4rem;
     }
-
     .md-notice-bar {
       background-color: transparent;
       color: #ccc;
@@ -156,11 +145,9 @@ export default {
       line-height: 0.7rem;
     }
   }
-
   .footer {
     height: 1rem;
     margin-bottom: 10px;
-
     .md-action-bar {
       // position relative
     }

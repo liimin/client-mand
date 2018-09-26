@@ -1,0 +1,41 @@
+<template>
+    <div class="choose-text">
+        <p class="choose-title">您已选择在</p>
+        <p class="choose-name">【{{model.tampleName}}】</p>
+        <p class="choose-describe">供奉{{model.tabs}}各{{model.count}}盏,{{model.time}}天</p>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'PayHeader',
+  props: {
+    model: Object
+  }
+}
+</script>
+<style scoped lang="stylus">
+.choose-text {
+    padding: 25px 0;
+    position: relative;
+    .choose-title {
+        font-size: 30px;
+        color: #666;
+    }
+    .choose-name {
+        margin-top: 5px;
+        font-size: 40px;
+        color: #333;
+    }
+    .choose-describe {
+        margin-top: 15px;
+        font-size: 30px;
+        color: #666;
+    }
+}
+.choose-text p {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+</style>
