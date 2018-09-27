@@ -23,12 +23,7 @@ export default {
   watch: {
     $route(to, from) {
       const isBack = this.$router.isBack //  监听路由变化时的状态为前进还是后退
-      console.log(isBack)
-      if (isBack) {
-        this.transitionRoute = 'slide-right'
-      } else {
-        this.transitionRoute = 'slide-left'
-      }
+      this.transitionRoute =`slide-${isBack?'right':'left'}`
       this.$router.isBack = false
     }
   }

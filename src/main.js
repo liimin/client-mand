@@ -6,6 +6,8 @@ import './assets/responsive'
 import './assets/global.css'
 import router from '@/router'
 import 'weui'
+import AxiosPlugin from './axios'
+Vue.use(AxiosPlugin)
 
 if ('ontouchstart' in window) {
   FastClick.attach(document.body)

@@ -4,7 +4,6 @@
             class="words" 
             rows='10' 
             cols='30'
-            @input="computeCounts"  
             v-bind:maxlength="total"
             v-model="words" ></textarea>
         <p class="limit">{{wordsCount}}/{{total}}</p>
@@ -18,21 +17,55 @@ export default {
   },
   data() {
     return {
-      words: 'a\nb__',
+      words: '',
       wordsCount: 0,
-      total: 200
+      total: 200,
+      wordsList:[]
     }
   },
   methods: {
     computeCounts() {
       this.wordsCount = this.total - this.words.length
+    },
+    get_blessions_list(){
+      const params={
+        page:1,
+        pageSize:100
+      }
+      this.$http.get('/blessions/list',params).then(res=>{
+        const {size} = res.page 
+        this.wordsList=res.data
+        const randNum = randomNum(0,size)
+        this.words=this.wordsList[randNum].text
+      })
     }
   },
   mounted() {
     this.$nextTick(_ => {
-      this.computeCounts()
+      this.get_blessions_list()
     })
+  },
+  watch:{
+    words:{
+      handler(val){
+        this.computeCounts()
+      }
+    }
   }
+}
+//生成从minNum到maxNum的随机数
+function randomNum(minNum,maxNum){ 
+    switch(arguments.length){ 
+        case 1: 
+            return parseInt(Math.random()*minNum+1,10); 
+        break; 
+        case 2: 
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+        break; 
+            default: 
+                return 0; 
+            break; 
+    } 
 }
 </script>
 <style scoped lang="stylus">
@@ -42,11 +75,11 @@ export default {
     position relative
     .words
         margin-top 21px
-        padding-top 5px
+        padding 15px
         width 100%
         font-size 30px
         height 1.8rem
-        text-align center
+        // text-align center
         border-color color-primary
         color color-primary
         overflow-x hidden
