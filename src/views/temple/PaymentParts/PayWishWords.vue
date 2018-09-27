@@ -18,40 +18,45 @@ export default {
   },
   data() {
     return {
-      words: '',
+      words: 'a\nb__',
       wordsCount: 0,
       total: 200
     }
   },
   methods: {
     computeCounts() {
-      var len = this.words.length
-      this.wordsCount = this.total - len
+      this.wordsCount = this.total - this.words.length
     }
+  },
+  mounted() {
+    this.$nextTick(_ => {
+      this.computeCounts()
+    })
   }
 }
 </script>
 <style scoped lang="stylus">
-.wish-words {
+.wish-words 
     width 100%
     padding 10px
     position relative
-    .words{
-        margin-top 1px
-        width: 100%;
-        font-size: 30px;
-        height: 1.8rem;
-        text-align: center;
-        border-color color-primary;
-        color color-primary;
+    .words
+        margin-top 21px
+        padding-top 5px
+        width 100%
+        font-size 30px
+        height 1.8rem
+        text-align center
+        border-color color-primary
+        color color-primary
         overflow-x hidden
-    }
-    .limit{
+        border-radius 10px
+        resize none
+        outline none
+    .limit
         position absolute
-        font-size: 20px;
+        font-size 20px
         color #333
         bottom 60px
         right 20px
-    }
-}
 </style>

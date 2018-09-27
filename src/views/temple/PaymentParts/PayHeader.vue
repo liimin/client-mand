@@ -15,27 +15,22 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-.choose-text {
-    padding: 25px 0;
-    position: relative;
-    .choose-title {
-        font-size: 30px;
-        color: #666;
-    }
-    .choose-name {
-        margin-top: 5px;
-        font-size: 40px;
-        color: #333;
-    }
-    .choose-describe {
-        margin-top: 15px;
-        font-size: 30px;
-        color: #666;
-    }
-}
-.choose-text p {
-    float: left;
-    width: 100%;
-    text-align: center;
-}
+.choose-text
+    padding 25px 0
+    position relative
+    .choose-title
+        font-size 30px
+        color #6
+    .choose-name
+        margin-top 5px
+        font-size 40px
+        color: #3
+    .choose-describe
+        margin-top 15px
+        font-size 30px
+        color #6
+.choose-text p
+    float left
+    width 100%
+    text-align center
 </style>
