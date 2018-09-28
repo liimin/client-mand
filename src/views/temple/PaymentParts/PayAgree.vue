@@ -42,10 +42,14 @@ export default {
     [Landscape.name]: Landscape,
     [Dialog.name]: Dialog
   },
+  props: {
+    eventBus: Object,
+    agree: Boolean
+  },
   data() {
     return {
       agreeConf: {
-        checked: true,
+        checked: this.agree,
         name: 'agree',
         size: 'lg',
         disabled: false,
@@ -67,7 +71,7 @@ export default {
   },
   methods: {
     onChange(name, checked) {
-      console.log(`agree name = ${name} is ${checked ? 'checked' : 'unchecked'}`)
+      this.eventBus.$emit('agreeChanged', checked)
     },
     handleAgreeClick() {
       this.agreeConf.showAgree = !this.agreeConf.showAgree
@@ -79,25 +83,25 @@ export default {
 }
 </script>
 <style  lang="stylus">
-    .md-agree-content
-        line-height 40px
-        a
-         color blue
-    .content
-        background #f
-    .scroll-area
-        padding 40px
-        color #6
-        h1
-            margin-bottom 40px
-        p
-            margin 20px
+.md-agree-content
+  line-height 40px
+  a
+    color blue
+.content
+    background #f
+.scroll-area
+  padding 40px
+  color #6
+  h1
+    margin-bottom 40px
+  p
+    margin 20px
 </style>
 <style scoped lang="stylus">
-    .agree
-        font-size 24px
-        text-align left 
-        line-height 30px
-        display flex
-        justify-content space-evenly
+.agree
+  font-size 24px
+  text-align left 
+  line-height 30px
+  display flex
+  justify-content space-evenly
 </style>

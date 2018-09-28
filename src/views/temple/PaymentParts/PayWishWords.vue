@@ -10,62 +10,70 @@
     </div>
 </template>
 <script>
+const nameKey = '【姓名】'
 export default {
   name: 'PayWishWords',
   props: {
-    model: Object
+    model: Object,
+    eventBus: Object
   },
   data() {
     return {
       words: '',
       wordsCount: 0,
       total: 200,
-      wordsList:[]
+      wordsList: [],
+      keyWord: nameKey
     }
   },
   methods: {
     computeCounts() {
       this.wordsCount = this.total - this.words.length
     },
-    get_blessions_list(){
-      const params={
-        page:1,
-        pageSize:100
+    get_blessions_list() {
+      const params = {
+        page: 1,
+        pageSize: 100
       }
-      this.$http.get('/blessions/list',params).then(res=>{
-        const {size} = res.page 
-        this.wordsList=res.data
-        const randNum = randomNum(0,size)
-        this.words=this.wordsList[randNum].text
+      this.$http.get('/blessions/list', params).then(res => {
+        const { size } = res.page
+        this.wordsList = res.data
+        const randNum = randomNum(0, size)
+        this.words = this.wordsList[randNum].text
+        this.keyWord = nameKey
       })
+    },
+    handleNameChanged(name) {
+      const newKey = name ? `【${name}】` : nameKey
+      this.words = this.words.replace(this.keyWord, newKey)
+      this.keyWord = newKey
     }
   },
   mounted() {
     this.$nextTick(_ => {
       this.get_blessions_list()
+      this.eventBus.$on('nameChanged', this.handleNameChanged)
     })
   },
-  watch:{
-    words:{
-      handler(val){
+  watch: {
+    words: {
+      handler(val) {
+        this.eventBus.$emit('wishWordChanged', val)
         this.computeCounts()
       }
     }
   }
 }
-//生成从minNum到maxNum的随机数
-function randomNum(minNum,maxNum){ 
-    switch(arguments.length){ 
-        case 1: 
-            return parseInt(Math.random()*minNum+1,10); 
-        break; 
-        case 2: 
-            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
-        break; 
-            default: 
-                return 0; 
-            break; 
-    } 
+// 生成从minNum到maxNum的随机数
+function randomNum(minNum, maxNum) {
+  switch (arguments.length) {
+    case 1:
+      return parseInt(Math.random() * minNum + 1, 10)
+    case 2:
+      return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+    default:
+      return 0
+  }
 }
 </script>
 <style scoped lang="stylus">

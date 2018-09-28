@@ -123,34 +123,24 @@ export default {
 }
 </script>
 <style lang="stylus"scoped>
-.wrapper {
-  .header {
-    height: 300px;
-  }
-  .body {
-    padding: 0 2px;
-    overflow-x: hidden;
-    .weui-flex {
-      align-items: center;
-    }
-    .md-amount {
-      font-size: 0.4rem;
-    }
-    .md-notice-bar {
-      background-color: transparent;
-      color: #ccc;
-      padding-left: 0;
-      z-index: 1;
-      height: 0.7rem;
-      line-height: 0.7rem;
-    }
-  }
-  .footer {
-    height: 1rem;
-    margin-bottom: 10px;
-    .md-action-bar {
-      // position relative
-    }
-  }
-}
+.wrapper
+  .header
+    height 300px
+  .body
+    padding 0 2px
+    overflow-x hidden
+    .weui-flex
+      align-items center
+    .md-amount
+      font-size 0.4rem
+    .md-notice-bar
+      background-color transparent
+      color #ccc
+      padding-left 0
+      z-index 1
+      height 0.7rem
+      line-height 0.7rem
+  .footer
+    height 1rem
+    margin-bottom 10px
 </style>

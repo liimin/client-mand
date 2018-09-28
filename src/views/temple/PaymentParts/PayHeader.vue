@@ -24,7 +24,7 @@ export default {
     .choose-name
         margin-top 5px
         font-size 40px
-        color: #3
+        color #3
     .choose-describe
         margin-top 15px
         font-size 30px

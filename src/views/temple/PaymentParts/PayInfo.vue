@@ -48,7 +48,8 @@ export default {
     [FieldEx.name]: FieldEx
   },
   props: {
-    model: Object
+    model: Object,
+    eventBus: Object
   },
   data() {
     return {
@@ -66,6 +67,11 @@ export default {
       immediate: true,
       handler(val) {
         this.infoModel = val
+      }
+    },
+    'infoModel.name': {
+      handler(val) {
+        this.eventBus.$emit('nameChanged', val)
       }
     }
   },

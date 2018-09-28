@@ -12,21 +12,18 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-.wish {
-    padding: 25px 0;
-    position: relative;
-    .wish-text {
-        font-size: 30px;
-        color: color-primary;
-        float: left;
-        width: 100%;
-        text-align: center;
-    }
-    .wish-title{
-        position absolute;
-        top 20px;
-        left 10px;
-        font-size 30px;
-    }
-}
+.wish
+    padding 25px 0
+    position relative
+    .wish-text
+        font-size 30px
+        color color-primary
+        float left
+        width 100%
+        text-align: center
+    .wish-title
+        position absolute
+        top 20px
+        left 10px
+        font-size 30px
 </style>

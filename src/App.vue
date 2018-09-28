@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <HelloWorld/> -->
     <transition :name="transitionRoute">
-      <router-view />
+      <router-view class="appView"/>
     </transition>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   watch: {
     $route(to, from) {
       const isBack = this.$router.isBack //  监听路由变化时的状态为前进还是后退
-      this.transitionRoute =`slide-${isBack?'right':'left'}`
+      this.transitionRoute = `slide-${isBack ? 'right' : 'left'}`
       this.$router.isBack = false
     }
   }
@@ -38,28 +38,19 @@ export default {
   text-align center
   color #2c3e50
   // margin-top 60px
-.slide-right-enter-active,
-.slide-right-leave-active,
-.slide-left-enter-active,
-.slide-left-leave-active {
-  will-change: transform;
-  transition: all 500ms;
+.appView {
   position: absolute;
+  width:100%;
+  transition: all .8s cubic-bezier(.55,0,.1,1);
 }
-.slide-right-enter {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+.slide-left-enter, .slide-right-leave-active {
+ opacity: 0;
+ -webkit-transform: translate(50px, 0);
+ transform: translate(50px, 0);
 }
-.slide-right-leave-active {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
-}
-.slide-left-enter {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0);
-}
-.slide-left-leave-active {
-  opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+.slide-left-leave-active, .slide-right-enter {
+ opacity: 0;
+ -webkit-transform: translate(-50px, 0);
+ transform: translate(-50px, 0);
 }
 </style>
