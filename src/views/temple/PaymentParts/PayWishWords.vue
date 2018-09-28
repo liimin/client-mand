@@ -85,7 +85,7 @@ function randomNum(minNum, maxNum) {
         margin-top 21px
         padding 15px
         width 100%
-        font-size 30px
+        font-size 32px
         height 1.8rem
         // text-align center
         border-color color-primary
@@ -94,10 +94,12 @@ function randomNum(minNum, maxNum) {
         border-radius 10px
         resize none
         outline none
+        font-weight bold
+        background-color transparent
     .limit
         position absolute
         font-size 20px
-        color #333
+        color color-primary
         bottom 60px
         right 20px
 </style>

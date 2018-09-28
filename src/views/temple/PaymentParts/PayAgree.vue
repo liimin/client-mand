@@ -85,6 +85,8 @@ export default {
 <style  lang="stylus">
 .md-agree-content
   line-height 40px
+  color color-primary
+  line-height: 0.5rem
   a
     color blue
 .content
@@ -99,9 +101,9 @@ export default {
 </style>
 <style scoped lang="stylus">
 .agree
-  font-size 24px
+  font-size 28px
   text-align left 
   line-height 30px
   display flex
-  justify-content space-evenly
+  justify-content space-around
 </style>

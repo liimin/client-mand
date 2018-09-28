@@ -1,5 +1,5 @@
 <template>
-  <main class="body" :style="bodyStyle">
+  <main  :style="bodyStyle">
     <md-scroll-view ref="scrollView" :scrolling-x="false" @endReached="$_onEndReached"  @refreshing="$_onRefresh">
       <md-scroll-view-refresh slot="refresh" slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"  :is-refreshing="isRefreshing" />
       <TempleBodyItem v-for="item in list" :key="item"></TempleBodyItem>

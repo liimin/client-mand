@@ -106,17 +106,29 @@ export default {
 <style lang="stylus">
   .info
     margin-top 10px
-    .md-field-content
-      width 100%
-    .md-input-item-input,.md-input-item-title,.md-input-item,.md-input-item-control,.md-input-item-clear
-      min-height .7rem 
-      height .7rem !important
-      // line-height .7rem
-    .md-field-item .md-field-item-inner
-      padding .08rem 0  
-    .md-check-box
-      .md-check-box-item
-        padding 0
+    .md-field
+      background-color transparent
+      .md-field-content
+        width 100%
+      .md-input-item-input,.md-input-item-title,.md-input-item,.md-input-item-control,.md-input-item-clear
+        min-height .8rem 
+        height .8rem !important
+        // line-height .8rem
+      .md-field-item .md-field-item-inner
+        padding .08rem 0  
+      .md-check-box
+        .md-check-box-item
+          padding 0
+      .md-input-item-title,.md-field-item-title
+        font-size .32rem !important
+        font-weight bold
+        color color-primary
+      .md-check-box .md-check-box-col
+        // padding 0
+        margin-top 10px
+      .md-check-box .md-check-box-item.is-selected
+        color color-primary
+        border-color color-primary
 </style>
 <style lang="stylus" scoped>
 .fade-enter-active, .fade-leave-active 
@@ -126,11 +138,11 @@ export default {
   font-size .28rem
 .payment
   .showMore,.close
-    margin-top 10px
-    font-size 24px
-    color #666
+    margin-top 1px
+    font-size .30rem
+    color color-primary
     text-align center
-    background-color #d5ded9
+    background-color #ccc
   .showMore::after,.close::after
     content ""
     position relative
@@ -141,8 +153,8 @@ export default {
     border-right 8px solid transparent
   .close::after
     bottom 20px
-    border-bottom 8px solid #999
+    border-bottom 8px solid color-primary
   .showMore::after
     top 20px
-    border-top 8px solid #999
+    border-top 8px solid color-primary
 </style>

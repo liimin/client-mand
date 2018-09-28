@@ -9,7 +9,7 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-
+// import '@/assets/global.styl'
 export default {
   name: 'app',
   components: {

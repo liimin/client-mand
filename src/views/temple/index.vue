@@ -72,10 +72,14 @@ export default {
     color color-text-base
     font-size .4rem
     text-align left
-    background color-bg-base
+    // background color-bg-base
     box-sizing border-box
     line-height 1.5
     text-indent 2em
     .md-button
       float left
+    .md-button.link
+      background-color transparent
+      color: color-primary
+      border 1px solid color-primary
 </style>

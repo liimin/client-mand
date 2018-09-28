@@ -15,9 +15,11 @@ export default {
 .wish
     padding 25px 0
     position relative
+    color color-primary
+    font-weight bold
     .wish-text
-        font-size 30px
-        color color-primary
+        font-size 32px
+        // color color-primary
         float left
         width 100%
         text-align: center

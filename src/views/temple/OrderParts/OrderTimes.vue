@@ -1,6 +1,6 @@
 <template>
   <OrderItem :title="title" :isInline="isInline" >
-    <md-check-box v-model="CheckedTime" :options="times" :cols="5" slot="item">
+    <md-check-box v-model="CheckedTime" :options="times" :cols="cols" slot="item">
       <div slot="content" slot-scope="{ option }" class="payment-gateway">
         <p v-text="option.label"></p>
         <!-- <p class="muted" v-text="option.desc"></p> -->
@@ -25,7 +25,8 @@ export default {
   },
   data() {
     return {
-      isInline: false
+      isInline: false,
+      cols:4,
       // CheckedTime: ''
     }
   },
@@ -53,6 +54,9 @@ export default {
   .md-check-box .md-check-box-col{
     padding 0 0.08rem 0.08rem  
   }
+  .md-check-box .md-check-box-item.is-selected
+      color color-primary
+      border-color color-primary
 </style>
 
 <style lang="stylus" scoped>

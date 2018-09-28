@@ -4,3 +4,9 @@
   list-style: none;
   box-sizing: border-box;
 }
+body{
+  /* background-color:#000; */
+  background:#fff;  /* url('./images/bg.webp') no-repeat ;*/
+}
+  
+  

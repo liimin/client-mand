@@ -18,17 +18,18 @@ export default {
 .choose-text
     padding 25px 0
     position relative
+    color color-primary
     .choose-title
         font-size 30px
-        color #6
+        // color #6
     .choose-name
         margin-top 5px
-        font-size 40px
-        color #3
+        font-size 48px
+        // color color-primary
     .choose-describe
-        margin-top 15px
+        margin-top 5px
         font-size 30px
-        color #6
+        // color #6
 .choose-text p
     float left
     width 100%
