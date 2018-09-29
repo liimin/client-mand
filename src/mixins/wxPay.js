@@ -1,44 +1,29 @@
-export default{
-  name: 'WxPay',
+
+import wx from 'weixin-js-sdk'
+export default {
+  name: 'WxPayPlugin',
   methods: {
-    isWx() {
-      const ua = navigator.userAgent.toLowerCase()
-      return ua.match(/MicroMessenger/i) === 'micromessenger'
-    },
-    Pay(data) {
-      const vm = this
-      if (typeof WeixinJSBridge === 'undefined') {
-        if (document.addEventListener) {
-          document.addEventListener('WeixinJSBridgeReady', vm.onBridgeReady(data), false)
-        } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', vm.onBridgeReady(data))
-          document.attachEvent('onWeixinJSBridgeReady', vm.onBridgeReady(data))
-        }
-      } else {
-        vm.onBridgeReady(data)
-      }
-    },
-    onBridgeReady(data) {
-      const self = this
-      WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', {
-          'appId': data.appId,
-          'timeStamp': String(data.timeStamp), // 这里必须要转换为字符串。ios跟android表现不同。后台返回的是数值，但是微信方面必须要json参数都是字符串形式，android会自动转换成字符串（当时我在这里也找了很久的博文才知道的）
-          'nonceStr': data.nonceStr,
-          'package': data.package,
-          'signType': data.signType,
-          'paySign': data.paySign
-        },
-        function(res) {
-          if (res.err_msg === 'get_brand_wcpay_request:ok') {
-            self.$router.replace({ name: 'paymentend' })
-          } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-            self.$vux.toast.text('支付取消!', 'default')
-          } else {
-            self.$vux.toast.text('支付失败!', 'default')
-          }
-        }
-      )
+    GetWXSign() {
+      return new Promise((resolve, reject) => {
+        this.$http.post('temple/wx/sign', { // 这是请求后台的地址
+          url: window.location.href.split('#')[0]
+        }).then(res => {
+          const { data } = res // 返回wx.config需要的参数
+          wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: data.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+            timestamp: data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: data.nonceStr, // 必填，生成签名的随机串
+            signature: data.signature, // 必填，签名，见附录1
+            jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          })
+          wx.ready(_ => resolve())
+          wx.error(res => console.log(res)) // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
   }
 }
+

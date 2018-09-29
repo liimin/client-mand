@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Toast } from 'mand-mobile'
 export const Axios = axios.create({
-  baseURL: 'http://192.168.2.222:3000/api/v1/',
+  baseURL: 'http://192.168.1.105:3000/api/v1/',
   timeout: 10000
 })
 // POST传参序列化(添加请求拦截器)

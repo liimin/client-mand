@@ -11,6 +11,7 @@ import { ActionBar } from 'mand-mobile'
 import { PayHeader, PayInfo, PayWish } from './PaymentParts'
 import Vue from 'vue'
 // import TempleMixin from '@/mixins/temple'
+import wxPay from '@/mixins/wxPay'
 export default {
   name: 'Payment',
   components: {
@@ -19,7 +20,7 @@ export default {
     [PayInfo.name]: PayInfo,
     [PayWish.name]: PayWish
   },
-  // mixins: [TempleMixin],
+  mixins: [wxPay],
   data() {
     return {
       actions: [
@@ -53,7 +54,7 @@ export default {
       this.$router.goBack()
     },
     handleNext() { // 发起微信支付
-
+      this.GetWXSign()
     },
     handleWishWordChanged(words) {
       this.model.words = words
