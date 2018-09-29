@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       isInline: false,
-      cols:4,
+      cols: 4
       // CheckedTime: ''
     }
   },

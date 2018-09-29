@@ -60,12 +60,15 @@ export default {
     },
     handleAgreeChanged(checked) {
       this.agree = checked
+    },
+    initEventBus() {
+      this.eventBus = new Vue()
+      this.eventBus.$on('wishWordChanged', this.handleWishWordChanged)
+      this.eventBus.$on('agreeChanged', this.handleAgreeChanged)
     }
   },
   mounted() {
-    this.eventBus = new Vue()
-    this.eventBus.$on('wishWordChanged', this.handleWishWordChanged)
-    this.eventBus.$on('agreeChanged', this.handleAgreeChanged)
+    this.initEventBus()
   }
 }
 </script>
