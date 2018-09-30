@@ -54,7 +54,7 @@ export default {
       this.$router.goBack()
     },
     handleNext() { // 发起微信支付
-      this.GetWXSign()
+      this.GetWXSign().then()
     },
     handleWishWordChanged(words) {
       this.model.words = words

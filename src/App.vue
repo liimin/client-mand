@@ -38,6 +38,8 @@ export default {
   text-align center
   color #2c3e50
   // margin-top 60px
+.md-action-bar
+  -webkit-transform: translateZ(0); 
 .appView {
   position: absolute;
   width:100%;
