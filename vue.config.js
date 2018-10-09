@@ -34,5 +34,8 @@ module.exports = {
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
+  },
+  devServer: {
+    disableHostCheck: true
   }
 }

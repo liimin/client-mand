@@ -12,9 +12,7 @@
         温馨提示:供灯祈福金将转至供灯寺观帐户
       </md-notice-bar>
     </div>
-    <div class="footer">
-      <md-action-bar :actions="data"></md-action-bar>
-    </div>
+    <md-action-bar :actions="data"></md-action-bar>
   </div>
 </template><script>
 import { Button, ActionBar, NoticeBar } from 'mand-mobile'
@@ -23,6 +21,7 @@ import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from './OrderParts'
 import simple from 'mand-mobile/components/swiper/demo/data/simple'
 import TempleMixin from '@/mixins/temple'
 import Vue from 'vue'
+// import { Toast } from 'mand-mobile'
 export default {
   name: 'Order',
   components: {
@@ -119,6 +118,9 @@ export default {
     this.eventBus = new Vue()
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)
+    // this.$nextTick(_ => {
+    //   Toast.hide()
+    // })
   }
 }
 </script>
@@ -140,7 +142,4 @@ export default {
       z-index 1
       height 0.7rem
       line-height 0.7rem
-  .footer
-    height 1rem
-    margin-bottom 10px
 </style>

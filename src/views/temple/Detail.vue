@@ -14,9 +14,7 @@
     <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
     <!-- <TempleBody :bodyStyle="bodyStyle"/> -->
   </div>
-  <div class="footer">
     <md-action-bar :actions="data"></md-action-bar>
-  </div>
 </div>
 </template>
 <script>
@@ -69,7 +67,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-// @import '~@/assets/style/mand-mobile.1.6.0-theme.styl'
 .wrapper
   .header
     height:300px
@@ -91,14 +88,13 @@ export default {
     width 100%
     padding 10px 20px 20px
     color color-text-base
-    font-size .4rem
+    font-size .3rem
     text-align left
     // background color-bg-base
     box-sizing border-box
     line-height 1.5
     text-indent 2em
+    margin-bottom 1rem
     .md-button
       float left
-  .footer
-    position fixed
 </style>

@@ -4,14 +4,14 @@
       <div class="weui-panel__bd">
         <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537450455439&di=c66244d033f08e19a435810165f70456&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3D15f0371bc3fcc3cea0cdc173fb3db3e4%2F43a7d933c895d143ffab5f1a78f082025aaf072d.jpg" alt="">
+            <img class="weui-media-box__thumb" :src="temple.pic" alt="">
           </div>
           <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title">飞来寺</h4>
-            <p class="weui-media-box__desc">飞来寺坐落于绵阳市涪城区石塘镇东岳村四组,绵阳火车站对面.</p>
+            <h4 class="weui-media-box__title">{{temple.name+temple.id}}</h4>
+            <p class="weui-media-box__desc">{{temple.description}}</p>
             <ul class="weui-media-box__info">
               <md-icon name="location" />
-              <li class="weui-media-box__info__meta">四川省绵阳市</li>
+              <li class="weui-media-box__info__meta">{{temple.province+temple.city}}</li>
             </ul>
           </div>
         </a>
@@ -28,6 +28,9 @@ export default {
     [Field.name]: Field,
     [FieldItem.name]: FieldItem,
     [Icon.name]: Icon
+  },
+  props: {
+    temple: Object
   },
   methods: {
     handleBodyItemClick() {

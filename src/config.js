@@ -1,3 +1,3 @@
 export default {
-  name: '六安市云峰寺'
+  name: '绵阳市飞来寺'
 }

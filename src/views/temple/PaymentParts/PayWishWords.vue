@@ -35,10 +35,10 @@ export default {
         page: 1,
         pageSize: 100
       }
-      this.$http.get('/blessions/list', params).then(res => {
-        const { size } = res.page
+      this.$http.get('/blessions/list', { params }).then(res => {
+        const { total } = res.page
         this.wordsList = res.data
-        const randNum = randomNum(0, size)
+        const randNum = randomNum(0, total - 1)
         this.words = this.wordsList[randNum].text
         this.keyWord = nameKey
       })
@@ -94,7 +94,7 @@ function randomNum(minNum, maxNum) {
         border-radius 10px
         resize none
         outline none
-        font-weight bold
+        // font-weight bold
         background-color transparent
     .limit
         position absolute

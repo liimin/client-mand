@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { Toast } from 'mand-mobile'
+// import qs from 'qs'
 export const Axios = axios.create({
-  baseURL: 'http://192.168.2.222:3000/api/v1/',
+  baseURL: 'http://192.168.0.104:3000/api/v1/',
   timeout: 10000
 })
 // POST传参序列化(添加请求拦截器)
@@ -14,7 +15,11 @@ Axios.interceptors.request.use(config => {
     Object.keys(config.data).forEach(key => formData.append(key, config.data[key]))
     config.data = formData
   }
-
+  // if (config.method === 'get') {
+  //   console.log(config)
+  //   // JSON 转换为 FormData
+  //   config.data = { params: config.data }
+  // }
   // 下面会说在什么时候存储 token
   if (localStorage.token) {
     config.headers.Authorization = 'JWT ' + localStorage.token

@@ -121,7 +121,7 @@ export default {
           padding 0
       .md-input-item-title,.md-field-item-title
         font-size .32rem !important
-        font-weight bold
+        // font-weight bold
         color color-primary
       .md-check-box .md-check-box-col
         // padding 0
