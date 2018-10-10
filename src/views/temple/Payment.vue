@@ -46,7 +46,8 @@ export default {
         amount: this.$route.params.amount,
         sex: 1
       },
-      agree: true
+      agree: true,
+      name: ''
     }
   },
   methods: {
@@ -54,7 +55,8 @@ export default {
       this.$router.goBack()
     },
     handleNext() { // 发起微信支付
-      this.GetWXSign().then()
+      // this.GetWXSign().then()
+      this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
     },
     handleWishWordChanged(words) {
       this.model.words = words
@@ -66,6 +68,9 @@ export default {
       this.eventBus = new Vue()
       this.eventBus.$on('wishWordChanged', this.handleWishWordChanged)
       this.eventBus.$on('agreeChanged', this.handleAgreeChanged)
+      this.eventBus.$on('nameChanged', name => {
+        this.name = name
+      })
     }
   },
   mounted() {

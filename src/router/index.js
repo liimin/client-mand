@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // const _import = require('./_import_' + process.env.NODE_ENV)
-// import { Toast } from 'mand-mobile'
+import { Toast } from 'mand-mobile'
 Vue.use(Router)
 // const Foo = resolve => {
 //   Toast.open()
@@ -55,13 +55,14 @@ Router.prototype.goBack = function() { // 重点，给VueRoute添加一个goBack
   this.isBack = true
   window.history.go(-1)
 }
-// Router.beforeEach((to, from, next) => {
-//   Toast.loading('载入中')
-//   next()
-// })
-// Router.afterEach((to, from) => {
-//   Toast.hide()
-// })
-export default new Router({
+const router = new Router({
   routes
 })
+router.beforeEach((to, from, next) => {
+  Toast.loading('载入中')
+  next()
+})
+router.afterEach((to, from) => {
+  Toast.hide()
+})
+export default router

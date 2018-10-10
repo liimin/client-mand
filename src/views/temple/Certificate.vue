@@ -1,110 +1,83 @@
 <template>
     <section>
-    <div class="img-list">
-        <ul class="clearfix">
-            <li onclick="changeImg(1)" class="on">金狮闹春</li>
-            <li onclick="changeImg(2)">彩灯送福</li>
-            <li onclick="changeImg(3)">合家团圆</li>
-            <li onclick="changeImg(4)">鸡闹元宵</li>
-            <li onclick="changeImg(5)">共度佳节</li>
-            <li onclick="changeImg(6)">喜迎元宵</li>
-            <li onclick="changeImg(7)">诗画送福（1）</li>
-            <li onclick="changeImg(8)">诗画送福（2）</li>
-            <li onclick="changeImg(9)">元宵佳节</li>
-        </ul>
-    </div>
-    <div class="operat">
-        <input id="name" type="text" placeholder="请输入您的名字" maxlength="10">
+    <!-- <div class="operat">
         <button class="pro" @click="drawImage()">生成</button>
         <p>温馨提示：长按图片可保存到手机或直接发送给朋友！</p>
-    </div>
+    </div> -->
     <div class="before" style="width:100%;height:100%;text-align: center">
-        <img id="imgbox" src="https://img.zcool.cn/community/011146587580c6a801219c7767a3ab.jpg@1280w_1l_2o_100sh.webp" alt="" style="width:80%;">
+        <img id="imgbox" :src="certificate" alt="" style="width:100%;">
     </div>
-
     <div class="pic">
         <canvas id="myCanvas" style="display: none;" ref="canvas">
             您的浏览器不支持canvas
         </canvas>
     </div>
-
+     <md-action-bar :actions="actions"></md-action-bar>
 </section>
 </template>
 <script>
+import { ActionBar } from 'mand-mobile'
 export default {
   name: 'Certificate',
+  components: {
+    [ActionBar.name]: ActionBar
+  },
+  props: {
+    name: String
+  },
   data() {
     return {
-      data: [// 将每张图片上字体的样式、大小、在图片上的位置记录下来，以便于换到不同图片时获取所需信息（移动端字体样式并不能这样设置，字体样式只适合PC端）
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.291', 'y': '0.515', 'color': '#fa112e' },
-        { 'family': '微软雅黑', 'size': '0.075', 'x': '0.5', 'y': '0.645', 'color': '#030000' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.5', 'y': '0.645', 'color': '#fff' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.5', 'y': '0.545', 'color': '#030000' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.5', 'y': '0.755', 'color': '#030000' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.2', 'y': '0.57', 'color': '#030000' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.72', 'y': '0.41', 'color': '#ed3a50' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.5', 'y': '0.54', 'color': '#030000' },
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.5', 'y': '0.795', 'color': '#030000' }
+      data: // 将每张图片上字体的样式、大小、在图片上的位置记录下来，以便于换到不同图片时获取所需信息（移动端字体样式并不能这样设置，字体样式只适合PC端）
+        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.8', 'y': '0.4', 'color': '#fa112e' },
+      certificate: require('@/assets/images/certificate.webp'),
+      size: 667 / 375,
+      actions: [
+        {
+          text: '返回',
+          onClick: this.handleReturn
+        },
+        {
+          text: '再供一盏',
+          onClick: this.handleNext
+        }
       ]
     }
   },
   methods: {
-    changeImg(id) {
-      var imgbox = document.getElementById('imgbox')
-      imgbox.src = 'https://img.zcool.cn/community/011146587580c6a801219c7767a3ab.jpg@1280w_1l_2o_100sh.webp'// 将图片名称设置为比较简单的名称方便与通过id切换
-      var liList = document.getElementsByTagName('li')
-      for (var i = 0; i < liList.length; i++) {
-        liList[i].className = ''
-      }
-      liList[id - 1].className = 'on'
+    handleNext() {
+      this.$router.push('/temple/order')
     },
     drawImage() {
-      var name = document.getElementById('name').value
+      var name = this.$route.query.name
       const canvas = this.$refs.canvas
-      console.log(this.data[0])
-      if (name) {
-        var on = document.getElementsByClassName('on')[0]
-        var liList = document.getElementsByTagName('li')
-        var index = this.getIndex(on, liList) // 获取有on类名的li
-        var clientWidth = this.getWidth()// 获取屏幕宽度用于canvas宽度自适应移动端屏幕
-        canvas.width = 2 * clientWidth// 由于手机屏幕时retina屏，都会多倍渲染，在此只设置2倍，如果直接设置等于手机屏幕，会导致生成的图片分辨率不够而模糊
-        canvas.height = 2 * clientWidth * 667 / 375
-        var context = canvas.getContext('2d')
-        var imgbox = document.getElementById('imgbox')
-        var src = 'https://img.zcool.cn/community/011146587580c6a801219c7767a3ab.jpg@1280w_1l_2o_100sh.webp'
-        var img = new Image()// 创建图片对象，用于在canvas中渲染
-        img.crossOrigin = 'Anonymous'
-        img.src = src
-        var w = 2 * clientWidth
-        img.onload = function() { // 当图片加载成功以后再进行下一步动作，如果不加这句，会生成黑图
-          context.drawImage(img, 0, 0, w, w * 667 / 375)// 按设计稿图片比例渲染图片高度
-          var font = '600 ' + this.data[index].size * w + 'px ' + this.data[index].family// 文字大小也得按照分辨率变化，类似使用rem
-          context.font = font
-          context.textAlign = 'center'
-          context.fillStyle = this.data[index].color
-          if (index === 0) {
-            const x = w * this.data[index].x
-            var oy = this.data[index].y * w * 667 / 375
-            for (var i = 0; i < name.length; i++) {
-              var y = oy + 44 * i
-              context.fillText(name[i], x, y)
-            }
-          } else if (index === 5) { // 当文字时竖向显示的时候，以中间为基准，向上向下一行插入一个字
-            const x = w * this.data[index].x
-            const oy = this.data[index].y * w * 667 / 375
-            for (let i = 0; i < name.length; i++) {
-              const y = oy + 44 * i
-              context.fillText(name[i], x, y)
-            }
-          } else {
-            context.fillText(name, w * this.data[index].x, this.data[index].y * w * 667 / 375)
-          }
-          var downloadImg = canvas.toDataURL('image/jpeg')
-          imgbox.src = downloadImg
-        }.bind(this)
-      } else {
-        alert('请输入您的名字！')
-      }
+      var clientWidth = this.getWidth()// 获取屏幕宽度用于canvas宽度自适应移动端屏幕
+      canvas.width = 2 * clientWidth// 由于手机屏幕时retina屏，都会多倍渲染，在此只设置2倍，如果直接设置等于手机屏幕，会导致生成的图片分辨率不够而模糊
+      canvas.height = 2 * clientWidth * this.size
+      var context = canvas.getContext('2d')
+      var imgbox = document.getElementById('imgbox')
+      var img = new Image()// 创建图片对象，用于在canvas中渲染
+      img.crossOrigin = 'Anonymous'
+      img.src = this.certificate
+      var w = 2 * clientWidth
+      img.onload = function() { // 当图片加载成功以后再进行下一步动作，如果不加这句，会生成黑图
+        context.drawImage(img, 0, 0, w, w * this.size)// 按设计稿图片比例渲染图片高度
+        var font = '600 ' + this.data.size * w + 'px ' + this.data.family// 文字大小也得按照分辨率变化，类似使用rem
+        context.font = font
+        context.textAlign = 'center'
+        context.fillStyle = this.data.color
+        // if (index === 0) { // 竖排字体
+        const x = w * this.data.x
+        var oy = this.data.y * w * this.size
+        for (var i = 0; i < name.length; i++) {
+          var y = oy + 44 * i
+          context.fillText(name[i], x, y)
+        }
+        // } else {  横排字体
+        //   context.fillText(name, w * this.data.x, this.data.y * w * this.size)
+        // }
+        var downloadImg = canvas.toDataURL('image/jpeg')
+        imgbox.src = downloadImg
+      }.bind(this)
     },
     getWidth() {
       if (window.innerWidth) {
@@ -116,19 +89,14 @@ export default {
           return document.body.clientWidth
         }
       }
-    },
-    getIndex(current, obj) {
-      var length = obj.length
-      for (var i = 0; i < length; i++) {
-        if (obj[i] === current) {
-          return i
-        }
-      }
     }
+  },
+  mounted() {
+    this.drawImage()
   }
 }
 </script>
-<style>
+<style lang="stylus" scoped>
 @media only screen and (min-width: 320px){
     html {
         font-size: 42.667px!important;
@@ -162,40 +130,12 @@ export default {
     overflow:hidden;
     visibility:hidden;
 }
-h2{
-    height:1rem;
-    line-height:1rem;
-    font-size:0.4rem;
-    background: #c2110c;
-    color:#fff;
-    text-align: center;
-}
-.img-list{
-    padding:0 0.4rem 0.4rem;
-}
-.img-list li.on{
-    border-color: #c2110c;
-    color:#c2110c;
-}
-.img-list li{
-    width:2rem;
-    height:0.4rem;
-    line-height:0.44rem;
-    text-align: center;
-    font-size: 0.2rem;
-    float: left;
-    margin-top:0.28rem;
-    margin-right: 0.28rem;
-    -webkit-border-radius:0.08rem;
-    -moz-border-radius:0.08rem;
-    border-radius:0.08rem;
-    border:1px solid #333;
-}
-.img-list li:nth-child(3n){
-    margin-right:0;
-}
+
 .operat{
     margin:0 0.4rem 0.4rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 .operat input{
     width:3.4rem;

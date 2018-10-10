@@ -12,10 +12,18 @@
         温馨提示:供灯祈福金将转至供灯寺观帐户
       </md-notice-bar>
     </div>
-    <md-action-bar :actions="data"></md-action-bar>
+    <!-- <div class="weui-footer weui-footer_fixed-bottom">
+    <p class="weui-footer__links">
+        <a href="javascript:home();" class="weui-footer__link">WeUI首页</a>
+    </p>
+    <p class="weui-footer__text">Copyright &copy; 2008-2016 weui.io</p>
+  </div> -->
+    <md-action-bar :actions="data" v-show="actionShow">
+      &yen;&nbsp;<md-amount :value="amount" :duration="200" is-animated has-separator></md-amount>
+    </md-action-bar>
   </div>
 </template><script>
-import { Button, ActionBar, NoticeBar } from 'mand-mobile'
+import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
 import { Swiper, FormTitle } from '@/components'
 import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from './OrderParts'
 import simple from 'mand-mobile/components/swiper/demo/data/simple'
@@ -26,7 +34,7 @@ export default {
   name: 'Order',
   components: {
     // [TempleHeader.name]: TempleHeader,
-    // [Amount.name]: Amount,
+    [Amount.name]: Amount,
     [OrderAmount.name]: OrderAmount,
     [OrderTabs.name]: OrderTabs,
     [Button.name]: Button,
@@ -41,11 +49,12 @@ export default {
   data() {
     return {
       simple,
+      actionShow: false,
       data: [
-        {
-          text: '返回',
-          onClick: this.handleReturn
-        },
+        // {
+        //   text: '返回',
+        //   onClick: this.handleReturn
+        // },
         {
           text: '选好了，下一步',
           onClick: this.handleNext
@@ -83,6 +92,7 @@ export default {
   },
   methods: {
     handleReturn() {
+      this.actionShow = false
       this.$router.goBack()
     },
     handleTimeChecked(value) {
@@ -92,6 +102,7 @@ export default {
       this.count = value
     },
     handleNext() {
+      this.actionShow = false
       const params = {
         tampleName: this.$config.name,
         tabs: this.checkedTabNames,
@@ -118,9 +129,9 @@ export default {
     this.eventBus = new Vue()
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)
-    // this.$nextTick(_ => {
-    //   Toast.hide()
-    // })
+    this.$nextTick(_ => {
+      this.actionShow = true
+    })
   }
 }
 </script>
