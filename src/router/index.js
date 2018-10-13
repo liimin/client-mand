@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // const _import = require('./_import_' + process.env.NODE_ENV)
-import { Toast } from 'mand-mobile'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css' // 这个样式必须引入
+// import { Toast } from 'mand-mobile'
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: true })
 Vue.use(Router)
 // const Foo = resolve => {
 //   Toast.open()
@@ -59,10 +62,12 @@ const router = new Router({
   routes
 })
 router.beforeEach((to, from, next) => {
-  Toast.loading('载入中')
+  NProgress.start()
+  // Toast.loading('载入中')
   next()
 })
 router.afterEach((to, from) => {
-  Toast.hide()
+  // Toast.hide()
+  NProgress.done()
 })
 export default router

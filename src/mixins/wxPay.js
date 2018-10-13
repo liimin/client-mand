@@ -5,7 +5,7 @@ export default {
   methods: {
     GetWXSign() {
       return new Promise((resolve, reject) => {
-        this.$http.post('temple/wx/sign', { // 这是请求后台的地址
+        this.$http.get('temple/wx/sign', { // 这是请求后台的地址
           url: window.location.href.split('#')[0]
         }).then(res => {
           const { data } = res // 返回wx.config需要的参数

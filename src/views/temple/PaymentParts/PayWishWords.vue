@@ -41,6 +41,8 @@ export default {
         const randNum = randomNum(0, total - 1)
         this.words = this.wordsList[randNum].text
         this.keyWord = nameKey
+      }).catch(e => {
+        console.log(e)
       })
     },
     handleNameChanged(name) {

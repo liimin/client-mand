@@ -2,13 +2,13 @@
     <div class="info">
         <md-field>
             <md-input-item ref="amount" title="金额：" v-model="infoModel.amount" disabled clearable></md-input-item>
-            <md-input-item ref="name" title="姓名：" v-model="infoModel.name" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
+            <md-input-item ref="name" title="姓名：" v-model="infoModel.to" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
             <md-input-item ref="tel" v-model="infoModel.tel" type="phone" title="电话：" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
             <transition name="fade">
                 <div class="more" v-show="isMore">
                     <FieldEx title="性别："><md-check-box  v-model="infoModel.sex"  :options="options" /></FieldEx>
                     <md-field-item name="birthday" title="生辰：" arrow="arrow-right" align="right" :value="datePickerValue" @click.native="isDatePickerShow = true" />
-                    <md-input-item ref="add" v-model="infoModel.add" title="地址：" placeholder="请输入回向地址" clearable></md-input-item>
+                    <md-input-item ref="add" v-model="infoModel.to_addr" title="地址：" placeholder="请输入回向地址" clearable></md-input-item>
                 </div>
             </transition>
         </md-field>
@@ -69,7 +69,7 @@ export default {
         this.infoModel = val
       }
     },
-    'infoModel.name': {
+    'infoModel.to': {
       handler(val) {
         this.eventBus.$emit('nameChanged', val)
       }
@@ -87,15 +87,15 @@ export default {
       }
     },
     onDatePickerChange(columnIndex, itemIndex, value) {
-      console.log(
-        `[Mand Mobile] DatePicker Change\ncolumnIndex: ${columnIndex},\nitemIndex:${itemIndex},\nvalue: ${JSON.stringify(
-          value,
-        )}`,
-      )
+      // console.log(
+      //   `[Mand Mobile] DatePicker Change\ncolumnIndex: ${columnIndex},\nitemIndex:${itemIndex},\nvalue: ${JSON.stringify(
+      //     value,
+      //   )}`,
+      // )
     },
     onDatePickerConfirm(columnsValue) {
-      console.log(`[Mand Mobile] DatePicker Confirm\nvalue: ${JSON.stringify(columnsValue)}`)
-      this.datePickerValue = this.$refs.datePicker.getFormatDate('yyyy/MM/dd')
+      // console.log(`[Mand Mobile] DatePicker Confirm\nvalue: ${JSON.stringify(columnsValue)}`)
+      this.infoModel.to_birth = this.datePickerValue = this.$refs.datePicker.getFormatDate('yyyy/MM/dd')
     }
   },
   mounted() {

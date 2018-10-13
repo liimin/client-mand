@@ -108,7 +108,8 @@ export default {
         tabs: this.checkedTabNames,
         count: this.count,
         time: this.timeValue,
-        amount: this.amount
+        amount: this.amount,
+        lights: this.aTabs
       }
       this.$router.push({
         name: 'Payment',

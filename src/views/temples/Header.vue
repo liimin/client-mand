@@ -107,7 +107,7 @@ export default {
       this.$set(this.defaultValue, 0, city.value)
       this.key = Date.now()
       this.$refs.dropMenu.isPopupShow = false
-      this.eventBus.$emit('conditionChanged', `city-${city.code}`)
+      this.eventBus.$emit('conditionChanged', `citycode-${city.code}`)
     },
     handleDropMenuChanged(barItem, listItem) {
       this.eventBus.$emit('conditionChanged', listItem.value)

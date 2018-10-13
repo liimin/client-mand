@@ -1,7 +1,7 @@
 <template>
   <div class="payment">
     <PayHeader :model="model"/>
-    <PayInfo :model.sync="infoModel" :eventBus="eventBus"/>
+    <PayInfo :model.sync="model" :eventBus="eventBus"/>
     <PayWish :eventBus="eventBus" :agree="agree"/>
     <md-action-bar :actions="actions"></md-action-bar>
   </div>
@@ -25,11 +25,11 @@ export default {
     return {
       actions: [
         {
-          text: '返回',
+          text: '我要关灯',
           onClick: this.handleReturn
         },
         {
-          text: '下一步',
+          text: '我要供灯',
           onClick: this.handleNext
         }
       ],
@@ -40,23 +40,42 @@ export default {
         count: this.$route.params.count,
         time: this.$route.params.time,
         amount: this.$route.params.amount,
-        words: ''
-      },
-      infoModel: {
-        amount: this.$route.params.amount,
-        sex: 1
+        words: '',
+        sex: 1,
+        lights: this.getLights()
       },
       agree: true,
       name: ''
     }
   },
   methods: {
+    getLights() {
+      if (this.$route.params.lights) {
+        return this.$route.params.lights.map(light => { return { 'id': light.id, 'type': light.title } })
+      } else {
+        return []
+      }
+    },
     handleReturn() {
-      this.$router.goBack()
+      // this.$router.goBack()
+      this.lightOff()
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
+      // this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
+      this.lightOn()
+    },
+    lightOn() {
+      const params = this.model // Object.assign({}, this.model, this.infoModel)
+      this.$http.post('/temple/lighton', params).then(res => {
+
+      })
+    },
+    lightOff() {
+      const params = this.model // Object.assign({}, this.model, this.infoModel)
+      this.$http.post('/temple/lightoff', params).then(res => {
+
+      })
     },
     handleWishWordChanged(words) {
       this.model.words = words

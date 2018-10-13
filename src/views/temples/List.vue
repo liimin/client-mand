@@ -24,7 +24,7 @@ export default {
       templeList: [],
       isFinished: false,
       params: {
-        city: '',
+        citycode: '',
         order: '',
         type: '',
         page: 0,
@@ -43,6 +43,7 @@ export default {
     getTemplesList(call, isResetData) {
       this.params.page++
       return new Promise(resolve => {
+        console.log(this.params)
         this.$http.get('/temples/list', { params: this.params }).then(res => {
           if (res.data && res.data.length) {
             this.templeList = isResetData ? res.data : this.templeList.concat(res.data)
@@ -55,6 +56,8 @@ export default {
           this.isResetData = false
           call && call()
           resolve()
+        }).catch(e => {
+          console.log(e)
         })
       })
     },
