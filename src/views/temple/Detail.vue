@@ -3,15 +3,7 @@
   <div class="header">
     <swiper :items="simple" />
   </div>
-  <div class="body">
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
+  <div class="body" v-html="content">
     <!-- <TempleBody :bodyStyle="bodyStyle"/> -->
   </div>
     <md-action-bar :actions="data"></md-action-bar>
@@ -20,7 +12,7 @@
 <script>
 // import TempleHeader from "./Header";
 // import TempleBody from "./Body";
-import { Button, ActionBar } from 'mand-mobile'
+import { Button, ActionBar, Toast } from 'mand-mobile'
 import { Swiper } from '@/components'
 import simple from 'mand-mobile/components/swiper/demo/data/simple'
 export default {
@@ -42,7 +34,8 @@ export default {
           text: '我要供灯',
           onClick: this.handleClick
         }
-      ]
+      ],
+      content: ''
     }
   },
   computed: {
@@ -62,10 +55,29 @@ export default {
     },
     handleBack() {
       this.$router.goBack()
+    },
+    getDetail() {
+      this.$http.get('/temple/detail', { params: { id: 10000 }}).then(res => {
+        this.content = (res.data.content).join('')
+      }).catch(err => {
+        Toast.failed('读取详情出错，请稍后再试')
+        console.log(err)
+      })
     }
+  },
+  mounted() {
+    this.getDetail()
   }
 }
 </script>
+<style lang="stylus">
+.wrapper
+  img
+    width 100%
+  .content
+    font-size 200
+</style>
+
 <style lang="stylus" scoped>
 .wrapper
   .header

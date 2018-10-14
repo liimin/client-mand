@@ -15,6 +15,10 @@ Axios.interceptors.request.use(config => {
   //   Object.keys(config.data).forEach(key => formData.append(key, config.data[key]))
   //   config.data = formData
   // }
+  // console.log(config, config.static)
+  // if (config.static) {
+  // config.baseURL = config.baseURL.replace('api/v1/', '')
+  // }
   if (config.method === 'get') {
     Toast.loading('载入中')
   }
@@ -22,7 +26,6 @@ Axios.interceptors.request.use(config => {
   if (localStorage.token) {
     config.headers.Authorization = 'JWT ' + localStorage.token
   }
-  config.timeout = 20 * 1000
   return config
 }, error => {
   Toast.failed('错误的传参')
@@ -35,8 +38,11 @@ Axios.interceptors.response.use(res => {
   const { code, msg } = res.data
   // 对响应数据做些事
   if (code !== 200) {
-    Toast.failed(msg)
-    return Promise.reject(res)
+    const { status } = res
+    if (status !== 200) {
+      Toast.failed(msg)
+      return Promise.reject(res)
+    }
   }
   return res.data
 }, error => {
