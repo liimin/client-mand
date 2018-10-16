@@ -5,8 +5,8 @@
   box-sizing: border-box;
 }
 body{
-  /* background-color:#000; */
-  background: url('./images/bg.webp') no-repeat ;
+  background-color:#fff;
+  /* background: url('./images/bg.webp') no-repeat ; */
 }
   
   

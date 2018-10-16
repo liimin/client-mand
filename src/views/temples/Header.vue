@@ -2,7 +2,7 @@
   <div>
     <div class="content">
       <div class="md-example-child md-example-child-drop-menu md-example-child-drop-menu-0">
-        <md-drop-menu ref="dropMenu" :data="data" :default-value="defaultValue" @show="showTabPicker()" :key="key">
+        <md-drop-menu ref="dropMenu" :data="data" :default-value="defaultValue" @change="handleDropMenuChanged" @show="showTabPicker()" :key="key">
           <template slot-scope="{ option }">
             <div class="md-drop-menu-custom-title" v-if="!option.disabled" v-text="option.text"></div>
             <v-distpicker v-if="option.disabled" type="mobile" hide-area :placeholder='true' @selected="handleSelected"></v-distpicker>
@@ -21,12 +21,15 @@ export default {
     [DropMenu.name]: DropMenu,
     [VDistpicker.name]: VDistpicker
   },
+  props: {
+    eventBus: Object
+  },
   data() {
     return {
       isPickerShow: false,
       key: Date.now(),
       title: '选择title',
-      defaultValue: ['全国', '智能排序', '其他'],
+      defaultValue: ['全国', '智能排序', '宗教'],
       data: [
         {
           text: '全国',
@@ -41,19 +44,24 @@ export default {
           text: '智能排序',
           options: [
             {
-              text: '智能排序'
+              text: '智能排序',
+              value: 'order-1'
             },
             {
-              text: '离我最近'
+              text: '离我最近',
+              value: 'order-2'
             },
             {
-              text: '最新开通'
+              text: '最新开通',
+              value: 'order-3'
             },
             {
-              text: '供奉过的'
+              text: '供奉过的',
+              value: 'order-4'
             },
             {
-              text: '推荐寺观'
+              text: '推荐寺观',
+              value: 'order-5'
             }
           ]
         },
@@ -61,16 +69,20 @@ export default {
           text: '宗教',
           options: [
             {
-              text: '宗教'
+              text: '宗教',
+              value: 'type-0'
             },
             {
-              text: '佛教'
+              text: '佛教',
+              value: 'type-1'
             },
             {
-              text: '道教'
+              text: '道教',
+              value: 'type-2'
             },
             {
-              text: '其他'
+              text: '其他',
+              value: 'type-3'
             }
           ]
         },
@@ -87,7 +99,7 @@ export default {
         document.querySelectorAll('.md-drop-menu-bar .bar-item'),
         document.querySelector('.md-drop-menu-bar .bar-item.active')
       )
-      if (index === 0) this.isPickerShow = true
+      this.isPickerShow = index === 0
     },
     handleSelected(data) {
       const { city } = data
@@ -95,6 +107,10 @@ export default {
       this.$set(this.defaultValue, 0, city.value)
       this.key = Date.now()
       this.$refs.dropMenu.isPopupShow = false
+      this.eventBus.$emit('conditionChanged', `citycode-${city.code}`)
+    },
+    handleDropMenuChanged(barItem, listItem) {
+      this.eventBus.$emit('conditionChanged', listItem.value)
     }
   },
   mounted() {
@@ -120,6 +136,15 @@ export default {
 
 .md-field-item-content {
   opacity: 1 !important;
+}
+.md-drop-menu .md-drop-menu-bar .bar-item.selected{
+  color:color-primary
+}
+.md-drop-menu .md-drop-menu-bar .bar-item.selected span:after{
+  border-top-color:color-primary
+}
+.md-icon-right{
+  display none
 }
 </style>
 

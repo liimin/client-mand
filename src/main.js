@@ -8,13 +8,11 @@ import router from '@/router'
 import 'weui'
 import AxiosPlugin from './axios'
 Vue.use(AxiosPlugin)
-
 if ('ontouchstart' in window) {
   FastClick.attach(document.body)
 }
 
 Vue.config.productionTip = false
-
 new Vue({
   router,
   render: h => h(App)

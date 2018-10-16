@@ -2,7 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // const _import = require('./_import_' + process.env.NODE_ENV)
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css' // 这个样式必须引入
+// import { Toast } from 'mand-mobile'
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: true })
 Vue.use(Router)
+// const Foo = resolve => {
+//   Toast.open()
+//   require.ensure(['./Foo.vue'], () => {
+//     resolve(require('./Foo.vue'))
+//     Toast.close()
+//   })
+// }
 const routes = [
   {
     path: '/',
@@ -36,12 +47,27 @@ const routes = [
     path: '/temple/payment',
     name: 'Payment',
     component: resolve => require(['@/views/temple/Payment'], resolve)
+  },
+  {
+    path: '/temple/certificate',
+    name: 'Certificate',
+    component: resolve => require(['@/views/temple/Certificate'], resolve)
   }
 ]
 Router.prototype.goBack = function() { // 重点，给VueRoute添加一个goBack方法，用于记录路由的前进后退状态 this.isBack = true
   this.isBack = true
   window.history.go(-1)
 }
-export default new Router({
+const router = new Router({
   routes
 })
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  // Toast.loading('载入中')
+  next()
+})
+router.afterEach((to, from) => {
+  // Toast.hide()
+  NProgress.done()
+})
+export default router
