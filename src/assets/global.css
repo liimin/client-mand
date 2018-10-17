@@ -8,5 +8,27 @@ body{
   background-color:#fff;
   /* background: url('./images/bg.webp') no-repeat ; */
 }
+html{
+  height: 100%;
+}
+.md-action-bar{
+  /* height: .8rem !important; */
+  animation: action 1s linear;
+}
+@keyframes action{
+  0%{
+    opacity: 0;
+    bottom: -9999px;
+  }
+  92%{
+    opacity: 0;
+    bottom: -10px;
+  }
+  100%{
+    opacity: 1;
+    bottom: 0;
+  }
+}
+ 
   
   
