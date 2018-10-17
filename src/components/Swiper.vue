@@ -2,7 +2,7 @@
     <md-swiper @before-change="beforeChange" @after-change="afterChange" transition="slideY" ref="swiper">
         <md-swiper-item :key="$index" v-for="(item, $index) in items">
             <a href="javascript:void(0)" class="banner-item" :style="{'background': `${item.color}`}">
-                {{ item.text }}
+                <img :src="item.src"/>
             </a>
         </md-swiper-item>
     </md-swiper>

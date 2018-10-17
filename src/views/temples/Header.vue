@@ -85,11 +85,11 @@ export default {
               value: 'type-3'
             }
           ]
-        },
-        {
-          text: '搜索',
-          options: []
         }
+        // {
+        //   text: '搜索',
+        //   options: []
+        // }
       ]
     }
   },

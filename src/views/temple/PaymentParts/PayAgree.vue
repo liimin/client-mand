@@ -15,19 +15,17 @@
             参与<a @click.stop="handleRankingClick">功德榜排名</a>
         </md-agree>
         <md-landscape v-model="agreeConf.showAgree" :scroll="true">
-            <div class="scroll-area">
-            <h1>用户协议</h1>
-            <p v-for="i in 20" :key="i">用户协议</p>
+            <div class="scroll-area" v-html="agreement">
             </div>
         </md-landscape>
         <md-dialog
             icon="circle-alert"
-            title="窗口标题"
+            title="排名说明"
             :closable="true"
             v-model="rankingConf.dialog.open"
             :btns="rankingConf.dialog.btns"
         >
-        排名说明排名说明排名说明排名说明排名说明排名说明排名说明
+        {{intro}}
         </md-dialog>
     </div>
 </template>
@@ -44,7 +42,9 @@ export default {
   },
   props: {
     eventBus: Object,
-    agree: Boolean
+    agree: Boolean,
+    intro: String,
+    agreement: String
   },
   data() {
     return {

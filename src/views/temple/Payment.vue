@@ -2,7 +2,7 @@
   <div class="payment">
     <PayHeader :model="model"/>
     <PayInfo :model.sync="model" :eventBus="eventBus"/>
-    <PayWish :eventBus="eventBus" :agree="agree"/>
+    <PayWish :eventBus="eventBus" :agree="agree" :wish="wish" :agreement="agreement" :intro="intro"/>
     <md-action-bar :actions="actions"></md-action-bar>
   </div>
 </template>
@@ -11,7 +11,8 @@ import { ActionBar } from 'mand-mobile'
 import { PayHeader, PayInfo, PayWish } from './PaymentParts'
 import Vue from 'vue'
 // import TempleMixin from '@/mixins/temple'
-import wepay from '@/mixins/wepay'
+// import wepay from '@/mixins/wepay'
+import detail from '@/mixins/detail'
 export default {
   name: 'Payment',
   components: {
@@ -20,7 +21,7 @@ export default {
     [PayInfo.name]: PayInfo,
     [PayWish.name]: PayWish
   },
-  mixins: [wepay],
+  mixins: [detail],
   data() {
     return {
       actions: [
@@ -45,7 +46,10 @@ export default {
         lights: this.getLights()
       },
       agree: true,
-      name: ''
+      agreement: '',
+      intro: '',
+      name: '',
+      wish: ''
     }
   },
   methods: {
@@ -94,10 +98,32 @@ export default {
     },
     payment() {
       const openid = this.GetStorage('wxopenid')
-      this.WxPay(openid)
+      const params = {
+        body: '吮指原味鸡 * 1',
+        attach: '{"部位":"三角"}',
+        out_trade_no: 'kfc' + (+new Date()),
+        total_fee: 1,
+        openid
+      }
+      this.$http.get('/wx/payparams', { params }).then(res => {
+        this.wexinPay(res, function(result) {
+          console.log(result)
+        }, function(err) {
+          console.log(err)
+        })
+      })
+      // this.WxPay(openid)
+    },
+    detail() {
+      this.getDetail().then(detail => {
+        this.wish = detail.wish.join('')
+        this.agreement = detail.agreement.join('')
+        this.intro = detail.intro
+      })
     }
   },
   mounted() {
+    this.detail()
     this.initEventBus()
   }
 }

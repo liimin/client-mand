@@ -8,10 +8,15 @@ import router from '@/router'
 import 'weui'
 import AxiosPlugin from './axios'
 Vue.use(AxiosPlugin)
+Vue.prototype.$get_storage = (name) => {
+  return sessionStorage.getItem(name)
+}
+Vue.prototype.$set_storage = (name, value) => {
+  return sessionStorage.setItem(name, value)
+}
 if ('ontouchstart' in window) {
   FastClick.attach(document.body)
 }
-
 Vue.config.productionTip = false
 new Vue({
   router,

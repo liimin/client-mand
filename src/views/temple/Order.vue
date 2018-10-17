@@ -1,54 +1,46 @@
 <template>
   <div class="wrapper">
-    <div class="header">
-      <swiper :items="simple" />
-    </div>
+    <TempleHeader :items="items" :height="header_height" />
     <div class="body">
       <OrderTabs :tabs.sync="tabs" title="祈福类型" />
       <OrderTimes :times="times" :checked="timeValue" :eventBus="eventBus" title="时长" />
       <OrderCounts :eventBus="eventBus" title="数量" />
       <OrderAmount :amount="amount" title="金额" />
       <md-notice-bar :closable="false">
-        温馨提示:供灯祈福金将转至供灯寺观帐户
+        {{tip}}
       </md-notice-bar>
     </div>
-    <!-- <div class="weui-footer weui-footer_fixed-bottom">
-    <p class="weui-footer__links">
-        <a href="javascript:home();" class="weui-footer__link">WeUI首页</a>
-    </p>
-    <p class="weui-footer__text">Copyright &copy; 2008-2016 weui.io</p>
-  </div> -->
     <md-action-bar :actions="data" v-show="actionShow">
       &yen;&nbsp;<md-amount :value="amount" :duration="200" is-animated has-separator></md-amount>
     </md-action-bar>
   </div>
 </template><script>
 import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
-import { Swiper, FormTitle } from '@/components'
+import { FormTitle } from '@/components'
+import TempleHeader from './Header'
 import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from './OrderParts'
-import simple from 'mand-mobile/components/swiper/demo/data/simple'
-import TempleMixin from '@/mixins/temple'
 import Vue from 'vue'
+import detail from '@/mixins/detail'
 // import { Toast } from 'mand-mobile'
 export default {
   name: 'Order',
   components: {
-    // [TempleHeader.name]: TempleHeader,
+    [TempleHeader.name]: TempleHeader,
     [Amount.name]: Amount,
     [OrderAmount.name]: OrderAmount,
     [OrderTabs.name]: OrderTabs,
     [Button.name]: Button,
     [ActionBar.name]: ActionBar,
-    [Swiper.name]: Swiper,
     [FormTitle.name]: FormTitle,
     [OrderTimes.name]: OrderTimes,
     [OrderCounts.name]: OrderCounts,
     [NoticeBar.name]: NoticeBar
   },
-  mixins: [TempleMixin],
+  mixins: [detail],
   data() {
     return {
-      simple,
+      items: [],
+      header_height: '3rem',
       actionShow: false,
       data: [
         // {
@@ -62,16 +54,12 @@ export default {
       ],
       tabs: [],
       times: [
-        { value: 1, label: '1天' },
-        { value: 3, label: '3天' },
-        { value: 7, label: '7天' },
-        { value: 49, label: '49天' },
-        { value: 180, label: '180天' },
-        { value: 365, label: '365天' }
       ],
       timeValue: 3,
       eventBus: null,
-      count: 0
+      count: 0,
+      tip: '',
+      templeName: ''
     }
   },
 
@@ -104,7 +92,7 @@ export default {
     handleNext() {
       this.actionShow = false
       const params = {
-        tampleName: this.$config.name,
+        tampleName: this.templeName,
         tabs: this.checkedTabNames,
         count: this.count,
         time: this.timeValue,
@@ -115,18 +103,20 @@ export default {
         name: 'Payment',
         params
       })
+    },
+    detail() {
+      this.getDetail().then(detail => {
+        this.tabs = detail.lights
+        this.times = detail.times
+        this.tip = detail.tip
+        this.items = detail.swiper_items
+        this.header_height = detail.header_height
+        this.templeName = detail.name
+      })
     }
   },
   mounted() {
-    for (let index = 0; index < 9; index++) {
-      this.tabs.push({
-        id: index + 1,
-        title: '婚姻',
-        src: require('@/assets/images/guanyin.png'),
-        checked: false,
-        price: index + 10
-      })
-    }
+    this.detail()
     this.eventBus = new Vue()
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)
@@ -138,8 +128,6 @@ export default {
 </script>
 <style lang="stylus"scoped>
 .wrapper
-  .header
-    height 300px
   .body
     padding 0 2px
     overflow-x hidden

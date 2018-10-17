@@ -1,8 +1,6 @@
 <template>
 <div class="wrapper">
-  <div class="header">
-    <swiper :items="simple" />
-  </div>
+  <TempleHeader :items="items" :height="header_height" />
   <div class="body" v-html="content">
     <!-- <TempleBody :bodyStyle="bodyStyle"/> -->
   </div>
@@ -12,19 +10,22 @@
 <script>
 // import TempleHeader from "./Header";
 // import TempleBody from "./Body";
-import { Button, ActionBar, Toast } from 'mand-mobile'
-import { Swiper } from '@/components'
-import simple from 'mand-mobile/components/swiper/demo/data/simple'
+import { Button, ActionBar } from 'mand-mobile'
+import TempleHeader from './Header'
+import detail from '@/mixins/detail'
+// import simple from 'mand-mobile/components/swiper/demo/data/simple'
 export default {
   name: 'Temple',
   components: {
-    [Swiper.name]: Swiper,
+    [TempleHeader.name]: TempleHeader,
     [Button.name]: Button,
     [ActionBar.name]: ActionBar
   },
+  mixins: [detail],
   data() {
     return {
-      simple,
+      items: [],
+      header_height: '3rem',
       data: [
         {
           text: '返回',
@@ -46,27 +47,19 @@ export default {
     }
   },
   methods: {
-    beforeChange(from, to) {
-    },
-    afterChange(from, to) {
-    },
     handleClick() {
       this.$router.push('/temple/order')
     },
     handleBack() {
       this.$router.goBack()
-    },
-    getDetail() {
-      this.$http.get('/temple/detail', { params: { id: 10000 }}).then(res => {
-        this.content = (res.data.content).join('')
-      }).catch(err => {
-        Toast.failed('读取详情出错，请稍后再试')
-        console.log(err)
-      })
     }
   },
   mounted() {
-    this.getDetail()
+    this.getDetail().then(detail => {
+      this.content = (detail.content).join('')
+      this.items = detail.swiper_items
+      this.header_height = detail.header_height
+    })
   }
 }
 </script>
@@ -80,21 +73,6 @@ export default {
 
 <style lang="stylus" scoped>
 .wrapper
-  .header
-    height:300px
-    .banner-item
-      float left
-      width 100%
-      height 100%
-      line-height 250px
-      text-align center
-      font-size 28px
-      color #FFF
-      box-align center
-      align-items center
-      box-pack center
-      justify-content center
-      text-decoration-line none
   .body
     float left
     width 100%

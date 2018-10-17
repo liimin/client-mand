@@ -1,33 +1,36 @@
 <template>
 <div class="wrapper">
-  <div class="header">
-    <swiper :items="simple" />
-  </div>
+  <TempleHeader :items="items" :height="header_height" />
   <div class="body">
-    <div class="md-example-box-content">每个人都有属于自己的一片森林，也许我们从来不曾去过，但它一直在那里，总会在那里。迷失的人迷失了，相逢的人会再相逢。</div>
+    <div class="md-example-box-content">{{summary}}</div>
     <md-button type="link" size="small" @click="handleDetailClick">查看详情</md-button>
   </div>
 </div>
 </template>
 <script>
 import { Button } from 'mand-mobile'
-import { Swiper } from '@/components'
-import config from '@/config'
-import Vue from 'vue'
-import simple from 'mand-mobile/components/swiper/demo/data/simple'
+import detail from '@/mixins/detail'
+import TempleHeader from './Header'
 export default {
   name: 'Temple',
   components: {
-    [Swiper.name]: Swiper,
+    [TempleHeader.name]: TempleHeader,
     [Button.name]: Button
   },
+  mixins: [detail],
   data() {
     return {
-      simple
+      items: [],
+      summary: '',
+      header_height: '3rem'
     }
   },
   mounted() {
-    Vue.prototype.$config = config
+    this.getDetail().then(detail => {
+      this.summary = detail.summary
+      this.items = detail.swiper_items
+      this.header_height = detail.header_height
+    })
   },
   computed: {
     bodyStyle() {
@@ -37,10 +40,6 @@ export default {
     }
   },
   methods: {
-    beforeChange(from, to) {
-    },
-    afterChange(from, to) {
-    },
     handleDetailClick() {
       this.$router.push('/temple/detail')
     }
@@ -49,21 +48,6 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .wrapper
-  .header
-    height:300px
-    .banner-item
-      float left
-      width 100%
-      height 100%
-      line-height 250px
-      text-align center
-      font-size 28px
-      color #FFF
-      box-align center
-      align-items center
-      box-pack center
-      justify-content center
-      text-decoration-line none
   .body
     float left
     width 100%

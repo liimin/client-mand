@@ -7,6 +7,7 @@
             v-bind:maxlength="total"
             v-model="words" ></textarea>
         <p class="limit">{{wordsCount}}/{{total}}</p>
+        <a class="change" @click="changeWords">换一换</a>
     </div>
 </template>
 <script>
@@ -23,7 +24,8 @@ export default {
       wordsCount: 0,
       total: 200,
       wordsList: [],
-      keyWord: nameKey
+      keyWord: nameKey,
+      name: ''
     }
   },
   methods: {
@@ -41,14 +43,19 @@ export default {
         const randNum = randomNum(0, total - 1)
         this.words = this.wordsList[randNum].text
         this.keyWord = nameKey
+        this.handleNameChanged(this.name)
       }).catch(e => {
         console.log(e)
       })
     },
     handleNameChanged(name) {
+      this.name = name
       const newKey = name ? `【${name}】` : nameKey
       this.words = this.words.replace(this.keyWord, newKey)
       this.keyWord = newKey
+    },
+    changeWords() {
+      this.get_blessions_list()
     }
   },
   mounted() {
@@ -98,10 +105,14 @@ function randomNum(minNum, maxNum) {
         outline none
         // font-weight bold
         background-color transparent
-    .limit
+    .limit,.change
         position absolute
         font-size 20px
-        color color-primary
         bottom 60px
+    .limit
+        color color-primary
         right 20px
+    .change
+        color blue
+        left 20px
 </style>

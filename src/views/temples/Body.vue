@@ -32,24 +32,12 @@ export default {
   },
   methods: {
     $_onRefresh() {
-      // setTimeout(() => {
-      //   this.list = 5
-      //   this.$refs.scrollView.finishRefresh()
-      // }, 2000)
       this.eventBus.$emit('refresh', this.$refs.scrollView.finishRefresh)
     },
     $_onEndReached() {
       if (this.isFinished) {
         return
       }
-      console.log()
-      // setTimeout(() => {
-      //   this.list += 5
-      //   if (this.list >= 20) {
-      //     this.isFinished = true
-      //   }
-      //   this.$refs.scrollView.finishLoadMore()
-      // }, 1000)
       this.eventBus.$emit('loadMore', this.$refs.scrollView.finishLoadMore)
     }
   }

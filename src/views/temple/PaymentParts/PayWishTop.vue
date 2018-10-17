@@ -1,5 +1,5 @@
 <template>
-    <div class="wish">
+    <div class="wish" v-html="wish">
         <label class="wish-title">祈愿文：</label>
         <p class="wish-text">供灯偈</p>
         <p class="wish-text">燃起祈福灯，灭除心头火。</p>
@@ -8,10 +8,13 @@
 </template>
 <script>
 export default {
-  name: 'PayWishTop'
+  name: 'PayWishTop',
+  props: {
+    wish: String
+  }
 }
 </script>
-<style scoped lang="stylus">
+<style lang="stylus">
 .wish
     padding 25px 0
     position relative
