@@ -45,7 +45,7 @@ export default {
           // 必须带此参数
           Wechat_Redirect: '#wechat_redirect'
         }
-        const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.AppId}&redirect_uri=${config.redirect_uri}&response_type=${config.Response_type}&scope=${config.Scope}&state=${config.State}${config.Wechat_Redirect}`
+        const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.AppId}&redirect_uri=${config.redirect_uri}&response_type=code&scope=${config.Scope}&state=${config.State}${config.Wechat_Redirect}`
         window.location = url
       }
     },

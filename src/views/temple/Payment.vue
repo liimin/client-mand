@@ -97,7 +97,7 @@ export default {
       })
     },
     payment() {
-      const openid = this.GetStorage('wxopenid')
+      const openid = this.$get_storage('wxopenid')
       const params = {
         body: '吮指原味鸡 * 1',
         attach: '{"部位":"三角"}',
