@@ -9,17 +9,6 @@ export const Axios = axios.create({
 // POST传参序列化(添加请求拦截器)
 // 在发送请求之前做某件事
 Axios.interceptors.request.use(config => {
-  // 设置以 form 表单的形式提交参数，如果以 JSON 的形式提交表单，可忽略
-  // if (config.method === 'post') {
-  //   // JSON 转换为 FormData
-  //   const formData = new FormData()
-  //   Object.keys(config.data).forEach(key => formData.append(key, config.data[key]))
-  //   config.data = formData
-  // }
-  // console.log(config, config.static)
-  // if (config.static) {
-  // config.baseURL = config.baseURL.replace('api/v1/', '')
-  // }
   if (config.method === 'get') {
     Toast.loading('载入中')
   }
@@ -52,8 +41,6 @@ Axios.interceptors.response.use(res => {
     // originalRequest.timeout = 20 * 1000
     Toast.failed('请求超时')
     return
-    // originalRequest._retry = true
-    // return axios.request(originalRequest)
   }
 
   if (error.code === 401) {
