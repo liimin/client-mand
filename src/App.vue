@@ -37,6 +37,13 @@ export default {
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
+  // position absolute
+  // left 0
+  // top 0
+  // bottom 0
+  // overflow-y scroll
+  // width 100%;
+  height 100%
 .md-action-bar
   -webkit-transform: translateZ(0); 
 .appView {

@@ -16,7 +16,7 @@ export default {
 </script>
 <style scoped lang="stylus">
 .choose-text
-    padding 25px 0
+    margin  25px 0
     position relative
     color color-primary
     .choose-title
@@ -34,4 +34,8 @@ export default {
     float left
     width 100%
     text-align center
+.choose-text::after
+    content ''
+    display block
+    clear both
 </style>

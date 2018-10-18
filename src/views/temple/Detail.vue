@@ -4,7 +4,7 @@
   <div class="body" v-html="content">
     <!-- <TempleBody :bodyStyle="bodyStyle"/> -->
   </div>
-    <md-action-bar :actions="data"></md-action-bar>
+<md-action-bar :actions="data"></md-action-bar>
 </div>
 </template>
 <script>

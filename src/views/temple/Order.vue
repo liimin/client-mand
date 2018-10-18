@@ -4,8 +4,9 @@
     <div class="body">
       <OrderTabs :tabs.sync="tabs" title="祈福类型" />
       <OrderTimes :times="times" :checked="timeValue" :eventBus="eventBus" title="时长" />
+      <OrderChoose />
       <OrderCounts :eventBus="eventBus" title="数量" />
-      <OrderAmount :amount="amount" title="金额" />
+      <!-- <OrderAmount :amount="amount" title="金额" /> -->
       <md-notice-bar :closable="false">
         {{tip}}
       </md-notice-bar>
@@ -18,7 +19,7 @@
 import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
 import { FormTitle } from '@/components'
 import TempleHeader from './Header'
-import { OrderTabs, OrderTimes, OrderCounts, OrderAmount } from './OrderParts'
+import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose } from './OrderParts'
 import Vue from 'vue'
 import detail from '@/mixins/detail'
 // import { Toast } from 'mand-mobile'
@@ -34,7 +35,8 @@ export default {
     [FormTitle.name]: FormTitle,
     [OrderTimes.name]: OrderTimes,
     [OrderCounts.name]: OrderCounts,
-    [NoticeBar.name]: NoticeBar
+    [NoticeBar.name]: NoticeBar,
+    [OrderChoose.name]: OrderChoose
   },
   mixins: [detail],
   data() {
@@ -131,6 +133,7 @@ export default {
   .body
     padding 0 2px
     overflow-x hidden
+    padding-bottom 1rem
     .weui-flex
       align-items center
     .md-amount

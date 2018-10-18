@@ -6,13 +6,19 @@
 }
 body{
   background-color:#fff;
+  position: absolute;
+  left: 0;
+  bottom: .9rem;
+  width: 100%;
+  top: 0;
+  /* height: calc(100% - .9rem); */
   /* background: url('./images/bg.webp') no-repeat ; */
 }
 html{
   height: 100%;
 }
 .md-action-bar{
-  /* height: .8rem !important; */
+  height: .9rem !important;
   animation: action 1s linear;
 }
 @keyframes action{
