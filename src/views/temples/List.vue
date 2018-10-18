@@ -11,7 +11,7 @@
 <script>
 import TempleHeader from './Header'
 import TempleBody from './Body'
-import wepay from '@/mixins/wepay'
+// import wepay from '@/mixins/wepay'
 import Vue from 'vue'
 export default {
   name: 'TempleList',
@@ -19,7 +19,7 @@ export default {
     [TempleHeader.name]: TempleHeader,
     [TempleBody.name]: TempleBody
   },
-  mixins: [wepay],
+  // mixins: [wepay],
   data() {
     return {
       eventBus: null,
