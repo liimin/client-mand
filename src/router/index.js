@@ -1,19 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-// const _import = require('./_import_' + process.env.NODE_ENV)
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // 这个样式必须引入
-// import { Toast } from 'mand-mobile'
 NProgress.configure({ easing: 'ease', speed: 500, showSpinner: true })
 Vue.use(Router)
-// const Foo = resolve => {
-//   Toast.open()
-//   require.ensure(['./Foo.vue'], () => {
-//     resolve(require('./Foo.vue'))
-//     Toast.close()
-//   })
-// }
 const routes = [
   {
     path: '/',
@@ -63,11 +53,9 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  // Toast.loading('载入中')
   next()
 })
 router.afterEach((to, from) => {
-  // Toast.hide()
   NProgress.done()
 })
 export default router
