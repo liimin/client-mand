@@ -23,9 +23,12 @@ export default {
       words: '',
       wordsCount: 0,
       total: 200,
-      wordsList: [],
       keyWord: nameKey,
-      name: ''
+      name: '',
+      blessions: {
+        total: 0,
+        list: []
+      }
     }
   },
   methods: {
@@ -33,19 +36,35 @@ export default {
       this.wordsCount = this.total - this.words.length
     },
     get_blessions_list() {
+      if (this.blessions.total) {
+        this.setWords()
+        return
+      }
+      this.getData().then(() => {
+        this.setWords()
+      })
+    },
+    setWords() {
+      const { total, list } = this.blessions
+      const randNum = randomNum(0, total - 1)
+      this.words = list[randNum].text
+      this.keyWord = nameKey
+      this.handleNameChanged(this.name)
+    },
+    getData() {
       const params = {
         page: 1,
         pageSize: 100
       }
-      this.$http.get('/blessions/list', { params }).then(res => {
-        const { total } = res.page
-        this.wordsList = res.data
-        const randNum = randomNum(0, total - 1)
-        this.words = this.wordsList[randNum].text
-        this.keyWord = nameKey
-        this.handleNameChanged(this.name)
-      }).catch(e => {
-        console.log(e)
+      return new Promise(resolve => {
+        this.$http.get('/blessions/list', { params }).then(res => {
+          const { total } = res.page
+          this.blessions.list = res.data
+          this.blessions.total = total
+          resolve()
+        }).catch(e => {
+          console.log(e)
+        })
       })
     },
     handleNameChanged(name) {

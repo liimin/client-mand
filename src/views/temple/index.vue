@@ -5,6 +5,12 @@
     <div class="md-example-box-content">{{summary}}</div>
     <md-button type="link" size="small" @click="handleDetailClick">查看详情</md-button>
   </div>
+  <div class="weui-footer weui-footer_fixed-bottom">
+    <p class="weui-footer__links">
+        <a href="http://www.miitbeian.gov.cn/" class="weui-footer__link">粤ICP备18125096号</a>
+    </p>
+    <p class="weui-footer__text">Copyright © 2008-2016</p>
+  </div>
 </div>
 </template>
 <script>

@@ -2,8 +2,8 @@ import axios from 'axios'
 import { Toast } from 'mand-mobile'
 // import qs from 'qs'
 export const Axios = axios.create({
-  baseURL: 'http://weeechat.free.idcfengye.com/',
-  // baseURL: 'http://www.gpspas.com:3000/',
+  // baseURL: 'http://weeechat.free.idcfengye.com/',
+  baseURL: 'http://www.gpspas.com:3000/',
   timeout: 10000
 })
 // POST传参序列化(添加请求拦截器)
