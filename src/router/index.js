@@ -7,12 +7,7 @@ Vue.use(Router)
 const routes = [
   {
     path: '/',
-    redirect: '/temples/list'
-  },
-  {
-    path: '/temples/list',
-    name: 'TempleList',
-    component: resolve => require(['@/views/temples/List'], resolve)
+    redirect: '/temple/index'
   },
   {
     path: '/temple',
