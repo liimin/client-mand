@@ -1,6 +1,6 @@
 <template>
   <div class="header" :style="{ height }">
-     <swiper :items="items" />
+     <swiper :items="items" :trans="trans" :autoplay="autoplay"/>
   </div>
 </template>
 <script>
@@ -13,6 +13,12 @@ export default {
   props: {
     items: Array,
     height: String
+  },
+  data() {
+    return {
+      autoplay: 5000,
+      trans: 'slideY'
+    }
   }
 }
 </script>

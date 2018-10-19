@@ -4,7 +4,7 @@
     <div class="body">
       <OrderTabs :tabs.sync="tabs" title="祈福类型" />
       <OrderTimes :times="times" :checked="timeValue" :eventBus="eventBus" title="时长" />
-      <OrderChoose />
+      <OrderChoose :sns="sns" :eventBus="eventBus" />
       <OrderCounts :eventBus="eventBus" title="数量" />
       <!-- <OrderAmount :amount="amount" title="金额" /> -->
       <md-notice-bar :closable="false">
@@ -19,9 +19,10 @@
 import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
 import { FormTitle } from '@/components'
 import TempleHeader from './Header'
-import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose } from './OrderParts'
+import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose, OrderTower } from './OrderParts'
 import Vue from 'vue'
 import detail from '@/mixins/detail'
+// import mulit from 'mand-mobile/components/swiper/demo/data/mulit-item'
 // import { Toast } from 'mand-mobile'
 export default {
   name: 'Order',
@@ -36,7 +37,8 @@ export default {
     [OrderTimes.name]: OrderTimes,
     [OrderCounts.name]: OrderCounts,
     [NoticeBar.name]: NoticeBar,
-    [OrderChoose.name]: OrderChoose
+    [OrderChoose.name]: OrderChoose,
+    [OrderTower.name]: OrderTower
   },
   mixins: [detail],
   data() {
@@ -61,7 +63,33 @@ export default {
       eventBus: null,
       count: 0,
       tip: '',
-      templeName: ''
+      templeName: '',
+      sns: [
+        {
+          color: '#4390EE',
+          text: '引力波'
+        },
+        {
+          color: '#CA4040',
+          text: '智子'
+        },
+        {
+          color: '#FF8604',
+          text: '水滴'
+        },
+        {
+          color: '#00CC00',
+          text: '二向箔'
+        },
+        {
+          color: '#0066CC',
+          text: '飞刃'
+        },
+        {
+          color: '#99CCCC',
+          text: '碎星'
+        }
+      ]
     }
   },
 

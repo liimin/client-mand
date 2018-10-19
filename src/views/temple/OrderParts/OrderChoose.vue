@@ -16,14 +16,15 @@
         @confirm="hidePopUp('scroll')"
         @cancel="hidePopUp('scroll')"
       ></md-popup-title-bar>
-      <div class="md-example-popup md-example-popup-bottom" style="height: 200px;overflow:auto">
-        <p v-for="n in 50" :key="n">Popup Bottom {{ n }}</p>
+      <div class="md-example-popup md-example-popup-bottom">
+        <OrderTower title="设备" :sns="sns" />
       </div>
     </md-popup>
 </div>
 </template>
 <script>
 import { Field, FieldItem, Popup, PopupTitleBar, Icon } from 'mand-mobile'
+import OrderTower from './OrderTower'
 export default {
   name: 'OrderChoose',
   components: {
@@ -31,11 +32,13 @@ export default {
     [FieldItem.name]: FieldItem,
     [Popup.name]: Popup,
     [PopupTitleBar.name]: PopupTitleBar,
-    [Icon.name]: Icon
+    [Icon.name]: Icon,
+    [OrderTower.name]: OrderTower
   },
   props: {
     eventBus: Object,
-    title: String
+    title: String,
+    sns: Array
   },
   data() {
     return {
