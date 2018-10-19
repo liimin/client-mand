@@ -1,7 +1,7 @@
 <template>
   <OrderItem :title="title" :isInline="isInline" >
-    <md-check-box v-model="CheckedTime" :options="times" :cols="cols" slot="item">
-      <div slot="content" slot-scope="{ option }" class="payment-gateway">
+    <md-check-box v-model="CheckedTime" :options="times" :cols="cols" slot="item" class="card">
+      <div slot="content" slot-scope="{ option }" class="payment-gateway ">
         <p v-text="option.label"></p>
         <!-- <p class="muted" v-text="option.desc"></p> -->
       </div>

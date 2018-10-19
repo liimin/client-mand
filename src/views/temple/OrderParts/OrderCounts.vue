@@ -1,6 +1,6 @@
 <template>
-  <OrderItem :title="title" :isInline="isInline">
-    <div class="md-example-child md-example-child-stepper md-example-child-stepper-4" slot="item">
+  <OrderItem :title="title" :isInline="isInline" class="card">
+    <div  slot="item">
       <md-field>
         <md-field-item name="arrow4" title="" customized align="left">
           <div class="normal-tip">
@@ -51,11 +51,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.payment-gateway {
-  text-align: center;
-  font-size: 0.2rem;
-}
-
 .muted {
   color: #888;
   font-size: 0.24rem;

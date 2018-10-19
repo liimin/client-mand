@@ -1,6 +1,6 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
-    <div class="weui-grids" slot="item">
+    <div class="weui-grids card" slot="item">
       <a href="javascript:;" class="weui-grid" v-for="item in tabs" :key="item.id" @click="handleTabClick(item)">
         <div class="weui-grid__icon">
           <div class="tab-wrapper">

@@ -19,7 +19,7 @@
 import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
 import { FormTitle } from '@/components'
 import TempleHeader from './Header'
-import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose, OrderTower } from './OrderParts'
+import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose } from './OrderParts'
 import Vue from 'vue'
 import detail from '@/mixins/detail'
 // import mulit from 'mand-mobile/components/swiper/demo/data/mulit-item'
@@ -37,8 +37,7 @@ export default {
     [OrderTimes.name]: OrderTimes,
     [OrderCounts.name]: OrderCounts,
     [NoticeBar.name]: NoticeBar,
-    [OrderChoose.name]: OrderChoose,
-    [OrderTower.name]: OrderTower
+    [OrderChoose.name]: OrderChoose
   },
   mixins: [detail],
   data() {
@@ -156,10 +155,13 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+</style>
+
 <style lang="stylus"scoped>
 .wrapper
   .body
-    padding 0 2px
+    // padding 0 2px
     overflow-x hidden
     padding-bottom 1rem
     .weui-flex

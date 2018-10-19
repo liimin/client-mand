@@ -1,5 +1,5 @@
 <template>
-    <div class="choose-text">
+    <div class="choose-text card">
         <p class="choose-title">您已选择在</p>
         <p class="choose-name">【{{model.tampleName}}】</p>
         <p class="choose-describe">供奉{{model.tabs}}各{{model.count}}盏,{{model.time}}天</p>
@@ -16,7 +16,6 @@ export default {
 </script>
 <style scoped lang="stylus">
 .choose-text
-    margin  25px 0
     position relative
     color color-primary
     .choose-title

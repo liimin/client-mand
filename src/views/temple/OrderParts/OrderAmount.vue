@@ -1,6 +1,6 @@
 <template>
   <OrderItem :title="title" :isInline="isInline" >
-    <div class="md-example-child md-example-child-stepper md-example-child-stepper-4" slot="item">
+    <div class="card" slot="item">
       <md-field>
         <md-field-item name="arrow4" title="" customized align="left">
           <div class="normal-tip">

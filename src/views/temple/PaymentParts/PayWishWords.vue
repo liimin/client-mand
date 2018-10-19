@@ -1,5 +1,5 @@
 <template>
-    <div class="wish-words">
+    <div class="wish-words card">
         <textarea 
             class="words" 
             rows='10' 

@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :style="{ height }">
+  <div class="t-header" :style="{ height }">
      <swiper :items="items" :trans="trans" :autoplay="autoplay"/>
   </div>
 </template>
@@ -22,7 +22,8 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-.body {
-}
+<style lang="stylus">
+.t-header
+  img
+    width 100%
 </style>

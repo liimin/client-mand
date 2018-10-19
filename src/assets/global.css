@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 body{
-  background-color:#fff;
+  background-color:#f0f0f0;
   position: absolute;
   left: 0;
   bottom: .9rem;
@@ -13,6 +13,18 @@ body{
   top: 0;
   /* height: calc(100% - .9rem); */
   /* background: url('./images/bg.webp') no-repeat ; */
+}
+.card{
+  background-color: #fff;
+  margin-bottom: 2px;
+  padding:10px;
+  border: 1px solid #f0f0f0;
+  /* border-radius: 10px; */
+}
+.clearfix::after{
+  content: '';
+  display:block;
+  clear: both;
 }
 html{
   height: 100%;

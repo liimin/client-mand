@@ -1,5 +1,5 @@
 <template>
-    <div class="wish" v-html="wish">
+    <div class="wish card clearfix" v-html="wish">
         <label class="wish-title">祈愿文：</label>
         <p class="wish-text">供灯偈</p>
         <p class="wish-text">燃起祈福灯，灭除心头火。</p>

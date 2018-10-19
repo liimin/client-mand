@@ -1,6 +1,7 @@
 <template>
-    <div class="info">
-        <md-field>
+<div class="payment">
+    <div class="info card">
+        <md-field >
             <md-input-item ref="amount" title="金额：" v-model="infoModel.amount" disabled clearable></md-input-item>
             <md-input-item ref="name" title="姓名：" v-model="infoModel.to" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
             <md-input-item ref="tel" v-model="infoModel.tel" type="phone" title="电话：" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
@@ -12,11 +13,6 @@
                 </div>
             </transition>
         </md-field>
-        <div :class="isMore?'close':'showMore'" @click="isMore=!isMore">
-            {{isMore?'收起':'更多'}}
-            <!-- <a>{{isMore?'收起':'更多'}}</a>
-            <md-icon :name="isMore?'arrow-up':'arrow-down'" size="lg"></md-icon> -->
-        </div>
         <md-date-picker
             ref="datePicker"
             v-model="isDatePickerShow"
@@ -31,6 +27,12 @@
             @confirm="onDatePickerConfirm"
         ></md-date-picker>
     </div>
+     <div :class="isMore?'close':'showMore'" @click="isMore=!isMore">
+            {{isMore?'收起':'更多'}}
+            <!-- <a>{{isMore?'收起':'更多'}}</a>
+            <md-icon :name="isMore?'arrow-up':'arrow-down'" size="lg"></md-icon> -->
+        </div>
+        </div>
 </template>
 
 <script>
@@ -142,7 +144,7 @@ export default {
     font-size .30rem
     color color-primary
     text-align center
-    background-color #ccc
+    // background-color #ccc
   .showMore::after,.close::after
     content ""
     position relative

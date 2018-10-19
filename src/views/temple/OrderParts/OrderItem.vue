@@ -7,7 +7,7 @@
       <slot name="item"></slot>
     </div>
   </div>
-  <div v-else>
+  <div v-else class="">
     <FormTitle :title="title" />
     <slot name="item"></slot>
   </div>
@@ -26,6 +26,9 @@ export default {
 }
 </script>
 <style lang="stylus">
+.order{
+
+}
 .md-field-item{
     background-color transparent;
 }
