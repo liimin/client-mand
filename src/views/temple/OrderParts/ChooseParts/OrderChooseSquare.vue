@@ -1,7 +1,7 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
   <div class="order-choose-square card"  slot="item" >
-     <AWSwiper :items="aSns" :isMulit="true" :trans="trans" :autoplay="autoplay" :swiperOption="swiperOption" />
+     <AWSwiper :items="aSns" :swiperOption="swiperOption" />
   </div>
 </OrderItem>
 </template>
@@ -22,18 +22,17 @@ export default {
     return {
       aSns: [],
       isInline: false,
-      autoplay: 1000,
-      trans: 'slide',
       swiperOption: {
-        height: 100,
+        height: 40,
         effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
+        slideToClickedSlide: true,
         coverflowEffect: {
-          rotate: 50,
+          rotate: 70,
           stretch: 0,
-          depth: 100,
+          depth: 300,
           modifier: 1,
           slideShadows: true
         },
@@ -61,7 +60,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-// .order-choose-square
+.order-choose-square
+  min-height 100px
 </style>
 
 

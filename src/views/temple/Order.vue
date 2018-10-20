@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       items: [],
-      header_height: '3rem',
+      header_height: '3.5rem',
       actionShow: false,
       data: [
         // {
@@ -139,7 +139,7 @@ export default {
         this.times = detail.times
         this.tip = detail.tip
         this.items = detail.swiper_items
-        this.header_height = detail.header_height
+        // this.header_height = detail.header_height
         this.templeName = detail.name
       })
     }
