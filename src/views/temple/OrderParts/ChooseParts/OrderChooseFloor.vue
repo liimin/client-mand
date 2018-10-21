@@ -1,7 +1,7 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
   <div class="order-choose-floor card"  slot="item" >
-     <AWSwiper :items="aFloors"  :swiperOption="swiperOption"/>
+     <AWSwiper :items="aFloors"  :swiperOption="swiperOption" :val.sync="val"/>
   </div>
 </OrderItem>
 </template>
@@ -16,7 +16,20 @@ export default {
   },
   props: {
     floors: Array,
-    title: String
+    title: String,
+    eventBus: Object,
+    floorId: [String, Number]
+  },
+  computed: {
+    val: {
+      set(v) {
+        console.log(v)
+        this.eventBus.$emit('update:floorId', v)
+      },
+      get() {
+        return this.floorId
+      }
+    }
   },
   data() {
     return {
@@ -24,13 +37,32 @@ export default {
       isInline: false,
       swiperOption: {
         height: 40,
-        slidesPerView: 4,
-        spaceBetween: 30,
-        centeredSlides: true,
+        slidesPerView: 3,
+        spaceBetween: 50,
         slideToClickedSlide: true,
+        // centeredSlides: true,
+        // init: false,
         pagination: {
           el: '.swiper-pagination',
           clickable: true
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 10,
+            spaceBetween: 40
+          },
+          768: {
+            slidesPerView: 8,
+            spaceBetween: 20
+          },
+          640: {
+            slidesPerView: 6,
+            spaceBetween: 10
+          },
+          320: {
+            slidesPerView: 3,
+            spaceBetween: 10
+          }
         }
       }
     }

@@ -4,7 +4,7 @@
     <div class="body">
       <OrderTabs :tabs.sync="tabs" title="祈福类型" />
       <OrderTimes :times="times" :checked="timeValue" :eventBus="eventBus" title="时长" />
-      <OrderChoose :sns="sns" :eventBus="eventBus" />
+      <OrderChoose :towers="towers" :eventBus="eventBus" />
       <OrderCounts :eventBus="eventBus" title="数量" />
       <!-- <OrderAmount :amount="amount" title="金额" /> -->
       <md-notice-bar :closable="false">
@@ -42,6 +42,7 @@ export default {
   mixins: [detail],
   data() {
     return {
+      towers: [],
       items: [],
       header_height: '3.5rem',
       actionShow: false,
@@ -63,30 +64,31 @@ export default {
       count: 0,
       tip: '',
       templeName: '',
+      templeId: 0,
       sns: [
         {
-          color: '#4390EE',
-          text: '引力波'
+          text: '引力波',
+          id: 1
         },
         {
-          color: '#CA4040',
-          text: '智子'
+          text: '智子',
+          id: 2
         },
         {
-          color: '#FF8604',
-          text: '水滴'
+          text: '水滴',
+          id: 3
         },
         {
-          color: '#00CC00',
-          text: '二向箔'
+          text: '二向箔',
+          id: 4
         },
         {
-          color: '#0066CC',
-          text: '飞刃'
+          text: '飞刃',
+          id: 5
         },
         {
-          color: '#99CCCC',
-          text: '碎星'
+          text: '碎星',
+          id: 6
         }
       ]
     }
@@ -106,6 +108,7 @@ export default {
     checkedTabNames() {
       return this.aTabs.map(tab => tab.title + '灯').join(',')
     }
+
   },
   methods: {
     handleReturn() {
@@ -134,18 +137,302 @@ export default {
       })
     },
     detail() {
-      this.getDetail().then(detail => {
-        this.tabs = detail.lights
-        this.times = detail.times
-        this.tip = detail.tip
-        this.items = detail.swiper_items
-        // this.header_height = detail.header_height
-        this.templeName = detail.name
+      return new Promise(resolve => {
+        this.getDetail().then(detail => {
+          this.tabs = detail.lights
+          this.times = detail.times
+          this.tip = detail.tip
+          this.items = detail.swiper_items
+          // this.header_height = detail.header_height
+          this.templeName = detail.name
+          this.templeId = detail.id
+          resolve()
+        })
       })
+    },
+    getDevices() {
+      setTimeout(_ => {
+        this.towers = [
+          {
+            'sn': 'abcd1',
+            'addr': 'palace1',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层1',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            'sn': 'abcd2',
+            'addr': 'palace2',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层2',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            'sn': 'abcd3',
+            'addr': 'palace',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层1',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            'sn': 'abcd4',
+            'addr': 'palace',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层1',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            'sn': 'abcd5',
+            'addr': 'palace',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层1',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            'sn': 'abcd6',
+            'addr': 'palace',
+            'layer': '7',
+            'side': '8',
+            'layers': [
+              {
+                'side': '8',
+                'name': '层1111',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1234',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                'side': '8',
+                'name': '层2',
+                'sides': [
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面1',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  },
+                  {
+                    'row': '12',
+                    'col': '10',
+                    'name': '面11111',
+                    'lights': [
+                      {
+                        'index': '0A01',
+                        'status': '0',
+                        'layer': '7',
+                        'side': '1',
+                        'row': '12',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A02',
+                        'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }, 3000)
+
+      // this.$http.get('/device/list', { params: { 'temple_id': this.templeId }}).then(res => {
+      //   this.towers = res.data
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     }
   },
   mounted() {
-    this.detail()
+    this.detail().then(() => {
+      this.getDevices()
+    })
     this.eventBus = new Vue()
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)

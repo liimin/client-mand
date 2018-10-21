@@ -85,7 +85,7 @@ export default {
         animation: rond 3s infinite;
         -webkit-animation: rond 3s infinite;
         -webkit-box-shadow: 0 0 10px color-primary;
-        box-shadow: 0 0 10px color-primary;
+        box-shadow: 0 0 10px 5px color-primary;
 
         .dot {
           height: 10px;

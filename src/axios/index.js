@@ -3,7 +3,7 @@ import { Toast } from 'mand-mobile'
 // import qs from 'qs'
 export const Axios = axios.create({
   // baseURL: 'http://weeechat.free.idcfengye.com/',
-  baseURL: 'http://www.gpspas.com:3000/',
+  baseURL: 'http://localhost:3000/',
   timeout: 10000
 })
 // POST传参序列化(添加请求拦截器)
@@ -55,7 +55,8 @@ Axios.interceptors.response.use(res => {
     // originalRequest._retry = true
     // return axios.request(originalRequest)
   }
-
+  // Toast.failed('请求出错，请稍后再试')
+  Toast.hide()
   if (error.code === 401) {
     // 401 说明 token 验证失败
     // 可以直接跳转到登录页面，重新登录获取 token

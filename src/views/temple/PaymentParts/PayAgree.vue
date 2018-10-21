@@ -1,5 +1,5 @@
 <template>
-    <div class="agree">
+    <div class="agree card  ">
         <md-agree 
             v-model="agreeConf.checked" 
             :disabled="agreeConf.disabled" 

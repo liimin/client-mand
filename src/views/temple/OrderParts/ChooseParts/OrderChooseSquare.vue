@@ -1,7 +1,7 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
   <div class="order-choose-square card"  slot="item" >
-     <AWSwiper :items="aSns" :swiperOption="swiperOption" />
+     <AWSwiper :items="aSns" :swiperOption="swiperOption"  :val.sync="val"/>
   </div>
 </OrderItem>
 </template>
@@ -16,7 +16,19 @@ export default {
   },
   props: {
     sns: Array,
-    title: String
+    title: String,
+    eventBus: Object,
+    squareId: [String, Number]
+  },
+  computed: {
+    val: {
+      set(v) {
+        this.eventBus.$emit('update:squareId', v)
+      },
+      get() {
+        return this.squareId
+      }
+    }
   },
   data() {
     return {
@@ -61,7 +73,7 @@ export default {
 </script>
 <style lang="stylus">
 .order-choose-square
-  min-height 100px
+  min-height 50px
 </style>
 
 

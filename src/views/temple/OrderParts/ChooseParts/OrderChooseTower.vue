@@ -1,7 +1,7 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
   <div class="order-choose-tower card"  slot="item" >
-     <AWSwiper :items="aSns"  :swiperOption="swiperOption"/>
+     <AWSwiper :items="aSns"  :swiperOption="swiperOption" :val.sync="val"/>
   </div>
 </OrderItem>
 </template>
@@ -16,7 +16,19 @@ export default {
   },
   props: {
     sns: Array,
-    title: String
+    title: String,
+    eventBus: Object,
+    towerId: [String, Number]
+  },
+  computed: {
+    val: {
+      set(v) {
+        this.eventBus.$emit('update:towerId', v)
+      },
+      get() {
+        return this.towerId
+      }
+    }
   },
   data() {
     return {
@@ -59,15 +71,19 @@ export default {
       immediate: true,
       handler(val) {
         this.aSns = val
+        // this.$nextTick(_ => {
+        //   // this.eventBus.$emit('update:towerId', this.towerId)
+        // })
       }
     }
   },
   mounted() {
+    // this.$nextTick(_ => {
+    //   console.log(this.towerId)
+    //   this.eventBus.$emit('update:towerId', this.towerId)
+    // })
   },
   methods: {
-    handleTabClick(item) {
-      item.checked = !item.checked
-    }
   }
 }
 </script>

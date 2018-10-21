@@ -21,7 +21,8 @@ export default {
   },
   props: {
     lamps: Array,
-    title: String
+    title: String,
+    eventBus: Object
   },
   data() {
     return {
