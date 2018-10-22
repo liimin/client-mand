@@ -158,6 +158,8 @@ export default {
             'addr': 'palace1',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',
@@ -170,7 +172,7 @@ export default {
                     'lights': [
                       {
                         'index': '0A01',
-                        'status': '0',
+                        'status': '1',
                         'layer': '7',
                         'side': '1',
                         'row': '12',
@@ -179,6 +181,13 @@ export default {
                       {
                         'index': '0A02',
                         'status': '0',
+                        'layer': '7',
+                        'row': '10',
+                        'col': '2'
+                      },
+                      {
+                        'index': '0A03',
+                        'status': '1',
                         'layer': '7',
                         'row': '10',
                         'col': '2'
@@ -194,6 +203,8 @@ export default {
             'addr': 'palace2',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',
@@ -230,6 +241,8 @@ export default {
             'addr': 'palace',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',
@@ -266,6 +279,8 @@ export default {
             'addr': 'palace',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',
@@ -302,6 +317,8 @@ export default {
             'addr': 'palace',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',
@@ -338,6 +355,8 @@ export default {
             'addr': 'palace',
             'layer': '7',
             'side': '8',
+            'on': '10',
+            'off': '1',
             'layers': [
               {
                 'side': '8',

@@ -1,12 +1,26 @@
 <template>
   <div class="order-choose-stat card" slot="item">
     <div class="weui-grids">
-      <a href="javascript:;" class="weui-grid" v-for="(item,index) in aStatis" :key="index">
+      <a href="javascript:;" class="weui-grid">
         <div class="weui-grid__icon">
-          <img :src="item.src" alt="">
+          <img :src="on" alt="">
         </div>
-        <p class="weui-grid__label count">{{item.count}}</p>
-        <p class="weui-grid__label title">{{item.title}}</p>
+        <p class="weui-grid__label count">{{oStatic.total}}</p>
+        <p class="weui-grid__label title">总共</p>
+      </a>
+      <a href="javascript:;" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img :src="checked" alt="">
+        </div>
+        <p class="weui-grid__label count">{{oStatic.checked}}</p>
+        <p class="weui-grid__label title">已选</p>
+      </a>
+      <a href="javascript:;" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img :src="off" alt="">
+        </div>
+        <p class="weui-grid__label count">{{oStatic.off}}</p>
+        <p class="weui-grid__label title">剩余</p>
       </a>
     </div>
   </div>
@@ -21,43 +35,33 @@ export default {
     [AWSwiper.name]: AWSwiper
   },
   props: {
-    sns: Array,
-    title: String
+    statics: Object,
+    eventBus: Object
   },
+  // computed: {
+
+  // },
   data() {
     return {
-      aStatis: [{
-        src: 'http://www.gpspas.com:3000/10000/images/guanyin.png',
-        title: '总共',
-        count: 1000
-      },
-      {
-        src: 'http://www.gpspas.com:3000/10000/images/guanyin.png',
-        title: '已选',
-        count: 0
-      },
-      {
-        src: 'http://www.gpspas.com:3000/10000/images/guanyin.png',
-        title: '剩余',
-        count: 68
-      }],
+      on: require('@/assets/images/on.png'),
+      off: require('@/assets/images/off.png'),
+      checked: require('@/assets/images/checked.png'),
       isInline: false,
       autoplay: 1000,
-      trans: 'slide'
-    }
-  },
-  watch: {
-    sns: {
-      immediate: true,
-      handler(val) {
-        this.aSns = val
+      trans: 'slide',
+      oStatic: {
+        total: 0,
+        off: 0,
+        checked: 0
       }
     }
   },
-  mounted() {},
-  methods: {
-    handleTabClick(item) {
-      item.checked = !item.checked
+  watch: {
+    statics: {
+      immediate: true,
+      handler(val) {
+        this.oStatic = val
+      }
     }
   }
 }
@@ -78,6 +82,10 @@ export default {
     .count
       font-size .32rem
       font-weight bold
+      margin-top 0
+    .weui-grid__icon
+      width 120px
+      height 80px
 </style>
 
 

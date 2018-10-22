@@ -12,7 +12,7 @@ body{
   width: 100%;
   top: 0;
   /* height: calc(100% - .9rem); */
-  /* background: url('./images/bg.webp') no-repeat ; */
+  /* background: url('./images/bg.jpg') repeat ; */
 }
 .card{
   background-color: #fff;

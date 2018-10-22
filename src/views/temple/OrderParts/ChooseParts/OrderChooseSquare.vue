@@ -61,13 +61,6 @@ export default {
         this.aSns = val
       }
     }
-  },
-  mounted() {
-  },
-  methods: {
-    handleTabClick(item) {
-      item.checked = !item.checked
-    }
   }
 }
 </script>

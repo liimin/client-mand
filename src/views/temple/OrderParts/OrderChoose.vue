@@ -1,5 +1,5 @@
 <template>
-<div class="order-choose">
+<div :class="{ 'order-choose': isPopShow, 'pop-hide': !isPopShow}">
   <md-field>
     <md-field-item name="choose" title="选灯：" @click="showPopUp('scroll')"  align="right" arrow="arrow-right" />
   </md-field>
@@ -10,6 +10,7 @@
       prevent-scroll-exclude=".md-example-popup-bottom"
       transition="fade"
       ref="pop"
+      :has-mask="false"
     >
       <md-popup-title-bar
         title="供灯选择"
@@ -19,11 +20,11 @@
         @cancel="hidePopUp()"
       ></md-popup-title-bar>
       <div class="md-example-popup md-example-popup-bottom">
-        <OrderChooseStat />
-        <OrderChooseTower title="塔" :sns="aSns"  :eventBus="eventBus" :towerId="oTower.activeId"/>
-        <OrderChooseFloor title="层"  :floors="aFloor" :eventBus="eventBus" :floorId="oFloor.activeId"/>
-        <OrderChooseSquare title="面" :sns="aSquare" :eventBus="eventBus" :squareId="oSquare.activeId"/>
-        <OrderChooseLamp title="灯" :lamps="aSns" :eventBus="eventBus"/>
+        <OrderChooseStat :statics="oStatic"/>
+        <OrderChooseTower title="塔" :sns="oTower.list"  :eventBus="eventBus" :towerId="oTower.active.id"/>
+        <OrderChooseFloor title="层"  :floors="oFloor.list" :eventBus="eventBus" :floorId="oFloor.active.id"/>
+        <OrderChooseSquare title="面" :sns="oSquare.list" :eventBus="eventBus" :squareId="oSquare.active.id"/>
+        <OrderChooseLamp title="灯" :lamps.sync="oLamp.list" :eventBus="eventBus"/>
       </div>
     </md-popup>
 </div>
@@ -56,26 +57,29 @@ export default {
     return {
       isInline: true,
       popup: {
-        show: false
-      },
-      aSns: [],
-      aFloor: [],
-      aSquare: [],
-      aTower: [],
-      oFloor: {
-        activeId: 2,
-        list: []
-      },
-      oSquare: {
-        activeId: 1,
-        list: []
+        show: true
       },
       oTower: {
-        activeId: '',
-        list: this.tower
+        list: [],
+        active: {}
       },
-      isDataReady: false
-      // CheckedTime: ''
+      oFloor: {
+        list: [],
+        active: {}
+      },
+      oSquare: {
+        list: [],
+        active: {}
+      },
+      oLamp: {
+        list: []
+      },
+      oStatic: {
+        total: 0,
+        off: 0,
+        checked: 0
+      },
+      isPopShow: false
     }
   },
   watch: {
@@ -84,13 +88,17 @@ export default {
         val.$on('update:floorId', this.setFloorId)
         val.$on('update:squareId', this.setSquareId)
         val.$on('update:towerId', this.setTowerId)
+        val.$on('update:lampcheck', this.lampcheck)
+        // val.$on('update:lamps', this.setLampStatus)
       }
     },
     towers: {
       handler(val) {
-        this.setTower().then(_ => this.setTowerId().then(_ => {
-          this.isDataReady = true
-        }))
+        this.$nextTick(_ => {
+          this.getTower().then(_ => { return this.setTowerId() }).then(_ => {
+            this.lampcheck()
+          })
+        })
       }
     }
   },
@@ -103,40 +111,30 @@ export default {
         return this.checked
       }
     }
-    // tower() {
-    //   return this.towers.map(tower => {
-    //     return { 'text': tower.addr, 'id': tower.sn }
-    //   })
-    // }
   },
   mounted() {
-
   },
   methods: {
-    handleCountChange(value) {
-      this.eventBus.$emit('countChanged', value)
+    lampcheck() {
+      return new Promise((resolve, reject) => {
+        const checked = this.oLamp.list.filter(l => l.checked).length
+        this.$set(this.oStatic, 'checked', checked)
+        resolve()
+      })
     },
     showPopUp() {
-      this.$set(this.popup, 'show', true)
-      const i = setInterval(() => {
-        if (this.isDataReady) {
-          setTimeout(_ => {
-            clearInterval(i)
-            this.aSns = this.aTower
-            this.aFloor = this.oFloor.list
-            this.aSquare = this.oSquare.list
-          }, 1500)
-        }
-      }, 500)
+      this.isPopShow = true
     },
     hidePopUp() {
-      this.$set(this.popup, 'show', false)
+      this.isPopShow = false
     },
     setTowerId(towerId) {
       return new Promise((resolve, reject) => {
-        this.oTower.activeId = towerId || this.aTower[0].id
-        this.setFloor()
+        this.setTower(towerId)
+          .then(_ => { return this.setFloor() })
           .then(() => { return this.setSquare() })
+          .then(() => { return this.setLamp() })
+          .then(() => { return this.lampcheck() })
           .then(_ => resolve())
           .catch(err => {
             console.log(err)
@@ -147,6 +145,7 @@ export default {
       return new Promise((resolve, reject) => {
         this.setFloor(floorId)
           .then(() => { return this.setSquare() })
+          .then(() => { return this.setLamp() })
           .then(_ => resolve())
           .catch(err => {
             console.log(err)
@@ -155,27 +154,30 @@ export default {
     },
     setSquareId(squareId) {
       this.setSquare(squareId)
+        .then(() => { return this.setLamp() })
+    },
+    setTower(id) {
+      return new Promise((resolve, reject) => {
+        try {
+          const active = id ? this.oTower.list.filter(f => f.sn === id)[0] : this.oTower.list[0]
+          this.$set(this.oTower, 'active', active)
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
+      })
     },
     setSquare(id) {
       return new Promise((resolve, reject) => {
         try {
-          var sn = this.oTower.activeId || this.aTower[0].id
-          const sides = this.towers
-            .filter(t => t.sn === sn)[0].layers
-            .filter(t1 => t1.name === this.oFloor.activeId)[0].sides
-            .map(t2 => {
-              return { 'text': t2.name, 'id': t2.name }
-            })
-          // if (!towers || !towers.length) reject('')
-          // const floors = towers[0].layers.filter(t1 => t1.name === this.oFloor.activeId)
-          // if (!floors || !floors.length) reject('')
-          // const sides = floors[0].sides.map(t2 => {
-          //   return { 'text': t2.name, 'id': t2.name }
-          // })
-          // if (!sides || !sides.length) reject('')
-          this.$set(this.oSquare, 'activeId', id || sides[0].id)
+          const sides = this.oFloor.active.sides.map(side => {
+            const { name } = side
+            return Object.assign({}, { 'text': name, 'id': name }, side)
+          })
+          const s_id = id || sides[0].id
+          const active = sides.filter(f => f.name === s_id)[0]
           this.$set(this.oSquare, 'list', sides)
-          // this.aSquare = sides
+          this.$set(this.oSquare, 'active', active)
           resolve()
         } catch (error) {
           reject(error)
@@ -184,32 +186,47 @@ export default {
     },
     setFloor(id) {
       return new Promise((resolve, reject) => {
-        // const sn = this.oTower.activeId || this.tower[0].id
-        // const towers = this.towers.filter(t => t.sn === sn)
-        // if (!towers || !towers.length) reject('')
-        // const floors = towers[0].layers.map(t1 => {
-        //   return { 'text': t1.name, 'id': t1.name }
-        // })
-        // if (!floors || !floors.length) reject('')
         try {
-          var sn = this.oTower.activeId || this.aTower[0].id
-          const floors = this.towers.filter(t => t.sn === sn)[0].layers.map(t1 => {
-            return { 'text': t1.name, 'id': t1.name }
+          const floors = this.oTower.active.layers.map(floor => {
+            const { name } = floor
+            return Object.assign({}, { 'text': name, 'id': name }, floor)
           })
-          this.$set(this.oFloor, 'activeId', id || floors[0].id)
+          const f_id = id || floors[0].id
+          const active = floors.filter(f => f.name === f_id)[0]
           this.$set(this.oFloor, 'list', floors)
-          // this.aFloor = floors
+          this.$set(this.oFloor, 'active', active)
           resolve()
         } catch (error) {
           reject(error)
         }
       })
     },
-    setTower() {
+    setLamp() {
       return new Promise((resolve, reject) => {
-        this.aTower = this.towers.map(tower => {
-          return { 'text': tower.addr, 'id': tower.sn }
+        try {
+          const lamps = this.oSquare.active.lights.map(l => {
+            return Object.assign({}, { 'checked': false }, l)
+          })
+          this.$set(this.oLamp, 'list', lamps)
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
+      })
+    },
+    getTower() {
+      return new Promise((resolve, reject) => {
+        var on = 0
+        var off = 0
+        const aTower = this.towers.map(tower => {
+          on += +tower.on
+          off += +tower.off
+          return Object.assign({}, { 'text': tower.addr, 'id': tower.sn }, tower)
         })
+        this.$set(this.oTower, 'list', aTower)
+        this.$set(this.oTower, 'active', aTower[0])
+        this.$set(this.oStatic, 'total', on + off)
+        this.$set(this.oStatic, 'off', off)
         resolve()
       })
     }
@@ -217,13 +234,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-// .choose
-//   background-color #fff
-//   margin-bottom 2px
-//   padding 20px 10px
-//   border 1px solid #f0f0f0
-//   border-radius 10px
-  // box-shadow 0 0 5px 5px #ccc
+.pop-hide .md-popup-box
+  transform translate3d(0,3333px,0)
 .order-choose
   margin 12px 0
   .swiper-pagination-bullets
@@ -243,7 +255,10 @@ export default {
     background-color color-bg-base
     font-size font-minor-large
     background-color #f0f0f0
-    height calc(100% - 0.7rem) !important    
+    height calc(100% - 0.7rem) !important
+    transition all 2s
+    transform translate3d(0,0,0)
+    // background url('~@/assets/images/bg.jpg')
   .md-field-item
     color #9
     padding-left: 16px !important 

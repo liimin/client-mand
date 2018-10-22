@@ -28,29 +28,10 @@ export default {
     swiperOption: Object,
     val: [String, Number]
   },
-  // watch: {
-  //   model: {
-  //     immediate: true,
-  //     handler(val) {
-  //       this._model = val
-  //     }
-  //   }
-  // },
-  mounted() {
-    this.$nextTick(_ => {
-      // console.log(this.val)
-    })
-    // this.$emit('update:model', this._model)
-  },
   methods: {
-    beforeChange(from, to) {},
-    afterChange(from, to) {},
     handleSwiperItemClick(item) {
+      if (this.val === item.id) return
       this.$emit('update:val', item.id)
-    }
-  },
-  data() {
-    return {
     }
   }
 }

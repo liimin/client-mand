@@ -23,7 +23,6 @@ export default {
   computed: {
     val: {
       set(v) {
-        console.log(v)
         this.eventBus.$emit('update:floorId', v)
       },
       get() {
@@ -73,13 +72,6 @@ export default {
       handler(val) {
         this.aFloors = val
       }
-    }
-  },
-  mounted() {
-  },
-  methods: {
-    handleTabClick(item) {
-      item.checked = !item.checked
     }
   }
 }
