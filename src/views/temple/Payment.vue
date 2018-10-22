@@ -66,9 +66,9 @@ export default {
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      // this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
+      this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
       // this.lightOn()
-      this.payment()
+      // this.payment()
     },
     lightOn() {
       const params = this.model // Object.assign({}, this.model, this.infoModel)

@@ -39,7 +39,7 @@ export default {
         speed: 1000,
         autoplay: true,
         // effect: 'flip',
-        spaceBetween: 3,
+        spaceBetween: 1,
         loop: true,
         observer: true, // 修改swiper自己或子元素时，自动初始化swiper
         observeParents: true, // 修改swiper的父元素时，自动初始化swiper
@@ -49,7 +49,7 @@ export default {
 
       },
       swiperOptionThumbs: {
-        spaceBetween: 3,
+        spaceBetween: 1,
         slidesPerView: 'auto',
         touchRatio: 0.2,
         observer: true, // 修改swiper自己或子元素时，自动初始化swiper
@@ -76,7 +76,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
   .swiper-container
-    background-color #6
+    background-color #DC143C
   .swiper-slide
     background-size cover
     background-position center

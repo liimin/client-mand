@@ -47,7 +47,7 @@ export default {
   mounted() {
     const font = parseInt(document.documentElement.style.fontSize)
     const clientHeight = document.documentElement.clientHeight
-    this.height = clientHeight - 74 * 3 - font * 2 * 0.7 - 90.8 - 20 - 16
+    this.height = clientHeight - 74 * 3 - font * 2 * 0.7 - 97.8 - 20 - 16
   },
   methods: {
     handleLampSelect(item) {

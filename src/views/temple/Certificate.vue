@@ -17,6 +17,10 @@
 </template>
 <script>
 import { ActionBar } from 'mand-mobile'
+const date = new Date()
+const year = DX(date.getFullYear())
+const month = DX(date.getMonth() + 1)
+const day = DX(date.getDate())
 export default {
   name: 'Certificate',
   components: {
@@ -27,10 +31,26 @@ export default {
   },
   data() {
     return {
-      data: // 将每张图片上字体的样式、大小、在图片上的位置记录下来，以便于换到不同图片时获取所需信息（移动端字体样式并不能这样设置，字体样式只适合PC端）
-        { 'family': '微软雅黑', 'size': '0.053', 'x': '0.8', 'y': '0.4', 'color': '#fa112e' },
-      certificate: require('@/assets/images/certificate.webp'),
-      size: 667 / 375,
+      data: [
+        // 将每张图片上字体的样式、大小、在图片上的位置记录下来，以便于换到不同图片时获取所需信息（移动端字体样式并不能这样设置，字体样式只适合PC端）
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.756', 'y': '0.52', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.756', 'y': '0.693', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.756', 'y': '0.82', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.68', 'y': '0.3', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.545', 'y': '0.27', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.455', 'y': '0.36', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.455', 'y': '0.54', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.35', 'y': '0.36', 'color': '#fa112e' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.046', 'x': '0.35', 'y': '0.54', 'color': '#fa112e' },
+
+        { 'text': '', 'family': '微软雅黑', 'size': '0.036', 'x': '0.25', 'y': '0.35', 'color': '#333' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.036', 'x': '0.19', 'y': '0.35', 'color': '#333' },
+        { 'text': '', 'family': '微软雅黑', 'size': '0.036', 'x': '0.132', 'y': '0.35', 'color': '#333' }
+      ],
+      texts: [
+      ],
+      certificate: require('@/assets/images/certificate.jpg'),
+      size: 760 / 457,
       actions: [
         {
           text: '返回',
@@ -48,7 +68,6 @@ export default {
       this.$router.push('/temple/order')
     },
     drawImage() {
-      var name = this.$route.query.name
       const canvas = this.$refs.canvas
       var clientWidth = this.getWidth()// 获取屏幕宽度用于canvas宽度自适应移动端屏幕
       canvas.width = 2 * clientWidth// 由于手机屏幕时retina屏，都会多倍渲染，在此只设置2倍，如果直接设置等于手机屏幕，会导致生成的图片分辨率不够而模糊
@@ -61,16 +80,31 @@ export default {
       var w = 2 * clientWidth
       img.onload = function() { // 当图片加载成功以后再进行下一步动作，如果不加这句，会生成黑图
         context.drawImage(img, 0, 0, w, w * this.size)// 按设计稿图片比例渲染图片高度
-        var font = '600 ' + this.data.size * w + 'px ' + this.data.family// 文字大小也得按照分辨率变化，类似使用rem
-        context.font = font
-        context.textAlign = 'center'
-        context.fillStyle = this.data.color
-        // if (index === 0) { // 竖排字体
-        const x = w * this.data.x
-        var oy = this.data.y * w * this.size
-        for (var i = 0; i < name.length; i++) {
-          var y = oy + 44 * i
-          context.fillText(name[i], x, y)
+        // var font = '600 ' + this.data[0].size * w + 'px ' + this.data[0].family// 文字大小也得按照分辨率变化，类似使用rem
+        // context.font = font
+        // context.textAlign = 'center'
+        // context.fillStyle = this.data[0].color
+        // // if (index === 0) { // 竖排字体
+        // const x = w * this.data[0].x
+        // var oy = this.data[0].y * w * this.size
+        // for (var i = 0; i < name.length; i++) {
+        //   var y = oy + 44 * i
+        //   context.fillText(name[i], x, y)
+        // }
+        for (let index = 0; index < this.texts.length; index++) {
+          const { size, family, color, x, y } = this.data[index]
+          const txt = this.texts[index]
+          var font = '600 ' + size * w + 'px ' + family// 文字大小也得按照分辨率变化，类似使用rem
+          context.font = font
+          context.textAlign = 'center'
+          context.fillStyle = color
+          // if (index === 0) { // 竖排字体
+          const x1 = w * x
+          var oy = y * w * this.size
+          for (var i = 0; i < txt.length; i++) {
+            var y1 = oy + 44 * i
+            context.fillText(txt[i], x1, y1)
+          }
         }
         // } else {  横排字体
         //   context.fillText(name, w * this.data.x, this.data.y * w * this.size)
@@ -92,8 +126,34 @@ export default {
     }
   },
   mounted() {
+    const { name, to, pos, pos1, time } = this.$route.query
+    const aTime = time.split('-')
+    var stopTime = `截至于公元${DX(aTime[0])}年${DX(aTime[1])}月${DX(aTime[2])}日`
+    this.texts = [
+      year,
+      month,
+      day,
+      name,
+      to || '回向众生',
+      '合家安康',
+      '福寿绵长',
+      '所求如愿',
+      '六时吉祥',
+      pos,
+      pos1,
+      stopTime
+    ]
     this.drawImage()
   }
+}
+function DX(n) {
+  if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n)) { return '数据非法' }
+  var str = ''
+  n = n + ''
+  for (var i = 0; i < n.length; i++) {
+    str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i))
+  }
+  return str
 }
 </script>
 <style lang="stylus" scoped>

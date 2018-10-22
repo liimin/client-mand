@@ -236,7 +236,10 @@ export default {
 <style lang="stylus">
 .pop-hide .md-popup-box
   transform translate3d(0,3333px,0)
-.order-choose
+.order-choose .md-popup-box
+  transform translate3d(0,0,0)
+.order-choose,
+.pop-hide
   margin 12px 0
   .swiper-pagination-bullets
     bottom: -10px;
@@ -257,7 +260,6 @@ export default {
     background-color #f0f0f0
     height calc(100% - 0.7rem) !important
     transition all 2s
-    transform translate3d(0,0,0)
     // background url('~@/assets/images/bg.jpg')
   .md-field-item
     color #9
