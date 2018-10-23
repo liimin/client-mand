@@ -41,9 +41,16 @@ export default {
         count: this.$route.params.count,
         time: this.$route.params.time,
         amount: this.$route.params.amount,
+        sn: this.$route.params.sn,
+        lights: this.getLights(),
+        dimcode: '',
+        to_phone: '',
+        to_addr: '',
+        to: '',
         words: '',
         sex: 1,
-        lights: this.getLights()
+        temple_id: 0,
+        openid: 'a1'
       },
       agree: true,
       agreement: '',
@@ -55,7 +62,7 @@ export default {
   methods: {
     getLights() {
       if (this.$route.params.lights) {
-        return this.$route.params.lights.map(light => { return { 'id': light.id, 'type': light.title } })
+        return this.$route.params.lights.map(light => { return { 'index': light.index, 'type': this.$route.params.tabs } })
       } else {
         return []
       }
@@ -66,8 +73,8 @@ export default {
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      this.goNext()
-      // this.lightOn()
+      // this.goNext()
+      this.lightOn()
       // this.payment()
     },
     goNext() {
@@ -131,6 +138,7 @@ export default {
         this.wish = detail.wish.join('')
         this.agreement = detail.agreement.join('')
         this.intro = detail.intro
+        this.model.temple_id = detail.id
       })
     }
   },

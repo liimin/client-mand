@@ -4,7 +4,7 @@
         <md-field >
             <md-input-item ref="amount" title="金额：" v-model="infoModel.amount" disabled clearable></md-input-item>
             <md-input-item ref="name" title="姓名：" v-model="infoModel.to" placeholder="请输入被祝福人姓名(5个汉字以内)" clearable></md-input-item>
-            <md-input-item ref="tel" v-model="infoModel.tel" type="phone" title="电话：" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
+            <md-input-item ref="tel" v-model="infoModel.to_phone" type="phone" title="电话：" placeholder="请输入被祝福人联系电话" clearable></md-input-item>
             <transition name="fade">
                 <div class="more" v-show="isMore">
                     <FieldEx title="性别："><md-check-box  v-model="infoModel.sex"  :options="options" /></FieldEx>

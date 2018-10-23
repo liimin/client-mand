@@ -19,6 +19,7 @@ export default {
     padding 25px 0
     position relative
     color color-primary
+    margin-bottom 10px
     // font-weight bold
     .wish-text
         font-size 32px

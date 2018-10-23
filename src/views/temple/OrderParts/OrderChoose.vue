@@ -17,7 +17,7 @@
         ok-text="确定"
         cancel-text="取消"
         @confirm="handleConfirm()"
-        @cancel="isPopShow = false"
+        @cancel="handleCancle()"
       ></md-popup-title-bar>
       <div class="md-example-popup md-example-popup-bottom">
         <OrderChooseStat :statics="oStatic"/>
@@ -79,7 +79,7 @@ export default {
         off: 0,
         checked: 0
       },
-      checkedLamps: [],
+      checkedLamps: { 'lamps': [], 'sn': '' },
       isPopShow: false,
       lampsValue: ''
     }
@@ -130,13 +130,23 @@ export default {
           alampValue.push(`${c.layer}-${c.side}-${c.row}-${c.col}`)
         })
         this.lampsValue = alampValue.join(',')
-        this.checkedLamps = checkArr
+        this.$set(this.checkedLamps, 'lamps', checkArr)
+        this.$set(this.checkedLamps, 'sn', this.oTower.active.id)
         this.$set(this.oStatic, 'checked', checked)
         resolve()
       })
     },
     showPopUp() {
       this.isPopShow = true
+    },
+    handleCancle() {
+      this.oLamp.list.map(k => {
+        k.map(l => { l.checked = false })
+      })
+      this.lampsValue = ''
+      this.$set(this.oStatic, 'checked', 0)
+      this.eventBus.$emit('update:checkedLamps', {})
+      this.isPopShow = false
     },
     handleConfirm() {
       this.eventBus.$emit('update:checkedLamps', this.checkedLamps)
@@ -253,7 +263,7 @@ export default {
 </script>
 <style lang="stylus">
 .pop-hide .md-popup-box
-  transform translate3d(0,3333px,0)
+  transform translate3d(0,1999px,0)
 .order-choose .md-popup-box
   transform translate3d(0,0,0)
 .order-choose,
@@ -277,7 +287,7 @@ export default {
     font-size font-minor-large
     background-color #f0f0f0
     height calc(100% - 0.7rem) !important
-    transition all 2s
+    transition all 2s linear
     // background url('~@/assets/images/bg.jpg')
   .md-field-item
     color #9

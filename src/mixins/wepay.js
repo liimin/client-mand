@@ -35,7 +35,7 @@ export default {
           // 公众号的唯一标识
           AppId: 'wxd602cfb35118a94b',
           // 授权后重定向的回调链接地址(填当前页)
-          redirect_uri: 'http://www.gpspas.com/#/temple/index',
+          redirect_uri: 'http://www.gpspas.com/',
           // 返回类型，请填写code
           Response_type: 'code',
           // 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid）

@@ -5,7 +5,7 @@
             :disabled="agreeConf.disabled" 
             :size="agreeConf.size" 
             @change="onChange(agreeConf.name, agreeConf.checked, $event)">
-            我已阅读并接收<a @click.stop="handleAgreeClick">《用户协议》</a>
+            我已阅读并接受<a @click.stop="handleAgreeClick">《用户协议》</a>
         </md-agree>
         <md-agree 
             v-model="rankingConf.checked" 

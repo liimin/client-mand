@@ -37,6 +37,11 @@ const routes = [
     path: '/temple/certificate',
     name: 'Certificate',
     component: resolve => require(['@/views/temple/Certificate'], resolve)
+  },
+  {
+    path: '/temple/personal',
+    name: 'Personal',
+    component: resolve => require(['@/views/temple/Personal'], resolve)
   }
 ]
 Router.prototype.goBack = function() { // 重点，给VueRoute添加一个goBack方法，用于记录路由的前进后退状态 this.isBack = true

@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <p class="weui-grid__label">{{item.title}}</p>
+        <p class="weui-grid__label" :class="{ 'active': item.checked}">{{item.title}}</p>
       </a>
     </div>
 </OrderItem>
@@ -53,13 +53,13 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.active 
+  color color-primary
 .weui-grid {
   padding: 10px 0 0 0;
-
   .weui-grid__icon {
     width: .8rem;
     height: .8rem;
-
     .tab-wrapper {
       height: 100%;
       width: 100%;
@@ -85,7 +85,7 @@ export default {
         animation: rond 3s infinite;
         -webkit-animation: rond 3s infinite;
         -webkit-box-shadow: 0 0 10px color-primary;
-        box-shadow: 0 0 10px 5px color-primary;
+        box-shadow: 0 0 30px 1px color-primary;
 
         .dot {
           height: 10px;

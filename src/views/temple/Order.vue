@@ -18,9 +18,9 @@
 </template><script>
 import { Button, ActionBar, NoticeBar, Amount, Toast } from 'mand-mobile'
 import { FormTitle } from '@/components'
-import TempleHeader from './Header'
 import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose } from './OrderParts'
 import Vue from 'vue'
+import TempleHeader from './Header'
 import detail from '@/mixins/detail'
 // import mulit from 'mand-mobile/components/swiper/demo/data/mulit-item'
 // import { Toast } from 'mand-mobile'
@@ -66,7 +66,8 @@ export default {
       templeName: '',
       templeId: 0,
       lamps: [],
-      price: 0.01
+      price: 0.01,
+      sn: ''
     }
   },
 
@@ -98,7 +99,8 @@ export default {
       this.count = value
     },
     handleLampsChanged(value) {
-      this.lamps = value
+      this.lamps = value.lamps
+      this.sn = value.sn
     },
     handleNext() {
       if (!this.lamps || !this.lamps.length) {
@@ -116,7 +118,9 @@ export default {
         count: this.count,
         time: this.timeValue,
         amount: this.amount,
-        lights: this.aTabs
+        tab_list: this.aTabs,
+        lights: this.lamps,
+        sn: this.sn
       }
       this.$router.push({
         name: 'Payment',

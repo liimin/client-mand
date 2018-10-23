@@ -57,7 +57,8 @@ export default {
   .md-check-box .md-check-box-item.is-selected
       color color-primary
       border-color color-primary
-      background-color rgba(210,150,98,.1)
+      background-color rgba(184,0,0,.2)
+      // box-shadow: 0 0 1px 1px color-primary inset;
 </style>
 
 <style lang="stylus" scoped>

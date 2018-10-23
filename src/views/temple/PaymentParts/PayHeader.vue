@@ -18,6 +18,7 @@ export default {
 .choose-text
     position relative
     color color-primary
+    box-shadow #d4 2px 4px 16px
     .choose-title
         font-size 30px
         // color #6
