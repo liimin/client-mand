@@ -1,9 +1,11 @@
 <template>
 <div class="wrapper">
   <TempleHeader :items="items" :height="header_height" />
-  <div class="body" v-html="content">
-    <!-- <TempleBody :bodyStyle="bodyStyle"/> -->
-  </div>
+  <article class="weui-article" v-html="content">
+  </article>
+  <!-- <div class="body" v-html="content">
+    <TempleBody :bodyStyle="bodyStyle"/> 
+  </div> -->
 <md-action-bar :actions="data"></md-action-bar>
 </div>
 </template>
@@ -73,18 +75,20 @@ export default {
 
 <style lang="stylus" scoped>
 .wrapper
-  .body
-    float left
-    width 100%
-    padding 10px 20px 20px
-    color color-text-base
-    font-size .3rem
-    text-align left
-    // background color-bg-base
-    box-sizing border-box
-    line-height 1.5
-    text-indent 2em
-    margin-bottom 1rem
-    .md-button
-      float left
+  text-align left 
+  // .body
+  //   float left
+  //   width 100%
+  //   padding 10px 20px 20px
+  //   color color-text-base
+  //   font-size .3rem
+  //   text-align left
+  //   // background color-bg-base
+  //   box-sizing border-box
+  //   line-height 1.5
+  //   text-indent 2em
+  //   margin-bottom 1rem
+  //   .md-button
+  //     float left
+
 </style>

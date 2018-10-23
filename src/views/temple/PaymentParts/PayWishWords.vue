@@ -6,7 +6,7 @@
             cols='30'
             v-bind:maxlength="total"
             v-model="words" ></textarea>
-        <p class="limit">{{wordsCount}}/{{total}}</p>
+        <i class="limit">{{wordsCount}}/{{total}}</i>
         <a class="change" @click="changeWords">换一换</a>
     </div>
 </template>
@@ -107,14 +107,14 @@ function randomNum(minNum, maxNum) {
 <style scoped lang="stylus">
 .wish-words 
     width 100%
-    padding 10px
     position relative
+    box-sizing border-box
     .words
         margin-top 21px
         padding 15px
         width 100%
         font-size 32px
-        height 1.8rem
+        height 2rem
         // text-align center
         border-color color-primary
         color color-primary
@@ -124,6 +124,7 @@ function randomNum(minNum, maxNum) {
         outline none
         // font-weight bold
         background-color transparent
+        box-sizing border-box
     .limit,.change
         position absolute
         font-size 20px

@@ -16,7 +16,7 @@
     </md-action-bar>
   </div>
 </template><script>
-import { Button, ActionBar, NoticeBar, Amount } from 'mand-mobile'
+import { Button, ActionBar, NoticeBar, Amount, Toast } from 'mand-mobile'
 import { FormTitle } from '@/components'
 import TempleHeader from './Header'
 import { OrderTabs, OrderTimes, OrderCounts, OrderAmount, OrderChoose } from './OrderParts'
@@ -65,41 +65,17 @@ export default {
       tip: '',
       templeName: '',
       templeId: 0,
-      sns: [
-        {
-          text: '引力波',
-          id: 1
-        },
-        {
-          text: '智子',
-          id: 2
-        },
-        {
-          text: '水滴',
-          id: 3
-        },
-        {
-          text: '二向箔',
-          id: 4
-        },
-        {
-          text: '飞刃',
-          id: 5
-        },
-        {
-          text: '碎星',
-          id: 6
-        }
-      ]
+      lamps: [],
+      price: 0.01
     }
   },
 
   computed: {
     amount() {
-      let total = 0
-      this.aTabs.map(tab => {
-        total += tab.price
-      })
+      const total = this.lamps.length * this.price
+      // this.aTabs.map(tab => {
+      //   total += tab.price
+      // })
       return total * this.count * this.timeValue
     },
     aTabs() {
@@ -121,7 +97,18 @@ export default {
     handleCountChanged(value) {
       this.count = value
     },
+    handleLampsChanged(value) {
+      this.lamps = value
+    },
     handleNext() {
+      if (!this.lamps || !this.lamps.length) {
+        Toast.info('请选择灯的位置')
+        return
+      }
+      if (!this.amount) {
+        Toast.info('请正确选择供灯信息')
+        return
+      }
       this.actionShow = false
       const params = {
         tampleName: this.templeName,
@@ -166,6 +153,7 @@ export default {
     this.eventBus = new Vue()
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)
+    this.eventBus.$on('update:checkedLamps', this.handleLampsChanged)
     this.$nextTick(_ => {
       this.actionShow = true
     })

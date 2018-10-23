@@ -146,12 +146,13 @@ export default {
     this.drawImage()
   }
 }
+// '零壹贰叁肆伍陆柒捌玖 〇一二三四五六七八九'
 function DX(n) {
   if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n)) { return '数据非法' }
   var str = ''
   n = n + ''
   for (var i = 0; i < n.length; i++) {
-    str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i))
+    str += '〇一二三四五六七八九'.charAt(n.charAt(i))
   }
   return str
 }

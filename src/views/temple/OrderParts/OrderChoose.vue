@@ -1,7 +1,7 @@
 <template>
 <div :class="{ 'order-choose': isPopShow, 'pop-hide': !isPopShow}">
   <md-field>
-    <md-field-item name="choose" title="选灯：" @click="showPopUp('scroll')"  align="right" arrow="arrow-right" />
+    <md-field-item name="choose" title="选灯：" @click="showPopUp('scroll')" :value="lampsValue" align="right" arrow="arrow-right" />
   </md-field>
   <md-popup
       v-model="popup.show"
@@ -16,8 +16,8 @@
         title="供灯选择"
         ok-text="确定"
         cancel-text="取消"
-        @confirm="hidePopUp()"
-        @cancel="hidePopUp()"
+        @confirm="handleConfirm()"
+        @cancel="isPopShow = false"
       ></md-popup-title-bar>
       <div class="md-example-popup md-example-popup-bottom">
         <OrderChooseStat :statics="oStatic"/>
@@ -79,7 +79,9 @@ export default {
         off: 0,
         checked: 0
       },
-      isPopShow: false
+      checkedLamps: [],
+      isPopShow: false,
+      lampsValue: ''
     }
   },
   watch: {
@@ -95,9 +97,7 @@ export default {
     towers: {
       handler(val) {
         this.$nextTick(_ => {
-          this.getTower().then(_ => { return this.setTowerId() }).then(_ => {
-            this.lampcheck()
-          })
+          this.getTower().then(_ => { return this.setTowerId() })
         })
       }
     }
@@ -117,7 +117,20 @@ export default {
   methods: {
     lampcheck() {
       return new Promise((resolve, reject) => {
-        const checked = this.oLamp.list.filter(l => l.checked).length
+        var checked = 0
+        var checkArr = []
+        var check = []
+        this.oLamp.list.map(k => {
+          check = k.filter(l => l.checked)
+          checked += check.length
+          checkArr = checkArr.concat(check)
+        })
+        var alampValue = []
+        checkArr.map(c => {
+          alampValue.push(`${c.layer}-${c.side}-${c.row}-${c.col}`)
+        })
+        this.lampsValue = alampValue.join(',')
+        this.checkedLamps = checkArr
         this.$set(this.oStatic, 'checked', checked)
         resolve()
       })
@@ -125,7 +138,8 @@ export default {
     showPopUp() {
       this.isPopShow = true
     },
-    hidePopUp() {
+    handleConfirm() {
+      this.eventBus.$emit('update:checkedLamps', this.checkedLamps)
       this.isPopShow = false
     },
     setTowerId(towerId) {
@@ -146,6 +160,7 @@ export default {
         this.setFloor(floorId)
           .then(() => { return this.setSquare() })
           .then(() => { return this.setLamp() })
+          .then(() => { return this.lampcheck() })
           .then(_ => resolve())
           .catch(err => {
             console.log(err)
@@ -155,6 +170,7 @@ export default {
     setSquareId(squareId) {
       this.setSquare(squareId)
         .then(() => { return this.setLamp() })
+        .then(() => { return this.lampcheck() })
     },
     setTower(id) {
       return new Promise((resolve, reject) => {
@@ -205,7 +221,9 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           const lamps = this.oSquare.active.lights.map(l => {
-            return Object.assign({}, { 'checked': false }, l)
+            return l.map(k => {
+              return Object.assign({}, { 'checked': false }, k)
+            })
           })
           this.$set(this.oLamp, 'list', lamps)
           resolve()
@@ -253,7 +271,7 @@ export default {
   .md-popup-title-bar
     height .7rem
     line-height 0.7rem
-    box-shadow: 0 0px 8px 8px #f0f0f0;
+    box-shadow #d4 2px 4px 16px;
   .md-popup-box
     background-color color-bg-base
     font-size font-minor-large

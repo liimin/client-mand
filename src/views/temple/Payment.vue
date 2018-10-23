@@ -26,7 +26,7 @@ export default {
     return {
       actions: [
         {
-          text: '我要关灯',
+          text: '返回',
           onClick: this.handleReturn
         },
         {
@@ -61,14 +61,27 @@ export default {
       }
     },
     handleReturn() {
-      // this.$router.goBack()
-      this.lightOff()
+      this.$router.goBack()
+      // this.lightOff()
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      this.$router.push({ path: '/temple/certificate', query: { name: this.name }})
+      this.goNext()
       // this.lightOn()
       // this.payment()
+    },
+    goNext() {
+      var now = new Date()
+      now.setDate(now.getDate() + 3)
+      const time = dateFtt('yyyy-MM-dd', now)
+      const query = {
+        'name': '微信名',
+        'to': this.model.to,
+        time,
+        'pos': '大雄宝殿左',
+        'pos1': '二层B面2-1'
+      }
+      this.$router.push({ path: '/temple/certificate', query })
     },
     lightOn() {
       const params = this.model // Object.assign({}, this.model, this.infoModel)
@@ -79,7 +92,6 @@ export default {
     lightOff() {
       const params = this.model // Object.assign({}, this.model, this.infoModel)
       this.$http.post('/temple/lightoff', params).then(res => {
-
       })
     },
     handleWishWordChanged(words) {
@@ -126,6 +138,22 @@ export default {
     this.detail()
     this.initEventBus()
   }
+}
+function dateFtt(fmt, date) { // author: meizz
+  var o = {
+    'M+': date.getMonth() + 1, // 月份
+    'd+': date.getDate(), // 日
+    'h+': date.getHours(), // 小时
+    'm+': date.getMinutes(), // 分
+    's+': date.getSeconds(), // 秒
+    'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
+    'S': date.getMilliseconds() // 毫秒
+  }
+  if (/(y+)/.test(fmt)) { fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length)) }
+  for (var k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) { fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length))) }
+  }
+  return fmt
 }
 </script>
 
