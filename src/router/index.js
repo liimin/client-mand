@@ -56,11 +56,22 @@ Router.prototype.goBack = function() { // 重点，给VueRoute添加一个goBack
 const router = new Router({
   routes
 })
+
 router.beforeEach((to, from, next) => {
+  fixfixd('none')
   NProgress.start()
   next()
 })
+const fixfixd = status => {
+  const footer = document.getElementsByClassName('footer')
+  if (footer && footer.length) {
+    for (let index = 0; index < footer.length; index++) {
+      footer[0].style.display = status
+    }
+  }
+}
 router.afterEach((to, from) => {
+  fixfixd('block')
   NProgress.done()
 })
 export default router

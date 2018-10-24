@@ -12,7 +12,7 @@
             您的浏览器不支持canvas
         </canvas>
     </div>
-     <md-action-bar :actions="actions"></md-action-bar>
+     <md-action-bar :actions="actions" class="footer"></md-action-bar>
 </section>
 </template>
 <script>

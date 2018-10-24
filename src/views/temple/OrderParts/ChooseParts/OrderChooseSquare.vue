@@ -35,14 +35,14 @@ export default {
       aSns: [],
       isInline: false,
       swiperOption: {
-        height: 40,
+        height: 30,
         effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
         slideToClickedSlide: true,
         coverflowEffect: {
-          rotate: 70,
+          rotate: 60,
           stretch: 0,
           depth: 300,
           modifier: 1,

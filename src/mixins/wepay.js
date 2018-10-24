@@ -2,10 +2,12 @@ const wx = require('weixin-js-sdk')
 export default {
   name: 'wepay',
   mounted() {
-    this.GetCode()
+    // this.GetCode()
   },
-  data: {
-    JsApiData: ''
+  data() {
+    return {
+      JsApiData: ''
+    }
   },
   methods: {
     // 获取地址栏code参数
@@ -53,15 +55,15 @@ export default {
     GetOpenId(code) {
       console.log('GetOpenId获得的code为：' + code)
       // 判断本地localStorag是否已经有openid，有则不获取，没有就去获取
-      if (!this.$get_storage('wxopenid')) {
-        this.$http.post('/wx/openid', { code })
+      if (!this.$get_storage('wx-user-info')) {
+        this.$http.post('/wx/userinfo', { code })
           .then(success => {
             console.log('success' + success)
-            console.log('success中的openid：' + success.data)
-            this.$set_storage('wxopenid', JSON.stringify(success.data))
+            console.log('wx-user-info：' + success.data)
+            this.$set_storage('wx-user-info', JSON.stringify(success.data))
             // this.WxPayBtn(this.GetStorage('wxopenid'))
           }, error => {
-            console.log(JSON.stringify(error))
+            console.log(error)
           })
       }
     },

@@ -11,7 +11,7 @@
         {{tip}}
       </md-notice-bar>
     </div>
-    <md-action-bar :actions="data" v-show="actionShow">
+    <md-action-bar :actions="data" class="footer">
       &yen;&nbsp;<md-amount :value="amount" :duration="200" is-animated has-separator></md-amount>
     </md-action-bar>
   </div>
@@ -45,7 +45,6 @@ export default {
       towers: [],
       items: [],
       header_height: '3.5rem',
-      actionShow: false,
       data: [
         // {
         //   text: '返回',
@@ -73,6 +72,7 @@ export default {
 
   computed: {
     amount() {
+      if (!this.lamps || this.lamps.length === 0) return 0
       const total = this.lamps.length * this.price
       // this.aTabs.map(tab => {
       //   total += tab.price
@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     handleReturn() {
-      this.actionShow = false
       this.$router.goBack()
     },
     handleTimeChecked(value) {
@@ -104,14 +103,13 @@ export default {
     },
     handleNext() {
       if (!this.lamps || !this.lamps.length) {
-        Toast.info('请选择灯的位置')
+        Toast.info('请选择供灯位置')
         return
       }
       if (!this.amount) {
         Toast.info('请正确选择供灯信息')
         return
       }
-      this.actionShow = false
       const params = {
         tampleName: this.templeName,
         tabs: this.checkedTabNames,
@@ -144,7 +142,6 @@ export default {
     getDevices() {
       this.$http.get('/device/list', { params: { 'temple_id': this.templeId }}).then(res => {
         this.towers = res.data.towers
-        console.log(this.towers)
       }).catch(err => {
         console.log(err)
       })
@@ -158,9 +155,6 @@ export default {
     this.eventBus.$on('timeChanged', this.handleTimeChecked)
     this.eventBus.$on('countChanged', this.handleCountChanged)
     this.eventBus.$on('update:checkedLamps', this.handleLampsChanged)
-    this.$nextTick(_ => {
-      this.actionShow = true
-    })
   }
 }
 </script>

@@ -5,7 +5,7 @@
     <div class="md-example-box-content">{{summary}}</div>
     <md-button type="link" size="small" @click="handleDetailClick">查看详情</md-button>
   </div>
-  <div class="weui-footer weui-footer_fixed-bottom">
+  <div class="weui-footer weui-footer_fixed-bottom footer" >
     <p class="weui-footer__links">
         <a href="http://www.miitbeian.gov.cn/" class="weui-footer__link">粤ICP备18125096号</a>
     </p>
@@ -38,13 +38,6 @@ export default {
       this.items = detail.swiper_items
       this.header_height = detail.header_height
     })
-  },
-  computed: {
-    bodyStyle() {
-      return {
-        height: `${window.innerHeight / 37.5 - (80 / 2 / 37.5)}rem`
-      }
-    }
   },
   methods: {
     handleDetailClick() {

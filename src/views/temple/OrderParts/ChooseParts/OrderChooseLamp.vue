@@ -1,16 +1,16 @@
 <template>
 <OrderItem :title="title" :isInline="isInline" >
   <div class="order-choose-lamp card"  slot="item" :style="{'height':`${height}px`,'overflowY':'auto'} ">
-    <div class="weui-grids" v-for="(rows,index) in aLamps" :key="index">
-      <a href="javascript:;" class="weui-grid" v-for="(item,idx) in rows" :key="idx">
-        <div class="weui-grid__icon" @click="handleLampSelect(item)">
-          <img :src="off" alt="" v-if="!item.checked && item.status=='0'">
-          <img :src="on" alt="" v-if="item.status=='1'">
-          <img :src="checked" alt="" v-if="item.checked && item.status !='1'">
-          <p class="weui-grid__label title">{{item.row+'-'+item.col}}</p>
-        </div>
-      </a>
-    </div>
+      <div class="weui-grids" v-for="(rows,index) in aLamps" :key="index">
+        <a href="javascript:;" class="weui-grid" v-for="(item,idx) in rows" :key="idx">
+          <div class="weui-grid__icon" @click="handleLampSelect(item)">
+            <img :src="off" alt="" v-if="!item.checked && item.status=='0'">
+            <img :src="on" alt="" v-if="item.status=='1'">
+            <img :src="checked" alt="" v-if="item.checked && item.status !='1'">
+            <p class="weui-grid__label title">{{item.row+'-'+item.col}}</p>
+          </div>
+        </a>
+      </div>
   </div>
 </OrderItem>
 </template>
@@ -47,7 +47,7 @@ export default {
   mounted() {
     const font = parseInt(document.documentElement.style.fontSize)
     const clientHeight = document.documentElement.clientHeight
-    this.height = clientHeight - 74 * 3 - font * 2 * 0.7 - 97.8 - 20 - 16
+    this.height = clientHeight - 41.2 * 2 - 46.2 - font * 2 * 0.7 - 97.8 - 20 - 16
   },
   methods: {
     handleLampSelect(item) {

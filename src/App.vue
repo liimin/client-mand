@@ -31,6 +31,12 @@ export default {
 </script>
 
 <style lang="stylus">
+#nprogress 
+  .bar
+    background: color-primary !important
+  .spinner-icon
+    border-top-color color-primary !important
+    border-left-color color-primary  !important
 #app
   font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing antialiased

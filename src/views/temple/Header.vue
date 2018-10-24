@@ -45,7 +45,10 @@ export default {
         observeParents: true, // 修改swiper的父元素时，自动初始化swiper
         loopedSlides: 4, // looped slides should be the same
         watchSlidesVisibility: true,
-        watchSlidesProgress: true
+        watchSlidesProgress: true,
+        oninit: function() {
+          console.log(1)
+        }
 
       },
       swiperOptionThumbs: {
@@ -65,10 +68,12 @@ export default {
       setTimeout(() => {
         this.$set(this.swiperOptionTop, 'loopedSlides', this.items.length)
         this.$set(this.swiperOptionThumbs, 'loopedSlides', this.items.length)
-        var swiperTop = this.$refs.swiperTop.swiper
-        var swiperThumbs = this.$refs.swiperThumbs.swiper
-        swiperTop.controller.control = swiperThumbs
-        swiperThumbs.controller.control = swiperTop
+        if (this.$refs.swiperTop && this.$refs.swiperThumbs) {
+          var swiperTop = this.$refs.swiperTop.swiper
+          var swiperThumbs = this.$refs.swiperThumbs.swiper
+          swiperTop.controller.control = swiperThumbs
+          swiperThumbs.controller.control = swiperTop
+        }
       }, 3000)
     })
   }

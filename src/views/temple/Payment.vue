@@ -3,7 +3,7 @@
     <PayHeader :model="model"/>
     <PayInfo :model.sync="model" :eventBus="eventBus"/>
     <PayWish :eventBus="eventBus" :agree="agree" :wish="wish" :agreement="agreement" :intro="intro"/>
-    <md-action-bar :actions="actions"></md-action-bar>
+    <md-action-bar :actions="actions" class="footer"></md-action-bar>
   </div>
 </template>
 <script>
@@ -116,13 +116,13 @@ export default {
       })
     },
     payment() {
-      const openid = this.$get_storage('wxopenid')
+      const userinfo = this.$get_storage('wx-user-info')
       const params = {
         body: '吮指原味鸡 * 1',
         attach: '{"部位":"三角"}',
         out_trade_no: 'kfc' + (+new Date()),
         total_fee: 1,
-        openid
+        openid: userinfo.openid
       }
       this.$http.get('/wx/payparams', { params }).then(res => {
         this.wexinPay(res, function(result) {

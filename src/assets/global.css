@@ -26,22 +26,22 @@ body{
 html{
   height: 100%;
 }
-.md-action-bar{
+.footer{
   height: .9rem !important;
-  animation: action 1s linear;
+  animation: action 1.2s linear;
 }
 @keyframes action{
   0%{
     opacity: 0;
-    bottom: -9999px;
+    transform: translate3d(0,2222px,0)
   }
   92%{
     opacity: 0;
-    bottom: -10px;
+    transform: translate3d(0,10px,0)
   }
   100%{
     opacity: 1;
-    bottom: 0;
+    transform: translate3d(0,0,0)
   }
 }
  
