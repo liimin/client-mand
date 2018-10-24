@@ -73,8 +73,8 @@ export default {
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      // this.goNext()
-      this.lightOn()
+      this.goNext()
+      // this.lightOn()
       // this.payment()
     },
     goNext() {

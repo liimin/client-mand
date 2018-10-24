@@ -47,54 +47,38 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.weui-msg {
-  padding-top: 0;
-  &__text-area{
+.weui-msg 
+  padding-top 0
+  &__text-area
     margin-bottom 0
-    margin-top: -40px;
-  }
-  &__icon-area {
-    margin-bottom: 0;
-  }
-
-  &__title {
-    margin-bottom: 0;
-    color: #f;
-  }
-
-  &__desc {
-    padding-bottom: 20px;
-  }
-
-  &__opr-area {
+    margin-top -40px
+  &__icon-area
+    margin-bottom 0
+  &__title 
+    margin-bottom 0
+    color #f
+  &__desc 
+    padding-bottom 20px
+  &__opr-area
     background #f
-    .weui-btn-area {
-      margin: 0;
-      background-color: #f;
-    }
-  }
-  .weui-cells{
+    .weui-btn-area
+      margin 0
+      background-color #f
+  .weui-cells
     margin-top 0
     background-color transparent
-    .weui-cell_select-before{
-      padding-right: 0;
-      height: 82px;
+    .weui-cell_select-before
+      padding-right 0
+      height 82px
       // border: 2px solid green;
-      border-radius: 10px;
-    }
-  }
-  .weui-btn_plain-primary{
+      border-radius: 10px
+  .weui-btn_plain-primary
     border none
-  }
-}
-
-.personal-header {
-  background-color: color-primary //rgb(50, 50, 50);
-  &-avatar{
+.personal-header
+  background-color color-primary //rgb(50, 50, 50);
+  &-avatar
     height 160px
     width 160px
     border-radius 160px
     margin-top 20px
-  }
-}
 </style>

@@ -33,7 +33,7 @@ export default {
         // 重定向去微信来获取code
         const config = {
           // 公众号的唯一标识
-          AppId: 'wxd602cfb35118a94b',
+          AppId: 'wx967c55b4200dd601',
           // 授权后重定向的回调链接地址(填当前页)
           redirect_uri: 'http://www.gpspas.com/',
           // 返回类型，请填写code
@@ -54,13 +54,14 @@ export default {
       console.log('GetOpenId获得的code为：' + code)
       // 判断本地localStorag是否已经有openid，有则不获取，没有就去获取
       if (!this.$get_storage('wxopenid')) {
-        this.$http.get('/wx/openid', { params: { code }})
-          .then(function(success) {
-            alert('success中的openid：' + success.data)
+        this.$http.post('/wx/openid', { code })
+          .then(success => {
+            console.log('success' + success)
+            console.log('success中的openid：' + success.data)
             this.$set_storage('wxopenid', JSON.stringify(success.data))
             // this.WxPayBtn(this.GetStorage('wxopenid'))
-          }, function(error) {
-            alert(JSON.stringify(error))
+          }, error => {
+            console.log(JSON.stringify(error))
           })
       }
     },

@@ -17,13 +17,14 @@
 import { Button } from 'mand-mobile'
 import detail from '@/mixins/detail'
 import TempleHeader from './Header'
+import wepay from '@/mixins/wepay'
 export default {
   name: 'Temple',
   components: {
     [TempleHeader.name]: TempleHeader,
     [Button.name]: Button
   },
-  mixins: [detail],
+  mixins: [detail, wepay],
   data() {
     return {
       items: [],
