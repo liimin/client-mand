@@ -125,7 +125,8 @@ export default {
   width: 100% !important;
   text-align: left !important;
 }
-
+.md-drop-menu
+  box-shadow #d4 2px 4px 16px
 .content .distpicker-address-wrapper .address-container ul {
   height: 400px;
 }

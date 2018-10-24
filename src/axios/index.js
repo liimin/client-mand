@@ -3,7 +3,7 @@ import { Toast } from 'mand-mobile'
 // import qs from 'qs'
 export const Axios = axios.create({
   // baseURL: 'http://47.92.203.176/',
-  baseURL: 'http://localhost:80/',
+  baseURL: 'http://192.168.1.103:80/',
   timeout: 10000
 })
 // POST传参序列化(添加请求拦截器)
@@ -20,9 +20,9 @@ Axios.interceptors.request.use(config => {
   // if (config.static) {
   // config.baseURL = config.baseURL.replace('api/v1/', '')
   // }
-  if (config.method === 'get') {
-    Toast.loading('载入中')
-  }
+  // if (config.method === 'get') {
+  Toast.loading('载入中')
+  // }
   // 下面会说在什么时候存储 token
   if (localStorage.token) {
     config.headers.Authorization = 'JWT ' + localStorage.token
