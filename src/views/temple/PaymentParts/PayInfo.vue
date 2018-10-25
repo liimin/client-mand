@@ -110,8 +110,10 @@ export default {
     margin-top 10px
     .md-field
       background-color transparent
+      // gradient(rgba(255,255,255,0),rgba(255,255,255,1));
       .md-field-content
         width 100%
+        // mix-blend-mode: overlay;
       .md-input-item-input,.md-input-item-title,.md-input-item,.md-input-item-control,.md-input-item-clear
         min-height .8rem 
         height .8rem !important

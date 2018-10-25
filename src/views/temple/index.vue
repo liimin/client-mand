@@ -17,14 +17,14 @@
 import { Button } from 'mand-mobile'
 import detail from '@/mixins/detail'
 import TempleHeader from './Header'
-import wepay from '@/mixins/wepay'
+import wxlogin from '@/mixins/wxlogin'
 export default {
   name: 'Temple',
   components: {
     [TempleHeader.name]: TempleHeader,
     [Button.name]: Button
   },
-  mixins: [detail, wepay],
+  mixins: [detail, wxlogin],
   data() {
     return {
       items: [],

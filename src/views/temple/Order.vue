@@ -66,7 +66,8 @@ export default {
       templeId: 0,
       lamps: [],
       price: 0.01,
-      sn: ''
+      tower: '',
+      lampText: ''
     }
   },
 
@@ -85,7 +86,6 @@ export default {
     checkedTabNames() {
       return this.aTabs.map(tab => tab.title + '灯').join(',')
     }
-
   },
   methods: {
     handleReturn() {
@@ -98,12 +98,18 @@ export default {
       this.count = value
     },
     handleLampsChanged(value) {
-      this.lamps = value.lamps
-      this.sn = value.sn
+      const { lamps = [], tower = {}, lampText = '' } = value
+      this.lamps = lamps
+      this.tower = tower
+      this.lampText = lampText
     },
     handleNext() {
       if (!this.lamps || !this.lamps.length) {
         Toast.info('请选择供灯位置')
+        return
+      }
+      if (!this.aTabs || !this.aTabs.length) {
+        Toast.info('请选择祈福类型')
         return
       }
       if (!this.amount) {
@@ -118,7 +124,8 @@ export default {
         amount: this.amount,
         tab_list: this.aTabs,
         lights: this.lamps,
-        sn: this.sn
+        tower: this.tower,
+        lampText: this.lampText
       }
       this.$router.push({
         name: 'Payment',

@@ -79,7 +79,7 @@ export default {
         off: 0,
         checked: 0
       },
-      checkedLamps: { 'lamps': [], 'sn': '' },
+      checkedLamps: { 'lamps': [], 'tower': '', 'lampText': '' },
       isPopShow: false,
       lampsValue: ''
     }
@@ -127,11 +127,12 @@ export default {
         })
         var alampValue = []
         checkArr.map(c => {
-          alampValue.push(`${c.layer}-${c.side}-${c.row}-${c.col}`)
+          alampValue.push(`${c.layer}层-${c.side}面-${c.row}行-${c.col}列`)
         })
         this.lampsValue = alampValue.join(',')
         this.$set(this.checkedLamps, 'lamps', checkArr)
-        this.$set(this.checkedLamps, 'sn', this.oTower.active.id)
+        this.$set(this.checkedLamps, 'lampText', this.lampsValue)
+        this.$set(this.checkedLamps, 'tower', this.oTower.active)
         this.$set(this.oStatic, 'checked', checked)
         resolve()
       })

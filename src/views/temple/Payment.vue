@@ -11,7 +11,7 @@ import { ActionBar } from 'mand-mobile'
 import { PayHeader, PayInfo, PayWish } from './PaymentParts'
 import Vue from 'vue'
 // import TempleMixin from '@/mixins/temple'
-// import wepay from '@/mixins/wepay'
+import wxpay from '@/mixins/wxpay'
 import detail from '@/mixins/detail'
 export default {
   name: 'Payment',
@@ -21,7 +21,7 @@ export default {
     [PayInfo.name]: PayInfo,
     [PayWish.name]: PayWish
   },
-  mixins: [detail],
+  mixins: [detail, wxpay],
   data() {
     return {
       actions: [
@@ -36,13 +36,13 @@ export default {
       ],
       eventBus: null,
       model: {
-        tampleName: this.$route.params.tampleName,
-        tabs: this.$route.params.tabs,
-        count: this.$route.params.count,
-        time: this.$route.params.time,
-        amount: this.$route.params.amount,
-        sn: this.$route.params.sn,
-        lights: this.getLights(),
+        tampleName: '',
+        tabs: '',
+        count: '',
+        time: '',
+        amount: '',
+        sn: '',
+        lights: [],
         dimcode: '',
         to_phone: '',
         to_addr: '',
@@ -56,13 +56,16 @@ export default {
       agreement: '',
       intro: '',
       name: '',
-      wish: ''
+      wish: '',
+      wx_user_info: null,
+      tower: null,
+      lampText: ''
     }
   },
   methods: {
-    getLights() {
-      if (this.$route.params.lights) {
-        return this.$route.params.lights.map(light => { return { 'index': light.index, 'type': this.$route.params.tabs } })
+    getLights(lights, tabs) {
+      if (lights) {
+        return lights.map(light => { return { 'index': light.index, 'type': tabs } })
       } else {
         return []
       }
@@ -73,21 +76,23 @@ export default {
     },
     handleNext() { // 发起微信支付
       // this.GetWXSign().then()
-      this.goNext()
+      // this.goNext()
       // this.lightOn()
-      // this.payment()
+      this.payment()
     },
     goNext() {
       var now = new Date()
-      now.setDate(now.getDate() + 3)
+      now.setDate(now.getDate() + this.model.time)
       const time = dateFtt('yyyy-MM-dd', now)
+      alert(this.wx_user_info.nickname)
       const query = {
-        'name': '微信名',
+        'name': this.wx_user_info.nickname,
         'to': this.model.to,
-        time,
-        'pos': '大雄宝殿左',
-        'pos1': '二层B面2-1'
+        time, // 截止时间
+        'pos': this.tower.text, // 灯塔位置
+        'pos1': this.lampText // 选灯位置
       }
+      alert(this.wx_user_info.nickname)
       this.$router.push({ path: '/temple/certificate', query })
     },
     lightOn() {
@@ -116,19 +121,25 @@ export default {
       })
     },
     payment() {
-      const userinfo = this.$get_storage('wx-user-info')
       const params = {
-        body: '吮指原味鸡 * 1',
-        attach: '{"部位":"三角"}',
-        out_trade_no: 'kfc' + (+new Date()),
-        total_fee: 1,
-        openid: userinfo.openid
+        body: `${this.tower.text}${this.lampText}`,
+        attach: `sn:${this.model.sn}`,
+        out_trade_no: `remote_light_${this.model.temple_id}_${Date.now()}`,
+        total_fee: this.model.amount,
+        openid: this.wx_user_info.openid
       }
-      this.$http.get('/wx/payparams', { params }).then(res => {
-        this.wexinPay(res, function(result) {
-          console.log(result)
-        }, function(err) {
-          console.log(err)
+      this.$http.post('/wx/payparams', params).then(res => {
+        const { data } = res
+        this.wexinPay(data, result => {
+          try {
+            alert(this.wx_user_info.nickname)
+            this.goNext()
+            this.lightOn()
+          } catch (error) {
+            alert('内部==========错误' + error)
+          }
+        }, err => {
+          alert('==========错误' + err)
         })
       })
       // this.WxPay(openid)
@@ -140,9 +151,33 @@ export default {
         this.intro = detail.intro
         this.model.temple_id = detail.id
       })
+    },
+    init() {
+      const userinfo = JSON.parse(this.$get_storage('wx-user-info'))
+      if (!userinfo) {
+        this.$router.push({ path: '/temple/index' })
+        return
+      }
+      this.wx_user_info = userinfo
+      const { tampleName, tabs, count, time, amount, tower, lights, lampText } = this.$route.params
+      if (!tampleName) {
+        this.$router.push({ path: '/temple/order' })
+        return
+      }
+      this.model.tampleName = tampleName
+      this.model.tabs = tabs
+      this.model.count = count
+      this.model.time = time
+      this.model.amount = amount
+      this.model.sn = tower.id
+      this.model.lights = this.getLights(lights, tabs)
+      this.tower = tower
+      this.lampText = lampText
     }
   },
+
   mounted() {
+    this.init()
     this.detail()
     this.initEventBus()
   }
