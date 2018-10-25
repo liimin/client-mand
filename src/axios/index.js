@@ -20,9 +20,9 @@ Axios.interceptors.request.use(config => {
   // if (config.static) {
   // config.baseURL = config.baseURL.replace('api/v1/', '')
   // }
-  // if (config.method === 'get') {
-  Toast.loading('载入中')
-  // }
+  if (!config.silent) {
+    Toast.loading('载入中')
+  }
   // 下面会说在什么时候存储 token
   if (localStorage.token) {
     config.headers.Authorization = 'JWT ' + localStorage.token

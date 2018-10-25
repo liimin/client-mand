@@ -2,10 +2,10 @@
   <div class="weui-msg">
     <div class="personal-header">
       <div class="weui-msg__icon-area">
-          <img class="personal-header-avatar" src="http://localhost:80/1/images/guanyin.png" alt=""/>
+          <img class="personal-header-avatar" :src="wx_user_info.headimgurl" alt=""/>
       </div>
       <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title">穆子大叔</h2>
+        <h2 class="weui-msg__title">{{wx_user_info.nickname}}</h2>
         <p class="weui-msg__desc">供灯得功德，福禄安康等你享！</p>
       </div>
     </div>
@@ -37,13 +37,24 @@
   </div>
 </template>
 <script>
+import wxlogin from '@/mixins/wxlogin'
 export default {
   name: 'Personal',
-  components: {},
-  data() {
-    return {}
+  created() {
+    // this.GetCode()
+    // this.saveWXUser()
   },
-  methods: {}
+  components: {},
+  mixins: [wxlogin],
+  data() {
+    return {
+      wx_user_info: {}
+    }
+  },
+  methods: {},
+  mounted() {
+    this.wx_user_info = JSON.parse(this.$get_storage('wx-user-info'))
+  }
 }
 </script>
 <style lang="stylus" scoped>

@@ -15,7 +15,7 @@
 </template>
 <script>
 import { Button } from 'mand-mobile'
-import detail from '@/mixins/detail'
+// import detail from '@/mixins/detail'
 import TempleHeader from './Header'
 import wxlogin from '@/mixins/wxlogin'
 export default {
@@ -24,7 +24,10 @@ export default {
     [TempleHeader.name]: TempleHeader,
     [Button.name]: Button
   },
-  mixins: [detail, wxlogin],
+  mixins: [wxlogin],
+  created() {
+    // this.GetCode()
+  },
   data() {
     return {
       items: [],
