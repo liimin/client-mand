@@ -84,7 +84,6 @@ export default {
       var now = new Date()
       now.setDate(now.getDate() + this.model.time)
       const time = dateFtt('yyyy-MM-dd', now)
-      alert(this.wx_user_info.nickname)
       const query = {
         'name': this.wx_user_info.nickname,
         'to': this.model.to,
@@ -92,7 +91,6 @@ export default {
         'pos': this.tower.text, // 灯塔位置
         'pos1': this.lampText // 选灯位置
       }
-      alert(this.wx_user_info.nickname)
       this.$router.push({ path: '/temple/certificate', query })
     },
     lightOn() {
@@ -132,7 +130,6 @@ export default {
         const { data } = res
         this.wexinPay(data, result => {
           try {
-            alert(this.wx_user_info.nickname)
             this.goNext()
             this.lightOn()
           } catch (error) {
@@ -173,12 +170,13 @@ export default {
       this.model.lights = this.getLights(lights, tabs)
       this.tower = tower
       this.lampText = lampText
+      this.model.openid = userinfo.openid
     }
   },
 
   mounted() {
-    this.init()
     this.detail()
+    this.init()
     this.initEventBus()
   }
 }

@@ -59,6 +59,7 @@ export default {
             const wx_user_info = success.data
             this.saveWXUser(wx_user_info)
             this.$set_storage('wx-user-info', JSON.stringify(wx_user_info))
+            console.log('================', this.$get_storage('wx-user-info'))
           }, error => {
             console.log(error)
           })

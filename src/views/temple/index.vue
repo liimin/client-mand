@@ -26,7 +26,7 @@ export default {
   },
   mixins: [wxlogin],
   created() {
-    // this.GetCode()
+    this.GetCode()
   },
   data() {
     return {
@@ -64,6 +64,7 @@ export default {
     text-indent 2em
     .md-button
       float left
+      box-shadow 0 -30px 120px 64px #fff
     .md-button.link
       background-color transparent
       color: color-primary

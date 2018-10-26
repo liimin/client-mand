@@ -52,7 +52,7 @@ export default {
   height 100%
 .md-action-bar
   -webkit-transform: translateZ(0); 
-  border-top 2px solid #f0
+  // border-top 2px solid #f0
 .appView {
   position: absolute;
   width:100%;

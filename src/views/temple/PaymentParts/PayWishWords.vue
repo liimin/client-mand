@@ -80,7 +80,6 @@ export default {
   mounted() {
     this.$nextTick(_ => {
       this.get_blessions_list()
-      this.eventBus.$on('nameChanged', this.handleNameChanged)
     })
   },
   watch: {
@@ -88,6 +87,11 @@ export default {
       handler(val) {
         this.eventBus.$emit('wishWordChanged', val)
         this.computeCounts()
+      }
+    },
+    eventBus: {
+      handler(val) {
+        val.$on('nameChanged', this.handleNameChanged)
       }
     }
   }

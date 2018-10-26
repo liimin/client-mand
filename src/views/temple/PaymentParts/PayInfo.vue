@@ -146,6 +146,7 @@ export default {
     font-size .30rem
     color color-primary
     text-align center
+    box-shadow 0 -30px 120px 64px #fff
     // background-color #ccc
   .showMore::after,.close::after
     content ""
