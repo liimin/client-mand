@@ -58,7 +58,7 @@ export default {
       tabs: [],
       times: [
       ],
-      timeValue: 3,
+      timeValue: 1,
       eventBus: null,
       count: 0,
       tip: '',

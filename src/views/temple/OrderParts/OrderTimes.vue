@@ -40,9 +40,6 @@ export default {
       }
     }
   },
-  mounted() {
-
-  },
   methods: {
     handleTabClick(item) {
       item.checked = !item.checked

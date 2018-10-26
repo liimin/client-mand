@@ -64,11 +64,12 @@ export default {
     text-indent 2em
     .md-button
       float left
-      box-shadow 0 -30px 120px 64px #fff
+      box-shadow 0 -30px 120px 64px #f0
     .md-button.link
       background-color transparent
       color: color-primary
-      border 1px solid color-primary
+      // border 1px solid color-primary
       height .5rem
       margin-top 20px
+      font-size .24rem
 </style>

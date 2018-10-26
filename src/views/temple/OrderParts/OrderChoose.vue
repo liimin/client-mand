@@ -127,7 +127,7 @@ export default {
         })
         var alampValue = []
         checkArr.map(c => {
-          alampValue.push(`${c.layer}层-${c.side}面-${c.row}行-${c.col}列`)
+          alampValue.push(`${c.layer}层${c.side}面${c.row}-${c.col}`)
         })
         this.lampsValue = alampValue.join(',')
         this.$set(this.checkedLamps, 'lamps', checkArr)
@@ -283,6 +283,8 @@ export default {
     height .7rem
     line-height 0.7rem
     box-shadow #d4 2px 4px 16px;
+    .title-bar-title
+      font-size .28rem
   .md-popup-box
     background-color color-bg-base
     font-size font-minor-large

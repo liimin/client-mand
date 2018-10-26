@@ -55,7 +55,7 @@ export default {
             spaceBetween: 20
           },
           640: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 10
           },
           320: {
