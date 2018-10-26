@@ -53,17 +53,17 @@ export default {
     // 通过上面的GetCode()取得code，然后通过code取openid
     GetOpenId(code) {
       // 判断本地localStorag是否已经有openid，有则不获取，没有就去获取
-      if (!this.$get_storage('wx-user-info')) {
-        this.$http.post('/wx/userinfo', { code })
-          .then(success => {
-            const wx_user_info = success.data
-            this.saveWXUser(wx_user_info)
-            this.$set_storage('wx-user-info', JSON.stringify(wx_user_info))
-            console.log('================', this.$get_storage('wx-user-info'))
-          }, error => {
-            console.log(error)
-          })
-      }
+      // if (!this.$get_storage('wx-user-info')) {
+      this.$http.post('/wx/userinfo', { code })
+        .then(success => {
+          const wx_user_info = success.data
+          this.saveWXUser(wx_user_info)
+          this.$set_storage('wx-user-info', JSON.stringify(wx_user_info))
+          console.log('================', this.$get_storage('wx-user-info'))
+        }, error => {
+          console.log(error)
+        })
+      // }
     },
     saveWXUser(wx_user_info) {
       // wx_user_info =
