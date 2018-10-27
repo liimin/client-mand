@@ -50,7 +50,8 @@ export default {
         words: '',
         sex: 1,
         temple_id: 0,
-        openid: 'a1'
+        openid: 'a1',
+        position: ''
       },
       agree: true,
       agreement: '',
@@ -89,6 +90,9 @@ export default {
         const { to } = this.model
         if (!to) {
           reject('请输入被祝福人姓名')
+        }
+        if (this.agree === false) {
+          reject('请认真阅读《用户协议》')
         }
         resolve()
       })
@@ -140,7 +144,7 @@ export default {
     },
     payment() {
       const params = {
-        body: `${this.tower.text}${this.lampText}`,
+        body: `${this.model.position}`,
         attach: `sn:${this.model.sn}`,
         out_trade_no: `remote_light_${this.model.temple_id}_${Date.now()}`,
         total_fee: this.model.amount,
@@ -192,7 +196,7 @@ export default {
       this.model.sn = tower.id
       this.model.lights = this.getLights(lights, tabs)
       this.tower = tower
-      this.lampText = lampText
+      this.model.position = tower.text + lampText
       this.model.openid = 'oGNUz1qrIMMMC_-sHy8BJBdRVlAs'// this.wx_user_info.openid
     }
   },

@@ -2,7 +2,8 @@
     <div class="choose-text card">
         <p class="choose-title">您已选择在</p>
         <p class="choose-name">【{{model.tampleName}}】</p>
-        <p class="choose-describe">供奉{{model.tabs}}各{{model.count}}盏,{{model.time}}天</p>
+        <p class="choose-describe">{{model.position}}</p>
+        <p class="choose-describe">供奉{{model.tabs}}{{(model.tabs.split(',').length>1)?'各':''}}{{model.count}}盏,{{model.time}}天</p>
     </div>
 </template>
 
@@ -18,7 +19,7 @@ export default {
 .choose-text
     position relative
     color color-primary
-    box-shadow #d4 2px 4px 16px
+    // box-shadow #d4 2px 4px 16px
     .choose-title
         font-size 30px
         // color #6

@@ -70,8 +70,7 @@ export default {
   },
   mounted() {
     // const font = parseInt(document.documentElement.style.fontSize)
-    const clientHeight = document.documentElement.clientHeight
-    console.log(clientHeight)
+    // const clientHeight = document.documentElement.clientHeight
     // this.height = clientHeight - 41 * 2 - 20 * 3 - 46 - font * 2 * 0.7 - 97.8 - 16 - 26
     this.height = 5.3// 13.34 - 2 * 0.7 - (1.956) - (1.2) - (0.82 * 2) - (0.92) - (0.84)
     this.$_initScrollBlock()

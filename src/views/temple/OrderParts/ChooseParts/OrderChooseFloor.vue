@@ -41,10 +41,10 @@ export default {
         slideToClickedSlide: true,
         // centeredSlides: true,
         // init: false,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
+        // pagination: {
+        //   el: '.swiper-pagination',
+        //   clickable: true
+        // },
         breakpoints: {
           1024: {
             slidesPerView: 8,

@@ -47,10 +47,10 @@ export default {
           depth: 300,
           modifier: 1,
           slideShadows: true
-        },
-        pagination: {
-          el: '.swiper-pagination'
         }
+        // pagination: {
+        //   el: '.swiper-pagination'
+        // }
       }
     }
   },
