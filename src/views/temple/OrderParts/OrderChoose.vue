@@ -286,6 +286,7 @@ export default {
     .title-bar-title
       font-size .28rem
   .md-popup-box
+    border-radius 20px 20px 0 0
     background-color color-bg-base
     font-size font-minor-large
     background-color #f0f0f0

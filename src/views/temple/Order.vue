@@ -103,33 +103,41 @@ export default {
       this.tower = tower
       this.lampText = lampText
     },
+    checkParams() {
+      return new Promise((resolve, reject) => {
+        if (!this.lamps || !this.lamps.length) {
+          reject('请选择供灯位置')
+        }
+        if (!this.aTabs || !this.aTabs.length) {
+          reject('请选择祈福类型')
+        }
+        if (!this.amount) {
+          reject('请正确选择供灯信息')
+        }
+        console.log(123)
+        resolve()
+      })
+    },
     handleNext() {
-      if (!this.lamps || !this.lamps.length) {
-        Toast.info('请选择供灯位置')
-        return
-      }
-      if (!this.aTabs || !this.aTabs.length) {
-        Toast.info('请选择祈福类型')
-        return
-      }
-      if (!this.amount) {
-        Toast.info('请正确选择供灯信息')
-        return
-      }
-      const params = {
-        tampleName: this.templeName,
-        tabs: this.checkedTabNames,
-        count: this.count,
-        time: this.timeValue,
-        amount: this.amount,
-        tab_list: this.aTabs,
-        lights: this.lamps,
-        tower: this.tower,
-        lampText: this.lampText
-      }
-      this.$router.push({
-        name: 'Payment',
-        params
+      this.checkParams().then(_ => {
+        console.log(11)
+        const params = {
+          tampleName: this.templeName,
+          tabs: this.checkedTabNames,
+          count: this.count,
+          time: this.timeValue,
+          amount: this.amount,
+          tab_list: this.aTabs,
+          lights: this.lamps,
+          tower: this.tower,
+          lampText: this.lampText
+        }
+        this.$router.push({
+          name: 'Payment',
+          params
+        })
+      }).catch(err => {
+        Toast.failed(err)
       })
     },
     detail() {

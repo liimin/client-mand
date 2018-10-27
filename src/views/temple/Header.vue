@@ -47,7 +47,7 @@ export default {
         watchSlidesVisibility: true,
         watchSlidesProgress: true,
         oninit: function() {
-          console.log(1)
+          // console.log(1)
         }
 
       },

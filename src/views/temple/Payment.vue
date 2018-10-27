@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import { ActionBar } from 'mand-mobile'
+import { ActionBar, Toast } from 'mand-mobile'
 import { PayHeader, PayInfo, PayWish } from './PaymentParts'
 import Vue from 'vue'
 // import TempleMixin from '@/mixins/temple'
@@ -75,10 +75,23 @@ export default {
       // this.lightOff()
     },
     handleNext() { // 发起微信支付
-      // this.GetWXSign().then()
+      this.checkParams().then(_ => {
+        // this.GetWXSign().then()
       // this.goNext()
-      // this.lightOn()
-      this.payment()
+        this.lightOn()
+      // this.payment()
+      }).catch(err => {
+        Toast.failed(err)
+      })
+    },
+    checkParams() {
+      return new Promise((resolve, reject) => {
+        const { to } = this.model
+        if (!to) {
+          reject('请输入被祝福人姓名')
+        }
+        resolve()
+      })
     },
     goNext() {
       var now = new Date()
@@ -95,8 +108,15 @@ export default {
     },
     lightOn() {
       const params = this.model // Object.assign({}, this.model, this.infoModel)
-      this.$http.post('/temple/lighton', params).then(res => {
-
+      return new Promise((resolve, reject) => {
+        this.$http.post('/temple/lighton', params).then(res => {
+          console.log('==================供灯成功！')
+          Toast.succeed('恭喜，供灯成功！')
+          resolve()
+        }).catch(err => {
+          Toast.failed('抱歉，供灯失败')
+          reject(err)
+        })
       })
     },
     lightOff() {
@@ -130,13 +150,14 @@ export default {
         const { data } = res
         this.wexinPay(data, result => {
           try {
-            this.goNext()
-            this.lightOn()
+            this.lightOn().then(() => {
+              this.goNext()
+            })
           } catch (error) {
-            alert('内部==========错误' + error)
+            Toast.failed('内部==========错误' + error)
           }
         }, err => {
-          alert('==========错误' + err)
+          Toast.failed('==========错误' + err)
         })
       })
       // this.WxPay(openid)
@@ -149,13 +170,15 @@ export default {
         this.model.temple_id = detail.id
       })
     },
-    init() {
+    fetch_wx_user_info() {
       const userinfo = JSON.parse(this.$get_storage('wx-user-info'))
       if (!userinfo) {
         this.$router.push({ path: '/temple/index' })
         return
       }
       this.wx_user_info = userinfo
+    },
+    init() {
       const { tampleName, tabs, count, time, amount, tower, lights, lampText } = this.$route.params
       if (!tampleName) {
         this.$router.push({ path: '/temple/order' })
@@ -170,11 +193,12 @@ export default {
       this.model.lights = this.getLights(lights, tabs)
       this.tower = tower
       this.lampText = lampText
-      this.model.openid = userinfo.openid
+      this.model.openid = 'oGNUz1qrIMMMC_-sHy8BJBdRVlAs'// this.wx_user_info.openid
     }
   },
 
   mounted() {
+    // this.fetch_wx_user_info()
     this.detail()
     this.init()
     this.initEventBus()

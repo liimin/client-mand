@@ -1,10 +1,10 @@
 body{
   background-color:#f0f0f0;
-  position: absolute;
-  left: 0;
-  bottom: .9rem;
-  width: 100%;
-  top: 0;
+  /* position: absolute; */
+  /* left: 0; */
+  /* bottom: .9rem; */
+  /* width: 100%; */
+  /* top: 0; */
   /* height: calc(100% - .9rem); */
   /* background: url('./images/bg.jpg') repeat ; */
 }

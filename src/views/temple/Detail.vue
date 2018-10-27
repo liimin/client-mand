@@ -58,7 +58,7 @@ export default {
   },
   mounted() {
     this.getDetail().then(detail => {
-      this.content = (detail.content).join('')
+      this.content = detail.content
       this.items = detail.swiper_items
       this.header_height = detail.header_height
     })

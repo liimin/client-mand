@@ -1,8 +1,8 @@
 <template>
   <main class="body" :style="bodyStyle">
     <md-scroll-view ref="scrollView" :scrolling-x="false" :autoReflow="true" @endReached="$_onEndReached"  @refreshing="$_onRefresh">
-      <md-scroll-view-refresh slot="refresh" slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"  :is-refreshing="isRefreshing" />
-      <TempleBodyItem v-for="item in templeList" :key="item.id" :temple="item"></TempleBodyItem>
+      <md-scroll-view-refresh slot="refresh" :autoReflow="true"  slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"  :is-refreshing="isRefreshing" />
+      <TempleBodyItem v-for="item in templeList" :key="item.id" :temple="item" ></TempleBodyItem>
       <md-scroll-view-more slot="more" :is-finished="isFinished" />
     </md-scroll-view>
   </main>
@@ -26,19 +26,34 @@ export default {
   },
   data() {
     return {
-      list: 10
-      // isFinished: false
+      list: 10,
+      finished: false,
+      isRefreshing: false
     }
   },
   methods: {
     $_onRefresh() {
-      this.eventBus.$emit('refresh', this.$refs.scrollView.finishRefresh)
+      this.eventBus.$emit('refresh', () => {
+        this.$refs.scrollView.finishRefresh()
+        this.isRefreshing = false
+        this.$refs.scrollView.reflowScroller()
+        this.$emit('update:isFinished', false)
+      })
+      //
     },
     $_onEndReached() {
+      console.log(this.isFinished)
       if (this.isFinished) {
         return
       }
       this.eventBus.$emit('loadMore', this.$refs.scrollView.finishLoadMore)
+    }
+  },
+  watch: {
+    finished: {
+      handler(val) {
+        this.finished = val
+      }
     }
   }
 }

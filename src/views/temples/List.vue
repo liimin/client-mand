@@ -4,7 +4,7 @@
     <TempleHeader :eventBus="eventBus" />
   </div>
   <div class="body">
-    <TempleBody :bodyStyle="bodyStyle" :eventBus="eventBus" :templeList="templeList" :isFinished="isFinished"/>
+    <TempleBody :bodyStyle="bodyStyle" :eventBus="eventBus" :templeList="templeList" :isFinished.sync="isFinished"/>
   </div>
 </div>
 </template>
@@ -45,8 +45,7 @@ export default {
     getTemplesList(call, isResetData) {
       this.params.page++
       return new Promise(resolve => {
-        console.log(this.params)
-        this.$http.get('/temples/list', { params: this.params }).then(res => {
+        this.$http.get('/temples/list', { params: this.params }, { 'silent': true }).then(res => {
           if (res.data && res.data.length) {
             this.templeList = isResetData ? res.data : this.templeList.concat(res.data)
           } else {
@@ -79,7 +78,6 @@ export default {
     },
     resetData(call) {
       this.params.page = 0
-      // this.isFinished = false
       this.getTemplesList(call, true)
     }
   },
