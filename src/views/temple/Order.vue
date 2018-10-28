@@ -114,7 +114,6 @@ export default {
         if (!this.amount) {
           reject('请正确选择供灯信息')
         }
-        console.log(123)
         resolve()
       })
     },

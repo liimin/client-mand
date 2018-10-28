@@ -57,7 +57,10 @@ export default {
   color color-primary
 .weui-grid {
   padding: 10px 0 0 0;
-  .weui-grid__icon {
+  &__label{
+    font-size 24px
+  }
+  &__icon {
     width: .8rem;
     height: .8rem;
     .tab-wrapper {
@@ -76,7 +79,6 @@ export default {
         animation: none;
         float: left;
       }
-
       .rond {
         height: 100%;
         width: 100%;

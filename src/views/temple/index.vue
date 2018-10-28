@@ -26,7 +26,7 @@ export default {
   },
   mixins: [wxlogin],
   created() {
-    // this.GetCode()
+    this.GetCode()
   },
   data() {
     return {

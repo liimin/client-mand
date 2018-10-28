@@ -50,6 +50,23 @@ export default {
   // overflow-y scroll
   // width 100%;
   height 100%
+  .conner
+    color: #fff;
+    height: 30px;
+    width: 100px;
+    position: absolute;
+    right: -28px;
+    text-align: center;
+    line-height: 30px;
+    display none
+    background-color: color-primary;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    .md-icon-circle-right
+      transform rotate(-45deg) !important
 .md-action-bar
   -webkit-transform: translateZ(0); 
   // border-top 2px solid #f0

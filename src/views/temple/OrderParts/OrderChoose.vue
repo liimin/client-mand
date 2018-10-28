@@ -21,7 +21,7 @@
       ></md-popup-title-bar>
       <div class="md-example-popup md-example-popup-bottom">
         <OrderChooseStat :statics="oStatic"/>
-        <OrderChooseTower title="塔" :sns="oTower.list"  :eventBus="eventBus" :towerId="oTower.active.id"/>
+        <OrderChooseTower title="设备" :sns="oTower.list"  :eventBus="eventBus" :towerId="oTower.active.id"/>
         <OrderChooseFloor title="层"  :floors="oFloor.list" :eventBus="eventBus" :floorId="oFloor.active.id"/>
         <OrderChooseSquare title="面" :sns="oSquare.list" :eventBus="eventBus" :squareId="oSquare.active.id"/>
         <OrderChooseLamp title="灯" :lamps.sync="oLamp.list" :eventBus="eventBus"/>

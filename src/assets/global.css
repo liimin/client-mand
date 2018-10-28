@@ -30,6 +30,7 @@ html{
   height: .9rem !important;
   animation: action 1.2s linear;
 }
+
 @keyframes action{
   0%{
     opacity: 0;

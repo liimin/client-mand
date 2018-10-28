@@ -106,4 +106,5 @@ export default {
   line-height 30px
   display flex
   justify-content space-around
+  margin-bottom 0.9rem
 </style>

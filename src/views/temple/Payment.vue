@@ -77,10 +77,9 @@ export default {
     },
     handleNext() { // 发起微信支付
       this.checkParams().then(_ => {
-        // this.GetWXSign().then()
       // this.goNext()
-        this.lightOn()
-      // this.payment()
+        // this.lightOn()
+        this.payment()
       }).catch(err => {
         Toast.failed(err)
       })
@@ -197,12 +196,12 @@ export default {
       this.model.lights = this.getLights(lights, tabs)
       this.tower = tower
       this.model.position = tower.text + lampText
-      this.model.openid = 'oGNUz1qrIMMMC_-sHy8BJBdRVlAs'// this.wx_user_info.openid
+      this.model.openid = this.wx_user_info.openid
     }
   },
 
   mounted() {
-    // this.fetch_wx_user_info()
+    this.fetch_wx_user_info()
     this.detail()
     this.init()
     this.initEventBus()

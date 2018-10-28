@@ -124,6 +124,7 @@ export default {
   .scroll-view-category-title, .scroll-view-striky-title
     text-align center
     font-size 32px
+    font-weight bold 
     font-family DINAlternate-Bold
   .scroll-view-item
     padding 10px 0
