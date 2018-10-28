@@ -52,12 +52,12 @@ export default {
   height 100%
   .conner
     color: #fff;
-    height: 30px;
+    height: 0.2rem
     width: 100px;
     position: absolute;
-    right: -28px;
+    right: -0.48rem
     text-align: center;
-    line-height: 30px;
+    line-height: 0.2rem
     display none
     background-color: color-primary;
     -moz-transform: rotate(45deg);
@@ -67,6 +67,9 @@ export default {
     transform: rotate(45deg);
     .md-icon-circle-right
       transform rotate(-45deg) !important
+      position: absolute;
+      top: 1px;
+      left: 0.28rem;
 .md-action-bar
   -webkit-transform: translateZ(0); 
   // border-top 2px solid #f0

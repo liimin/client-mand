@@ -2,10 +2,13 @@
 <OrderItem :title="title" :isInline="isInline" >
     <div class="weui-grids card" slot="item">
       <a href="javascript:;" class="weui-grid" v-for="item in tabs" :key="item.id" @click="handleTabClick(item)">
-        <div class="weui-grid__icon">
+        <div class="weui-grid__icon" :class="{'active':item.checked}">
           <div class="tab-wrapper">
             <div class="pic">
               <img :src="item.src" alt="">
+            </div>
+            <div class="conner">
+              <md-icon name="circle-right" size="xs"></md-icon>
             </div>
             <div class="rond" v-show="item.checked">
               <div class="dot"></div>
@@ -19,10 +22,12 @@
 </template>
 <script>
 import OrderItem from './OrderItem'
+import { Icon } from 'mand-mobile'
 export default {
   name: 'OrderTabs',
   components: {
-    [OrderItem.name]: OrderItem
+    [OrderItem.name]: OrderItem,
+    [Icon.name]: Icon
   },
   props: {
     tabs: Array,
@@ -55,8 +60,11 @@ export default {
 <style lang="stylus" scoped>
 .active 
   color color-primary
+  .conner
+     display block !important
 .weui-grid {
   padding: 10px 0 0 0;
+  overflow hidden
   &__label{
     font-size 24px
   }
@@ -87,7 +95,7 @@ export default {
         animation: rond 3s infinite;
         -webkit-animation: rond 3s infinite;
         -webkit-box-shadow: 0 0 10px color-primary;
-        box-shadow: 0 0 30px 1px color-primary;
+        // box-shadow: 0 0 10px 1px color-primary;
 
         .dot {
           height: 10px;

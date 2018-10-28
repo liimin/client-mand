@@ -34,4 +34,8 @@ export default {
     margin-top 20px
 .weui-msg__text-area
   margin-bottom 0 !important
+  .weui-msg__title
+    margin-top: -0.16rem
+.weui-msg__icon-area
+    margin-bottom 0
 </style>

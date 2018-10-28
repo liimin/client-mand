@@ -4,7 +4,7 @@
       <swiper-slide 
         v-for="(item, index) in items" 
         :key="index"
-        :class="val===item.id?'active':''"
+        :class="{'active':val===item.id}"
         @click.native="handleSwiperItemClick(item)"
         :style="{'height':`${swiperOption.height}px`,'lineHeight':`${swiperOption.height}px`}" >
           <div class="conner">
@@ -52,8 +52,10 @@ export default {
     border 2px solid color-primary !important
     // color #f
     background-size .4rem auto
-  .active .conner
-    display block !important
+    .conner
+      display block !important
+      .md-icon-circle-right
+        left: 0.35rem !important
   .swiper-container 
     height 100%
   .swiper-inner 

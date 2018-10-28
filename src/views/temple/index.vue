@@ -50,6 +50,8 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+body
+  overflow hidden
 .wrapper
   .body
     float left

@@ -63,7 +63,6 @@ export default {
       overflow hidden
       .conner 
         display block !important
-        height .2rem !important
       // box-shadow: 0 0 1px 1px color-primary inset;
 </style>
 
