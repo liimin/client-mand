@@ -113,11 +113,8 @@ export default {
       const params = this.model // Object.assign({}, this.model, this.infoModel)
       return new Promise((resolve, reject) => {
         this.$http.post('/temple/lighton', params).then(res => {
-          console.log('==================供灯成功！')
-          Toast.succeed('恭喜，供灯成功！')
           resolve()
         }).catch(err => {
-          Toast.failed('抱歉，供灯失败')
           reject(err)
         })
       })
@@ -154,13 +151,20 @@ export default {
         this.wexinPay(data, result => {
           try {
             this.lightOn().then(() => {
+              console.log('==================供灯成功！')
+              Toast.succeed('恭喜，供灯成功！')
               this.goNext()
+            }).catch(err => {
+              Toast.failed('抱歉，供灯失败！')
+              console.log(err)
             })
           } catch (error) {
-            Toast.failed('内部==========错误' + error)
+            Toast.failed('内部==========错误')
+            console.log(error)
           }
         }, err => {
           Toast.failed('==========错误' + err)
+          console.log(err)
         })
       })
       // this.WxPay(openid)
@@ -197,6 +201,7 @@ export default {
       this.tower = tower
       this.model.position = tower.text + lampText
       this.model.openid = this.wx_user_info.openid
+      this.lampText = lampText
     }
   },
 

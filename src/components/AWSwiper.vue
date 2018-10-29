@@ -54,8 +54,10 @@ export default {
     background-size .4rem auto
     .conner
       display block !important
+      right -0.3rem !important
       .md-icon-circle-right
-        left: 0.35rem !important
+        left: 0.48rem !important
+        top 0 !important
   .swiper-container 
     height 100%
   .swiper-inner 

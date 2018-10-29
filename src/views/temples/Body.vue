@@ -35,8 +35,8 @@ export default {
     $_onRefresh() {
       this.eventBus.$emit('refresh', () => {
         this.$refs.scrollView.finishRefresh()
-        this.isRefreshing = false
-        this.$refs.scrollView.reflowScroller()
+
+        this.$refs.scrollView.finishLoadMore()
         this.$emit('update:isFinished', false)
       })
       //
