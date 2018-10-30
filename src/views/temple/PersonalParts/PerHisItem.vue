@@ -16,7 +16,10 @@
         </p>
         <p>
           <label class="weui-form-preview__label">供灯状态</label>
-          <span class="weui-form-preview__value">{{['供灯结束','进行中'][light.status]}}</span>
+          <span class="weui-form-preview__value">
+             <tag size="tiny" shape="circle" type="fill" fill-color="#FC7353" font-color="#fff" v-if="light.status==0">供灯结束</tag>
+             <tag size="tiny" shape="circle" type="fill" fill-color="#50A050" font-color="#fff" v-else>进行中</tag>
+          </span>
         </p>
         <p>
           <label class="weui-form-preview__label">开始时间</label>
@@ -32,10 +35,14 @@
 </template>
 
 <script>
+import { Tag } from 'mand-mobile'
 export default {
   name: 'PerHisItem',
   props: {
     record: Object
+  },
+  components: {
+    Tag
   },
   data() {
     return {}
@@ -43,6 +50,11 @@ export default {
   mounted() {}
 }
 </script>
+<style lang="stylus">
+ .per_his_item .size-tiny
+    padding 2px 12px !important
+</style>
+
 <style scoped lang="stylus">
 .per_his_item
   // .weui-form-preview__label

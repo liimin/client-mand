@@ -119,7 +119,6 @@ export default {
     },
     handleNext() {
       this.checkParams().then(_ => {
-        console.log(11)
         const params = {
           tampleName: this.templeName,
           tabs: this.checkedTabNames,

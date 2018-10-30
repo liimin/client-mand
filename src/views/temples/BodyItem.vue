@@ -34,7 +34,8 @@ export default {
   },
   methods: {
     handleBodyItemClick() {
-      this.$router.push('/temple/index')
+      // this.$router.push('/temple/index')
+      location.href = 'http://www.gpspas.com'
     }
   }
 }

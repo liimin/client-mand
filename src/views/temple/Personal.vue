@@ -3,7 +3,7 @@
     <PerHeader></PerHeader>
     <div class="weui-msg__opr-area">
       <!-- <PerOps></PerOps> -->
-      <div class="weui-form-preview" v-for="(record,index) in records" :key="index" style="height:9.8rem;overflow-y:auto;">
+      <div class="weui-form-preview" v-for="(record,index) in records" :key="index" style="height:11rem;overflow-y:auto;">
         <PerHisItem :record="record"></PerHisItem>
       </div>
     </div>
@@ -28,78 +28,25 @@ export default {
   mixins: [wxlogin],
   data() {
     return {
-      wx_user_info: '',
+      wx_user_info: {
+        openid: ''
+      },
       records: []
     }
   },
   methods: {
     get_records() {
-      setTimeout(() => {
-        this.records = [{
-          'temple': 'name',
-          'temple_id': 'id',
-          'sns': [{
-            'sn': '12345677',
-            'addr': 'xxxxxx',
-            'lights': [{
-              'index': '0001',
-              'status': '1',
-              'layer': '1',
-              'side': 'a',
-              'row': '1',
-              'col': '2',
-              'start': '2018-11-11 11:11:11',
-              'end': '2018-11-11 11:11:11'
-            },
-            {
-              'index': '0002',
-              'status': '1',
-              'layer': '1',
-              'side': 'a',
-              'row': '1',
-              'col': '2',
-              'start': '2018-11-11 11:11:11',
-              'end': '2018-11-11 11:11:11'
-            }
-            ]
-          },
-          {
-            'sn': '1221232',
-            'addr': 'xxxxxx',
-            'lights': [{
-              'index': '0001',
-              'status': '1',
-              'layer': '1',
-              'side': 'a',
-              'row': '1',
-              'col': '2',
-              'start': '2018-11-11 11:11:11',
-              'end': '2018-11-11 11:11:11'
-            },
-            {
-              'index': '0002',
-              'status': '1',
-              'layer': '1',
-              'side': 'a',
-              'row': '1',
-              'col': '2',
-              'start': '2018-11-11 11:11:11',
-              'end': '2018-11-11 11:11:11'
-            }
-            ]
-          }
-          ]
-        },
-        {}
-        ]
-      }, 2000)
-      // this.$http.post('wx/records', { 'openid': this.wx_user_info.openid }).then(result => {
-      //      this.records = result
-      // })
+      this.$http.get('wx/records', { params: { 'openid': this.wx_user_info.openid }}).then(result => {
+        this.records = result.data
+      })
     }
   },
   mounted() {
     this.wx_user_info = JSON.parse(this.$get_storage('wx-user-info'))
+    if (!this.wx_user_info) {
+      this.$set_storage('path', '/temple/personal')
+      this.GetCode()
+    }
     this.get_records()
   }
 }

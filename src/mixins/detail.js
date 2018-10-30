@@ -20,6 +20,8 @@ export default{
             this.format(conf)
             resolve(conf)
             this.$set_storage(this.storeName, JSON.stringify(res.data))
+            const path = this.$get_storage('path')
+            path && this.$router.push({ path })
           }).catch(err => {
             Toast.failed('读取详情出错，请稍后再试')
             console.log(err)
