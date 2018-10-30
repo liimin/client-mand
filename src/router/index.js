@@ -60,7 +60,18 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   fixfixd('none')
   NProgress.start()
-  next()
+  const wx_user_info = sessionStorage.getItem('wx-user-info')
+  if (!wx_user_info && to.path !== '/temple/index') {
+    next({
+      path: '/',
+      query: { to: to.fullPath }
+    })
+  } else {
+    next()
+  }
+})
+router.afterEach((to, from) => {
+  NProgress.end()
 })
 const fixfixd = status => {
   const footer = document.getElementsByClassName('footer')

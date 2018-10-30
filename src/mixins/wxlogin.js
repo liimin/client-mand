@@ -22,8 +22,10 @@ export default {
     GetCode() {
       // 如果有code参数，那么GetOpenId获取openid
       const code = this.GetQueryString('code')
+      const to = this.$route.query.to
       if (code) {
-        this.GetOpenId(code)
+        const state = this.GetQueryString('state')
+        this.GetOpenId(code, state)
         // 没有那么重定向去获取
       } else {
         /**
@@ -42,7 +44,7 @@ export default {
           // 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid）
           Scope: 'snsapi_userinfo',
           // 重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-          State: 'STATE',
+          State: to || 'STATE',
           // 必须带此参数
           Wechat_Redirect: '#wechat_redirect'
         }
@@ -51,7 +53,7 @@ export default {
       }
     },
     // 通过上面的GetCode()取得code，然后通过code取openid
-    GetOpenId(code) {
+    GetOpenId(code, to) {
       // 判断本地localStorag是否已经有openid，有则不获取，没有就去获取
       // if (!this.$get_storage('wx-user-info')) {
       this.$http.post('/wx/userinfo', { code })
@@ -59,6 +61,8 @@ export default {
           const wx_user_info = success.data
           this.saveWXUser(wx_user_info)
           this.$set_storage('wx-user-info', JSON.stringify(wx_user_info))
+          // const to = localStorage.getItem('to')
+          to && this.$router.push(to)
           console.log('================', this.$get_storage('wx-user-info'))
         }, error => {
           console.log(error)
